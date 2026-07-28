@@ -1,20 +1,43 @@
-export default function Hero({ image, video, title, subtitle, text }) {
-  return (
-    <section
-      className="relative min-h-[88vh] flex flex-col justify-center overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #191D33 0%, #04325A 45%, #193F73 100%)" }}
-    >
-      <div className="dot-grid absolute inset-0 pointer-events-none opacity-70" />
+"use client";
+import { useEffect, useState } from "react";
 
-      <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[42%] overflow-hidden">
+export default function Hero({ images, video, title, subtitle, text }) {
+  const [idx, setIdx] = useState(0);
+  const list = images && images.length > 0 ? images : [];
+
+  useEffect(() => {
+    if (video || list.length < 2) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % list.length), 5000);
+    return () => clearInterval(t);
+  }, [video, list.length]);
+
+  return (
+    <section className="relative min-h-[88vh] flex flex-col justify-center overflow-hidden bg-primary">
+      <div className="absolute inset-0">
         {video ? (
-          <video className="w-full h-full object-cover opacity-30" src={video} autoPlay muted loop playsInline />
+          <video className="w-full h-full object-cover" src={video} autoPlay muted loop playsInline />
         ) : (
-          <img src={image} alt={title} className="w-full h-full object-cover opacity-30" />
+          list.map((src, i) => (
+            <img
+              key={src + i}
+              src={src}
+              alt=""
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out ${
+                i === idx ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))
         )}
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(90deg, #04325A 0%, transparent 45%)" }}
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(25,29,51,0.94) 0%, rgba(25,29,51,0.75) 35%, rgba(25,29,51,0.35) 65%, rgba(4,50,90,0.35) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 h-1/3"
+          style={{ background: "linear-gradient(to top, rgba(13,16,32,0.9), transparent)" }}
         />
       </div>
 
@@ -46,10 +69,18 @@ export default function Hero({ image, video, title, subtitle, text }) {
         </div>
       </div>
 
-      <div className="relative z-[2] hidden md:flex items-center gap-3 px-6 lg:px-10 pb-9 font-heading text-xs uppercase tracking-[0.3em] text-light">
-        <span className="w-12 h-px bg-white/25 relative overflow-hidden scroll-line" />
-        Desplazá para conocer más
-      </div>
+      {list.length > 1 && !video && (
+        <div className="relative z-[2] flex items-center gap-2 px-6 lg:px-10 pb-8">
+          {list.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIdx(i)}
+              aria-label={`Imagen ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all ${i === idx ? "w-8 bg-accent" : "w-4 bg-white/40"}`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

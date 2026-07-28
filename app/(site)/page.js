@@ -21,7 +21,7 @@ export default function InicioPage() {
   return (
     <>
       <Hero
-        image={inicio.heroImage}
+        images={inicio.heroImages || (inicio.heroImage ? [inicio.heroImage] : [])}
         video={inicio.heroVideo}
         title={inicio.heroTitle}
         subtitle={inicio.heroSubtitle}

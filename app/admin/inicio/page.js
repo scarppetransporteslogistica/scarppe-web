@@ -2,6 +2,7 @@
 import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
+import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminInicioPage() {
@@ -31,7 +32,12 @@ export default function AdminInicioPage() {
     <div>
       <h1 className="font-heading text-2xl font-bold text-primary mb-6">Inicio (banner principal)</h1>
       <div className="space-y-6 bg-white rounded-2xl border border-black/5 p-6">
-        <AdminImageUpload label="Foto de fondo del banner" value={inicio.heroImage} onChange={(v) => update({ heroImage: v })} />
+        <AdminGalleryManager
+          label="Fotos de fondo del banner (rotan automáticamente)"
+          helpText="Subí varias fotos: van a alternarse solas en el banner principal. Usá la flecha para reordenar."
+          value={inicio.heroImages || (inicio.heroImage ? [inicio.heroImage] : [])}
+          onChange={(v) => update({ heroImages: v })}
+        />
         <AdminField label="Video de fondo (URL, opcional — reemplaza la foto si se completa)" value={inicio.heroVideo} onChange={(v) => update({ heroVideo: v })} />
         <AdminField label="Título principal" value={inicio.heroTitle} onChange={(v) => update({ heroTitle: v })} />
         <AdminField label="Subtítulo" value={inicio.heroSubtitle} onChange={(v) => update({ heroSubtitle: v })} />

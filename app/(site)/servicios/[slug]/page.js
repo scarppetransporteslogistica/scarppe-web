@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ServiceIcon from "@/components/ServiceIcon";
+import ServicioGallery from "@/components/ServicioGallery";
 
 export const dynamic = "force-dynamic";
 
@@ -43,7 +44,8 @@ export default function ServicioPage({ params }) {
 
       <section className="max-w-container mx-auto px-6 lg:px-10 py-20 grid md:grid-cols-3 gap-14">
         <Reveal className="md:col-span-2">
-          <p className="font-body text-black/70 leading-relaxed whitespace-pre-line text-lg">{servicio.texto}</p>
+          <ServicioGallery images={servicio.imagenes || (servicio.imagen ? [servicio.imagen] : [])} />
+          <p className="font-body text-black/70 leading-relaxed whitespace-pre-line text-lg mt-8">{servicio.texto}</p>
           <Link
             href="/contacto"
             className="inline-flex items-center justify-center rounded-sm bg-secondary text-white font-heading text-xs font-bold uppercase tracking-[0.2em] px-8 py-4 hover:bg-tertiary transition-colors mt-8"

@@ -10,10 +10,10 @@ export default function Header({ menu, logo, siteName, servicios }) {
   return (
     <header className="sticky top-0 z-40">
       <div className="bg-primary shadow-[0_2px_24px_rgba(0,0,0,0.25)]">
-        <div className="max-w-container mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+        <div className="max-w-container mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 shrink-0">
             {logo ? (
-              <img src={logo} alt={siteName} className="h-8 w-auto" />
+              <img src={logo} alt={siteName} className="h-14 md:h-16 w-auto" />
             ) : (
               <span className="font-heading text-xl font-bold text-white uppercase tracking-wide">{siteName}</span>
             )}

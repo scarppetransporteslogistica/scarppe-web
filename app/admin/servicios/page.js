@@ -2,6 +2,7 @@
 import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
+import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import SaveBar from "@/components/admin/SaveBar";
 
 function slugify(str) {
@@ -28,7 +29,7 @@ export default function AdminServiciosPage() {
   function addServicio() {
     setContent({
       ...content,
-      servicios: [...servicios, { slug: `nuevo-servicio-${servicios.length + 1}`, nombre: "Nuevo servicio", resumen: "", texto: "", imagen: "" }],
+      servicios: [...servicios, { slug: `nuevo-servicio-${servicios.length + 1}`, nombre: "Nuevo servicio", resumen: "", texto: "", imagenes: [] }],
     });
   }
 
@@ -48,7 +49,11 @@ export default function AdminServiciosPage() {
             </div>
             <AdminField label="Resumen (para la tarjeta)" value={s.resumen} onChange={(v) => updateServicio(i, { resumen: v })} />
             <AdminTextarea label="Texto completo (página propia)" rows={5} value={s.texto} onChange={(v) => updateServicio(i, { texto: v })} />
-            <AdminImageUpload label="Imagen" value={s.imagen} onChange={(v) => updateServicio(i, { imagen: v })} />
+            <AdminGalleryManager
+              label="Imágenes (rotan en la tarjeta y en la página del servicio)"
+              value={s.imagenes || (s.imagen ? [s.imagen] : [])}
+              onChange={(v) => updateServicio(i, { imagenes: v })}
+            />
             <button onClick={() => removeServicio(i)} className="text-xs font-body text-red-600 hover:underline">Eliminar servicio</button>
           </div>
         ))}

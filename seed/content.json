@@ -44,7 +44,6 @@
   ],
   "pages": {
     "inicio": {
-      "heroImage": "/uploads/hero-flota.jpg",
       "heroVideo": "",
       "heroTitle": "Su carga, nuestra prioridad.",
       "heroSubtitle": "Empresa de transporte y logística con flota propia.",
@@ -76,6 +75,14 @@
         "Más de 80 años de trayectoria",
         "Uruguay y Brasil",
         "Logística integral"
+      ],
+      "heroImages": [
+        "/uploads/hero-flota.jpg",
+        "/uploads/servicio-nacional.jpg",
+        "/uploads/servicio-internacional.jpg",
+        "/uploads/servicio-logistica.jpg",
+        "/uploads/servicio-contenedores.jpg",
+        "/uploads/historia-1.jpg"
       ]
     },
     "empresa": {
@@ -222,56 +229,88 @@
       "nombre": "Transporte Nacional",
       "resumen": "Servicio de transporte por carretera en todo el territorio uruguayo con flota propia.",
       "texto": "Servicio de transporte por carretera en todo el territorio uruguayo con flota propia y soluciones adaptadas a las necesidades de cada cliente. Contamos con capacidad para el traslado de distintos tipos de carga.",
-      "imagen": "/uploads/servicio-nacional.jpg"
+      "imagenes": [
+        "/uploads/servicio-nacional.jpg",
+        "/uploads/gestion-1.jpg",
+        "/uploads/historia-3.jpg"
+      ]
     },
     {
       "slug": "transporte-internacional",
       "nombre": "Transporte Internacional",
       "resumen": "Conectamos Uruguay y Brasil mediante un servicio de transporte internacional seguro y confiable.",
       "texto": "Conectamos Uruguay y Brasil mediante un servicio de transporte internacional seguro, eficiente y confiable, brindando soluciones logísticas adaptadas a cada operación.",
-      "imagen": "/uploads/servicio-internacional.jpg"
+      "imagenes": [
+        "/uploads/servicio-internacional.jpg",
+        "/uploads/historia-2.jpg",
+        "/uploads/gestion-3.jpg"
+      ]
     },
     {
       "slug": "logistica-integral",
       "nombre": "Logística Integral",
       "resumen": "Gestionamos de forma eficiente toda la cadena logística de tu empresa.",
       "texto": "Gestionamos de forma eficiente toda la cadena logística de tu empresa, integrando almacenamiento, distribución y coordinación de entregas para optimizar cada proceso.",
-      "imagen": "/uploads/servicio-logistica.jpg"
+      "imagenes": [
+        "/uploads/servicio-logistica.jpg",
+        "/uploads/gestion-2.jpg",
+        "/uploads/historia-4.jpg"
+      ]
     },
     {
       "slug": "deposito-y-almacenaje",
       "nombre": "Depósito y Almacenaje",
       "resumen": "3.850 m² de depósitos para el almacenamiento seguro de mercadería.",
       "texto": "Contamos con 3.850 m² de depósitos para el almacenamiento seguro de mercadería, con coordinación de despachos y control de inventario.",
-      "imagen": "/uploads/servicio-deposito.jpg"
+      "imagenes": [
+        "/uploads/servicio-deposito.jpg",
+        "/uploads/historia-3.jpg",
+        "/uploads/historia-1.jpg"
+      ]
     },
     {
       "slug": "tramites-aduaneros",
       "nombre": "Trámites Aduaneros",
       "resumen": "Asesoramiento y gestión integral de la documentación aduanera.",
       "texto": "Brindamos asesoramiento y gestión integral de la documentación aduanera para operaciones de importación y exportación, asegurando eficiencia y cumplimiento de la normativa vigente.",
-      "imagen": "/uploads/servicio-aduana.jpg"
+      "imagenes": [
+        "/uploads/servicio-aduana.jpg",
+        "/uploads/gestion-3.jpg",
+        "/uploads/hero-flota.jpg"
+      ]
     },
     {
       "slug": "carga-seca-en-general",
       "nombre": "Carga Seca en General",
       "resumen": "Transporte de mercadería que no requiere refrigeración ni condiciones especiales.",
       "texto": "Transporte de mercadería que no requiere refrigeración ni condiciones especiales de temperatura.\n\nEjemplos: materiales de construcción, maquinaria, pallets, insumos industriales, productos manufacturados, madera, papel, cartón, artículos de ferretería y mercadería envasada.",
-      "imagen": "/uploads/servicio-carga-seca.jpg"
+      "imagenes": [
+        "/uploads/servicio-carga-seca.jpg",
+        "/uploads/historia-4.jpg",
+        "/uploads/gestion-1.jpg"
+      ]
     },
     {
       "slug": "carga-por-metraje-cubico",
       "nombre": "Carga por Metraje Cúbico",
       "resumen": "Transporte para mercadería catalogada por metraje cúbico.",
       "texto": "Servicio de transporte para mercadería catalogada por metraje cúbico, donde el volumen de la carga determina el servicio. Ideal para productos de gran cubicaje que requieren una utilización eficiente del espacio disponible.\n\nEjemplos: mobiliario comercial, electrodomésticos, exhibidores, estructuras livianas, papel higiénico, polietileno, yerba, embalajes y otros productos de gran volumen, destinada a empresas y comercios. No se realizan mudanzas particulares.",
-      "imagen": "/uploads/servicio-metraje.jpg"
+      "imagenes": [
+        "/uploads/servicio-metraje.jpg",
+        "/uploads/historia-1.jpg",
+        "/uploads/historia-2.jpg"
+      ]
     },
     {
       "slug": "contenedores-con-y-sin-carga",
       "nombre": "Contenedores con y sin Carga",
       "resumen": "Traslado de contenedores con mercadería y contenedores vacíos.",
       "texto": "Traslado de contenedores con mercadería y también contenedores vacíos, entre puertos, depósitos y destinos finales.\n\nEjemplos: contenedores de importación y exportación, materias primas, productos manufacturados, carga comercial y contenedores vacíos para reposicionamiento.",
-      "imagen": "/uploads/servicio-contenedores.jpg"
+      "imagenes": [
+        "/uploads/servicio-contenedores.jpg",
+        "/uploads/hero-flota.jpg",
+        "/uploads/gestion-2.jpg"
+      ]
     }
   ]
 }

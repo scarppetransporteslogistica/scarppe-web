@@ -1,7 +1,18 @@
+"use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import ServiceIcon from "./ServiceIcon";
 
 export default function ServiceCard({ servicio, index = 0 }) {
+  const images = servicio.imagenes && servicio.imagenes.length > 0 ? servicio.imagenes : [servicio.imagen];
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % images.length), 3500 + index * 300);
+    return () => clearInterval(t);
+  }, [images.length, index]);
+
   return (
     <Link
       href={`/servicios/${servicio.slug}`}
@@ -17,7 +28,14 @@ export default function ServiceCard({ servicio, index = 0 }) {
       >
         {String(index + 1).padStart(2, "0")}
       </span>
-      <ServiceIcon slug={servicio.slug} className="w-11 h-11 text-tertiary group-hover:text-accent transition-colors mb-7 relative" />
+      <div className="relative w-11 h-11 mb-7">
+        <div className="absolute -inset-3 rounded-full overflow-hidden opacity-0 group-hover:opacity-20 transition-opacity">
+          {images.map((src, i) => (
+            <img key={src + i} src={src} alt="" className={`absolute inset-0 w-full h-full object-cover ${i === idx ? "block" : "hidden"}`} />
+          ))}
+        </div>
+        <ServiceIcon slug={servicio.slug} className="w-11 h-11 text-tertiary group-hover:text-accent transition-colors relative" />
+      </div>
       <h3 className="font-heading text-xl font-bold uppercase tracking-wide text-primary group-hover:text-white transition-colors mb-3 relative">
         {servicio.nombre}
       </h3>
