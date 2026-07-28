@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.whitespace-pre-line {
+  white-space: pre-line;
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(106, 172, 228, 0.22) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+.hairline-grid > * {
+  outline: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@keyframes scrollline {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.scroll-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--color-accent);
+  animation: scrollline 2s ease-in-out infinite;
+}
