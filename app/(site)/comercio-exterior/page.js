@@ -1,6 +1,7 @@
 import { getContent } from "@/lib/db";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
+import Gallery from "@/components/Gallery";
 
 export const dynamic = "force-dynamic";
 
@@ -29,10 +30,20 @@ export default function ComercioExteriorPage() {
             </p>
           </Reveal>
 
+          {c.gallery && c.gallery.length > 0 && (
+            <Reveal delay={90} className="mb-10">
+              <Gallery images={c.gallery} />
+            </Reveal>
+          )}
+
           <div className="flex flex-col">
             {c.bloques.map((b, i) => (
-              <Reveal key={b.titulo} delay={i * 90} className="flex gap-5 py-6 border-t border-black/10 last:border-b">
-                <span className="font-heading text-3xl font-extrabold text-accent leading-none min-w-[2.5rem]">
+              <Reveal
+                key={b.titulo}
+                delay={i * 90}
+                className="group flex gap-5 py-6 px-3 -mx-3 border-t border-black/10 last:border-b hover:bg-white/60 rounded-sm transition-colors"
+              >
+                <span className="font-heading text-3xl font-extrabold text-accent leading-none min-w-[2.5rem] group-hover:scale-110 transition-transform">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>

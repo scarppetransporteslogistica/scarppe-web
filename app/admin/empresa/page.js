@@ -2,6 +2,7 @@
 import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
+import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminEmpresaPage() {
@@ -49,6 +50,7 @@ export default function AdminEmpresaPage() {
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
         <p className="font-body text-sm font-semibold text-primary">Política de Gestión</p>
+        <AdminField label="Subtítulo de la sección" value={e.politicaGestion.titulo} onChange={(v) => updateEmpresa({ politicaGestion: { ...e.politicaGestion, titulo: v } })} />
         <AdminTextarea label="Texto" rows={8} value={e.politicaGestion.texto} onChange={(v) => updateEmpresa({ politicaGestion: { ...e.politicaGestion, texto: v } })} />
         <p className="font-body text-sm font-medium text-primary/80">Galería de imágenes (carrusel)</p>
         {e.politicaGestion.gallery.map((g, i) => (
@@ -61,8 +63,14 @@ export default function AdminEmpresaPage() {
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
-        <p className="font-body text-sm font-semibold text-primary">Historia</p>
+        <p className="font-body text-sm font-semibold text-primary">Historia (aparece primero en la página)</p>
+        <AdminField label="Subtítulo de la sección" value={e.historia.titulo} onChange={(v) => updateEmpresa({ historia: { ...e.historia, titulo: v } })} />
         <AdminTextarea label="Texto" rows={8} value={e.historia.texto} onChange={(v) => updateEmpresa({ historia: { ...e.historia, texto: v } })} />
+        <AdminGalleryManager
+          label="Foto grande de historia (rota automáticamente, se ve en tamaño grande)"
+          value={e.historia.gallery || []}
+          onChange={(v) => updateEmpresa({ historia: { ...e.historia, gallery: v } })}
+        />
         <p className="font-body text-sm font-medium text-primary/80">Línea de tiempo</p>
         {e.historia.timeline.map((t, i) => (
           <div key={i} className="border border-black/10 rounded-xl p-4 space-y-3">
@@ -78,11 +86,16 @@ export default function AdminEmpresaPage() {
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <AdminField label="Subtítulo (por defecto: Misión)" value={e.misionTitulo} onChange={(v) => updateEmpresa({ misionTitulo: v })} />
+          <AdminField label="Subtítulo (por defecto: Visión)" value={e.visionTitulo} onChange={(v) => updateEmpresa({ visionTitulo: v })} />
+        </div>
         <AdminTextarea label="Misión" rows={4} value={e.mision} onChange={(v) => updateEmpresa({ mision: v })} />
         <AdminTextarea label="Visión" rows={4} value={e.vision} onChange={(v) => updateEmpresa({ vision: v })} />
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+        <AdminField label="Subtítulo de la sección (por defecto: Nuestros Valores)" value={e.valoresTitulo} onChange={(v) => updateEmpresa({ valoresTitulo: v })} />
         <p className="font-body text-sm font-semibold text-primary">Valores</p>
         {e.valores.map((v, i) => (
           <div key={i} className="grid sm:grid-cols-2 gap-3 items-start border border-black/10 rounded-xl p-4">

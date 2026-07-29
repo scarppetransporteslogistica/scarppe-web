@@ -13,18 +13,18 @@ export default function Header({ menu, logo, siteName, servicios }) {
         <div className="max-w-container mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 shrink-0">
             {logo ? (
-              <img src={logo} alt={siteName} className="h-14 md:h-16 w-auto" />
+              <img src={logo} alt={siteName} className="site-logo-header h-14 md:h-16 w-auto" />
             ) : (
               <span className="font-heading text-xl font-bold text-white uppercase tracking-wide">{siteName}</span>
             )}
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden xl:flex items-center gap-0.5 shrink-0">
             {menu.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="font-heading text-xs font-semibold uppercase tracking-[0.15em] text-white/75 hover:text-white hover:bg-white/[0.08] transition-colors px-3.5 py-2 rounded-sm"
+                className="font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 hover:text-white hover:bg-white/[0.08] transition-colors px-2.5 py-2 rounded-sm whitespace-nowrap"
               >
                 {item.label}
               </Link>
@@ -49,7 +49,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
               Solicitar Cotización
             </Link>
             <button
-              className="lg:hidden h-10 w-10 flex items-center justify-center text-white"
+              className="xl:hidden h-10 w-10 flex items-center justify-center text-white"
               onClick={() => setOpen(!open)}
               aria-label="Menú"
             >
@@ -61,7 +61,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
         </div>
 
         {open && (
-          <nav className="lg:hidden border-t border-white/10 px-6 py-4 flex flex-col gap-1">
+          <nav className="xl:hidden border-t border-white/10 px-6 py-4 flex flex-col gap-1">
             {menu.map((item) => (
               <Link
                 key={item.href}

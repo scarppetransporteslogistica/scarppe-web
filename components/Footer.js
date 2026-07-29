@@ -7,7 +7,7 @@ export default function Footer({ menu, siteName, logo }) {
         <div className="grid gap-10 md:grid-cols-4 pb-10 border-b border-white/10">
           <div className="md:col-span-2">
             {logo ? (
-              <img src={logo} alt={siteName} className="h-14 w-auto mb-5" />
+              <img src={logo} alt={siteName} className="site-logo-footer h-14 w-auto mb-5" />
             ) : (
               <p className="font-heading text-lg font-bold text-white uppercase mb-5">{siteName}</p>
             )}

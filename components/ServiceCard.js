@@ -19,11 +19,10 @@ export default function ServiceCard({ servicio, index = 0 }) {
       className="group relative block bg-white p-10 border border-black/10 overflow-hidden hover:bg-primary transition-colors"
     >
       <span
-        className="absolute top-3 right-5 font-heading font-extrabold leading-none select-none pointer-events-none transition-colors"
+        className="absolute top-3 right-5 font-heading font-extrabold leading-none select-none pointer-events-none transition-opacity opacity-25 group-hover:opacity-40"
         style={{
           fontSize: "80px",
-          WebkitTextStroke: "1px rgba(25,29,51,0.08)",
-          color: "transparent",
+          color: "var(--color-service-number, #193F73)",
         }}
       >
         {String(index + 1).padStart(2, "0")}

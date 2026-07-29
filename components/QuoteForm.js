@@ -61,7 +61,7 @@ export default function QuoteForm() {
         <select
           name="servicio"
           required
-          className="block w-full bg-transparent border-none outline-none px-5 pt-2 pb-4 font-body text-[15px] font-light text-white"
+          className="block w-full bg-transparent border-none outline-none px-5 pt-3 pb-6 font-body text-[15px] font-light text-white"
         >
           <option className="bg-secondary" value="">Seleccionar servicio...</option>
           {SERVICIOS_OPCIONES.map((s) => (
@@ -78,8 +78,8 @@ export default function QuoteForm() {
         <textarea
           name="descripcion"
           required
-          rows={3}
-          className="block w-full bg-transparent border-none outline-none resize-none px-5 pt-2 pb-4 font-body text-[15px] font-light text-white"
+          rows={7}
+          className="block w-full bg-transparent border-none outline-none resize-none px-5 pt-3 pb-6 font-body text-[15px] font-light text-white min-h-[180px]"
         />
       </div>
       <button
@@ -111,7 +111,7 @@ function DarkField({ label, name, type = "text", required, right }) {
         type={type}
         name={name}
         required={required}
-        className="block w-full bg-transparent border-none outline-none px-5 pt-2 pb-4 font-body text-[15px] font-light text-white"
+        className="block w-full bg-transparent border-none outline-none px-5 pt-3 pb-6 font-body text-[15px] font-light text-white"
       />
     </div>
   );

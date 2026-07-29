@@ -28,6 +28,23 @@ export default function EmpresaPage() {
         </div>
       </section>
 
+      {/* Historia: primero, con una foto grande y rectangular para verse mejor */}
+      <section className="max-w-container mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-14 items-start">
+        <Reveal>
+          <SectionTag label={e.historia.titulo} />
+          <p className="font-body text-black/65 leading-relaxed whitespace-pre-line">{e.historia.texto}</p>
+        </Reveal>
+        <Reveal delay={150}>
+          <Gallery images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)} aspectClass="aspect-[16/11]" />
+        </Reveal>
+      </section>
+
+      <section style={{ background: "#F2F1F1" }}>
+        <div className="max-w-container mx-auto px-6 lg:px-10 py-24">
+          <Timeline items={e.historia.timeline} />
+        </div>
+      </section>
+
       <section className="max-w-container mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-14 items-start">
         <Reveal>
           <SectionTag label={e.politicaGestion.titulo} />
@@ -38,30 +55,20 @@ export default function EmpresaPage() {
         </Reveal>
       </section>
 
-      <section style={{ background: "#F2F1F1" }}>
-        <div className="max-w-container mx-auto px-6 lg:px-10 py-24">
-          <Reveal className="mb-14 max-w-2xl">
-            <SectionTag label={e.historia.titulo} />
-            <p className="font-body text-black/65 leading-relaxed whitespace-pre-line">{e.historia.texto}</p>
-          </Reveal>
-          <Timeline items={e.historia.timeline} />
-        </div>
-      </section>
-
-      <section className="max-w-container mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-px bg-black/10 border border-black/10">
+      <section className="max-w-container mx-auto px-6 lg:px-10 pt-24 pb-8 grid md:grid-cols-2 gap-px bg-black/10 border border-black/10">
         <Reveal className="p-10" style={{ background: "#04325A" }}>
-          <h3 className="font-heading text-2xl font-extrabold uppercase text-white mb-4">Misión</h3>
+          <h3 className="font-heading text-2xl font-extrabold uppercase text-white mb-4">{e.misionTitulo || "Misión"}</h3>
           <p className="font-body font-light text-light leading-relaxed">{e.mision}</p>
         </Reveal>
         <Reveal delay={100} className="p-10" style={{ background: "#191D33" }}>
-          <h3 className="font-heading text-2xl font-extrabold uppercase text-white mb-4">Visión</h3>
+          <h3 className="font-heading text-2xl font-extrabold uppercase text-white mb-4">{e.visionTitulo || "Visión"}</h3>
           <p className="font-body font-light text-light leading-relaxed">{e.vision}</p>
         </Reveal>
       </section>
 
-      <section className="max-w-container mx-auto px-6 lg:px-10 pb-28">
+      <section className="max-w-container mx-auto px-6 lg:px-10 pt-20 md:pt-28 pb-28">
         <Reveal className="mb-12">
-          <SectionTag label="Nuestros Valores" />
+          <SectionTag label={e.valoresTitulo || "Nuestros Valores"} />
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-black/10 border border-black/10">
           {e.valores.map((v, i) => (

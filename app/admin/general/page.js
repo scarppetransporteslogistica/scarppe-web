@@ -3,7 +3,7 @@ import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminColor } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import SaveBar from "@/components/admin/SaveBar";
-import { GOOGLE_FONT_OPTIONS, TYPOGRAPHY_WEIGHT_OPTIONS, TYPOGRAPHY_SIZE_OPTIONS } from "@/lib/theme";
+import { GOOGLE_FONT_OPTIONS, TYPOGRAPHY_WEIGHT_OPTIONS, TYPOGRAPHY_SIZE_OPTIONS, LOGO_SIZE_OPTIONS } from "@/lib/theme";
 
 export default function AdminGeneralPage() {
   const { content, setContent, save, saving, message, loading } = useAdmin();
@@ -24,6 +24,16 @@ export default function AdminGeneralPage() {
       <div className="space-y-6 bg-white rounded-2xl border border-black/5 p-6">
         <AdminField label="Nombre del sitio" value={s.siteName} onChange={(v) => updateSettings({ siteName: v })} />
         <AdminImageUpload label="Logo" value={s.logo} onChange={(v) => updateSettings({ logo: v })} />
+        <div>
+          <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño del logo (encabezado y pie de página)</label>
+          <select
+            value={s.logoScale || "1"}
+            onChange={(e) => updateSettings({ logoScale: e.target.value })}
+            className="w-full sm:w-64 rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
+          >
+            {LOGO_SIZE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
 
         <div>
           <p className="font-body text-sm font-semibold text-primary mb-3">Paleta de colores</p>
@@ -33,6 +43,18 @@ export default function AdminGeneralPage() {
             <AdminColor label="Color terciario" value={s.colors.tertiary} onChange={(v) => updateSettings({ colors: { ...s.colors, tertiary: v } })} />
             <AdminColor label="Color de acento" value={s.colors.accent} onChange={(v) => updateSettings({ colors: { ...s.colors, accent: v } })} />
             <AdminColor label="Color claro (fondos)" value={s.colors.light} onChange={(v) => updateSettings({ colors: { ...s.colors, light: v } })} />
+            <AdminColor label="Color del número en tarjetas de servicio" value={s.colors.serviceNumber || "#193F73"} onChange={(v) => updateSettings({ colors: { ...s.colors, serviceNumber: v } })} />
+          </div>
+        </div>
+
+        <div>
+          <p className="font-body text-sm font-semibold text-primary mb-3">Color del texto</p>
+          <p className="font-body text-xs text-primary/50 mb-3">
+            El sitio tiene secciones con fondo claro (texto oscuro) y secciones con fondo oscuro/navy (texto blanco). Podés elegir un color para cada una por separado. Si no tocás nada, queda como está.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <AdminColor label="Texto en fondos claros" value={s.colors.textLight || s.colors.primary} onChange={(v) => updateSettings({ colors: { ...s.colors, textLight: v } })} />
+            <AdminColor label="Texto en fondos oscuros" value={s.colors.textDark || "#FFFFFF"} onChange={(v) => updateSettings({ colors: { ...s.colors, textDark: v } })} />
           </div>
         </div>
 

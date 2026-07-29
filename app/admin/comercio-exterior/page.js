@@ -1,6 +1,7 @@
 "use client";
 import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
+import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminComercioExteriorPage() {
@@ -29,6 +30,11 @@ export default function AdminComercioExteriorPage() {
         <AdminField label="Título" value={c.titulo} onChange={(v) => update({ titulo: v })} />
         <AdminTextarea label="Texto introductorio" rows={4} value={c.intro} onChange={(v) => update({ intro: v })} />
         <AdminTextarea label="Aviso importante (Scarppe no posee despachantes propios)" rows={3} value={c.aviso} onChange={(v) => update({ aviso: v })} />
+        <AdminGalleryManager
+          label="Fotos (rotan automáticamente)"
+          value={c.gallery || []}
+          onChange={(v) => update({ gallery: v })}
+        />
       </div>
       <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
         <p className="font-body text-sm font-semibold text-primary">Bloques (Coordinación, Depósitos Fiscales, Asesoramiento)</p>

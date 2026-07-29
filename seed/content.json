@@ -119,6 +119,12 @@
             "hito": "Más de 50 colaboradores y 3.850 m² de depósitos propios, ofreciendo logística integral y gestión aduanera.",
             "imagen": "/uploads/historia-4.jpg"
           }
+        ],
+        "gallery": [
+          "/uploads/historia-1.jpg",
+          "/uploads/historia-2.jpg",
+          "/uploads/historia-3.jpg",
+          "/uploads/historia-4.jpg"
         ]
       },
       "mision": "Brindar soluciones de transporte nacional e internacional, logística integral y gestión aduanera con altos estándares de calidad, seguridad y eficiencia. Nos comprometemos a ofrecer un servicio confiable y personalizado, respaldado por más de 80 años de experiencia, contribuyendo al crecimiento y desarrollo de nuestros clientes.",
@@ -148,7 +154,10 @@
       "seo": {
         "title": "Empresa | Scarppe Transporte y Logística",
         "description": "Conocé la política de gestión, historia, misión, visión y valores de Scarppe Transporte y Logística, empresa familiar con más de 80 años de trayectoria."
-      }
+      },
+      "misionTitulo": "Misión",
+      "visionTitulo": "Visión",
+      "valoresTitulo": "Nuestros Valores"
     },
     "servicios": {
       "titulo": "Nuestros Servicios",
@@ -178,7 +187,12 @@
       "seo": {
         "title": "Comercio Exterior | Scarppe Transporte y Logística",
         "description": "Coordinación con despachantes de aduana, depósitos fiscales y asesoramiento continuo para operaciones de comercio exterior."
-      }
+      },
+      "gallery": [
+        "/uploads/servicio-aduana.jpg",
+        "/uploads/servicio-contenedores.jpg",
+        "/uploads/gestion-2.jpg"
+      ]
     },
     "contacto": {
       "directores": [

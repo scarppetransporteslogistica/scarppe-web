@@ -89,3 +89,35 @@ body {
 /* Weight: only active once the admin picks a value (see typographyBodyClasses). */
 .override-heading-weight .font-heading { font-weight: var(--heading-weight) !important; }
 .override-body-weight .font-body { font-weight: var(--body-weight) !important; }
+
+/* ---- Logo size (Admin > General) ---- */
+.site-logo-header { height: calc(3.5rem * var(--logo-scale, 1)) !important; width: auto; }
+@media (min-width: 768px) {
+  .site-logo-header { height: calc(4rem * var(--logo-scale, 1)) !important; }
+}
+.site-logo-footer { height: calc(3.5rem * var(--logo-scale, 1)) !important; width: auto; }
+
+/* ---- Site-wide text color overrides (Admin > General), opt-in only ---- */
+.override-text-light-bg .text-primary,
+.override-text-light-bg .text-primary\/40,
+.override-text-light-bg .text-primary\/50,
+.override-text-light-bg .text-primary\/60,
+.override-text-light-bg .text-primary\/70,
+.override-text-light-bg .text-primary\/80,
+.override-text-light-bg .text-primary\/85,
+.override-text-light-bg .text-black\/60,
+.override-text-light-bg .text-black\/65,
+.override-text-light-bg .text-black\/70 {
+  color: var(--text-color-light-bg) !important;
+}
+
+.override-text-dark-bg .text-white,
+.override-text-dark-bg .text-white\/50,
+.override-text-dark-bg .text-white\/60,
+.override-text-dark-bg .text-white\/70,
+.override-text-dark-bg .text-white\/75,
+.override-text-dark-bg .text-white\/80,
+.override-text-dark-bg .text-white\/90,
+.override-text-dark-bg .text-light {
+  color: var(--text-color-dark-bg) !important;
+}

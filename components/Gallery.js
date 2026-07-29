@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function Gallery({ images, interval = 4000 }) {
+export default function Gallery({ images, interval = 4000, aspectClass = "aspect-[4/3]" }) {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function Gallery({ images, interval = 4000 }) {
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative overflow-hidden aspect-[4/3] border border-black/10">
+    <div className={`relative overflow-hidden border border-black/10 ${aspectClass}`}>
       {images.map((src, i) => (
         <img
           key={src + i}
