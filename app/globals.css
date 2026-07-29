@@ -53,3 +53,39 @@ body {
   background: var(--color-accent);
   animation: scrollline 2s ease-in-out infinite;
 }
+
+/* ---- Global typography controls (Admin > General) ---- */
+/* Fallback for elements without an explicit text-* size class. */
+.font-heading { font-size: calc(1rem * var(--heading-scale, 1)); }
+.font-body { font-size: calc(1rem * var(--body-scale, 1)); }
+
+/* Size: safe multiplicative scale, defaults to 1 (no visual change). */
+.font-heading.text-xs   { font-size: calc(0.75rem  * var(--heading-scale, 1)) !important; }
+.font-heading.text-sm   { font-size: calc(0.875rem * var(--heading-scale, 1)) !important; }
+.font-heading.text-base { font-size: calc(1rem     * var(--heading-scale, 1)) !important; }
+.font-heading.text-lg   { font-size: calc(1.125rem * var(--heading-scale, 1)) !important; }
+.font-heading.text-xl   { font-size: calc(1.25rem  * var(--heading-scale, 1)) !important; }
+.font-heading.text-2xl  { font-size: calc(1.5rem   * var(--heading-scale, 1)) !important; }
+.font-heading.text-3xl  { font-size: calc(1.875rem * var(--heading-scale, 1)) !important; }
+.font-heading.text-4xl  { font-size: calc(2.25rem  * var(--heading-scale, 1)) !important; }
+.font-heading.text-5xl  { font-size: calc(3rem     * var(--heading-scale, 1)) !important; }
+.font-heading.text-6xl  { font-size: calc(3.75rem  * var(--heading-scale, 1)) !important; }
+.font-heading.text-\[10px\] { font-size: calc(10px * var(--heading-scale, 1)) !important; }
+.font-heading.text-\[11px\] { font-size: calc(11px * var(--heading-scale, 1)) !important; }
+
+@media (min-width: 768px) {
+  .font-heading.md\:text-2xl { font-size: calc(1.5rem  * var(--heading-scale, 1)) !important; }
+  .font-heading.md\:text-4xl { font-size: calc(2.25rem * var(--heading-scale, 1)) !important; }
+  .font-heading.md\:text-5xl { font-size: calc(3rem    * var(--heading-scale, 1)) !important; }
+  .font-heading.md\:text-6xl { font-size: calc(3.75rem * var(--heading-scale, 1)) !important; }
+}
+
+.font-body.text-xs   { font-size: calc(0.75rem  * var(--body-scale, 1)) !important; }
+.font-body.text-sm   { font-size: calc(0.875rem * var(--body-scale, 1)) !important; }
+.font-body.text-base { font-size: calc(1rem     * var(--body-scale, 1)) !important; }
+.font-body.text-lg   { font-size: calc(1.125rem * var(--body-scale, 1)) !important; }
+.font-body.text-\[15px\] { font-size: calc(15px * var(--body-scale, 1)) !important; }
+
+/* Weight: only active once the admin picks a value (see typographyBodyClasses). */
+.override-heading-weight .font-heading { font-weight: var(--heading-weight) !important; }
+.override-body-weight .font-body { font-weight: var(--body-weight) !important; }

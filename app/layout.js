@@ -1,6 +1,6 @@
 import "./globals.css";
 import { getContent } from "@/lib/db";
-import { buildThemeVars, googleFontsHref } from "@/lib/theme";
+import { buildThemeVars, googleFontsHref, typographyBodyClasses } from "@/lib/theme";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         <link href={googleFontsHref(settings.fonts)} rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: buildThemeVars(settings) }} />
       </head>
-      <body className="font-body antialiased">{children}</body>
+      <body className={`font-body antialiased ${typographyBodyClasses(settings)}`}>{children}</body>
     </html>
   );
 }

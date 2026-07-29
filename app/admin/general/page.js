@@ -3,15 +3,19 @@ import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminColor } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import SaveBar from "@/components/admin/SaveBar";
-import { GOOGLE_FONT_OPTIONS } from "@/lib/theme";
+import { GOOGLE_FONT_OPTIONS, TYPOGRAPHY_WEIGHT_OPTIONS, TYPOGRAPHY_SIZE_OPTIONS } from "@/lib/theme";
 
 export default function AdminGeneralPage() {
   const { content, setContent, save, saving, message, loading } = useAdmin();
   if (loading || !content) return <p className="font-body text-primary/60">Cargando...</p>;
 
   const s = content.settings;
+  const typo = s.typography || {};
   function updateSettings(patch) {
     setContent({ ...content, settings: { ...s, ...patch } });
+  }
+  function updateTypography(patch) {
+    updateSettings({ typography: { ...typo, ...patch } });
   }
 
   return (
@@ -33,10 +37,10 @@ export default function AdminGeneralPage() {
         </div>
 
         <div>
-          <p className="font-body text-sm font-semibold text-primary mb-3">Tipografías (Google Fonts)</p>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <p className="font-body text-sm font-semibold text-primary mb-3">Tipografía de títulos</p>
+          <div className="grid sm:grid-cols-3 gap-4">
             <div>
-              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Títulos</label>
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Fuente</label>
               <select
                 value={s.fonts.heading}
                 onChange={(e) => updateSettings({ fonts: { ...s.fonts, heading: e.target.value } })}
@@ -46,13 +50,59 @@ export default function AdminGeneralPage() {
               </select>
             </div>
             <div>
-              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Texto</label>
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Grosor (negrita)</label>
+              <select
+                value={typo.headingWeight || ""}
+                onChange={(e) => updateTypography({ headingWeight: e.target.value })}
+                className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
+              >
+                {TYPOGRAPHY_WEIGHT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño</label>
+              <select
+                value={typo.headingScale || "1"}
+                onChange={(e) => updateTypography({ headingScale: e.target.value })}
+                className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
+              >
+                {TYPOGRAPHY_SIZE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p className="font-body text-sm font-semibold text-primary mb-3">Tipografía de texto</p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            <div>
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Fuente</label>
               <select
                 value={s.fonts.body}
                 onChange={(e) => updateSettings({ fonts: { ...s.fonts, body: e.target.value } })}
                 className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
               >
                 {GOOGLE_FONT_OPTIONS.map((f) => <option key={f} value={f}>{f}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Grosor (negrita)</label>
+              <select
+                value={typo.bodyWeight || ""}
+                onChange={(e) => updateTypography({ bodyWeight: e.target.value })}
+                className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
+              >
+                {TYPOGRAPHY_WEIGHT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño</label>
+              <select
+                value={typo.bodyScale || "1"}
+                onChange={(e) => updateTypography({ bodyScale: e.target.value })}
+                className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
+              >
+                {TYPOGRAPHY_SIZE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
             </div>
           </div>
