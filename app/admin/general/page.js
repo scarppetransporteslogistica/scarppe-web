@@ -3,7 +3,7 @@ import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminColor } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import SaveBar from "@/components/admin/SaveBar";
-import { GOOGLE_FONT_OPTIONS, TYPOGRAPHY_WEIGHT_OPTIONS, TYPOGRAPHY_SIZE_OPTIONS, LOGO_SIZE_OPTIONS } from "@/lib/theme";
+import { GOOGLE_FONT_OPTIONS, TYPOGRAPHY_WEIGHT_OPTIONS, LOGO_SIZE_OPTIONS } from "@/lib/theme";
 
 export default function AdminGeneralPage() {
   const { content, setContent, save, saving, message, loading } = useAdmin();
@@ -82,14 +82,16 @@ export default function AdminGeneralPage() {
               </select>
             </div>
             <div>
-              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño</label>
-              <select
-                value={typo.headingScale || "1"}
-                onChange={(e) => updateTypography({ headingScale: e.target.value })}
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño (%)</label>
+              <input
+                type="number"
+                min="50"
+                max="250"
+                step="5"
+                value={typo.headingSizePercent || 100}
+                onChange={(e) => updateTypography({ headingSizePercent: e.target.value })}
                 className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
-              >
-                {TYPOGRAPHY_SIZE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
+              />
             </div>
           </div>
         </div>
@@ -118,14 +120,16 @@ export default function AdminGeneralPage() {
               </select>
             </div>
             <div>
-              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño</label>
-              <select
-                value={typo.bodyScale || "1"}
-                onChange={(e) => updateTypography({ bodyScale: e.target.value })}
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño (%)</label>
+              <input
+                type="number"
+                min="50"
+                max="250"
+                step="5"
+                value={typo.bodySizePercent || 100}
+                onChange={(e) => updateTypography({ bodySizePercent: e.target.value })}
                 className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
-              >
-                {TYPOGRAPHY_SIZE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
+              />
             </div>
           </div>
         </div>

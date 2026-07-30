@@ -55,13 +55,13 @@ export default function QuoteForm() {
         <DarkField label="Teléfono *" name="telefono" required />
       </div>
       <div className="border-b border-r-0 md:border-r border-white/10">
-        <label className="block font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-accent px-5 pt-4">
+        <label className="block font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent px-6 pt-6">
           Servicio *
         </label>
         <select
           name="servicio"
           required
-          className="block w-full bg-transparent border-none outline-none px-5 pt-3 pb-6 font-body text-[15px] font-light text-white"
+          className="block w-full bg-transparent border-none outline-none px-6 pt-3 pb-7 font-body text-base font-light text-white"
         >
           <option className="bg-secondary" value="">Seleccionar servicio...</option>
           {SERVICIOS_OPCIONES.map((s) => (
@@ -72,28 +72,28 @@ export default function QuoteForm() {
         </select>
       </div>
       <div>
-        <label className="block font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-accent px-5 pt-4">
+        <label className="block font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent px-6 pt-6">
           Descripción de la carga *
         </label>
         <textarea
           name="descripcion"
           required
-          rows={7}
-          className="block w-full bg-transparent border-none outline-none resize-none px-5 pt-3 pb-6 font-body text-[15px] font-light text-white min-h-[180px]"
+          rows={9}
+          className="block w-full bg-transparent border-none outline-none resize-none px-6 pt-3 pb-7 font-body text-base font-light text-white min-h-[220px]"
         />
       </div>
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full py-5 font-heading text-xs font-bold uppercase tracking-[0.25em] text-primary bg-accent hover:brightness-95 transition-all disabled:opacity-60"
+        className="w-full py-6 font-heading text-sm font-bold uppercase tracking-[0.25em] text-primary bg-accent hover:brightness-95 transition-all disabled:opacity-60"
       >
         {status === "sending" ? "Enviando..." : "Enviar Cotización"}
       </button>
       {status === "success" && (
-        <p className="text-accent text-sm font-body px-5 py-4">¡Gracias! Recibimos tu solicitud y te contactaremos a la brevedad.</p>
+        <p className="text-accent text-sm font-body px-6 py-5">¡Gracias! Recibimos tu solicitud y te contactaremos a la brevedad.</p>
       )}
       {status === "error" && (
-        <p className="text-red-300 text-sm font-body px-5 py-4">
+        <p className="text-red-300 text-sm font-body px-6 py-5">
           Hubo un problema al enviar. Escribinos directamente para completar tu cotización.
         </p>
       )}
@@ -104,14 +104,14 @@ export default function QuoteForm() {
 function DarkField({ label, name, type = "text", required, right }) {
   return (
     <div className={`border-b border-white/10 ${right ? "md:border-r" : ""}`}>
-      <label className="block font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-accent px-5 pt-4">
+      <label className="block font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent px-6 pt-6">
         {label}
       </label>
       <input
         type={type}
         name={name}
         required={required}
-        className="block w-full bg-transparent border-none outline-none px-5 pt-3 pb-6 font-body text-[15px] font-light text-white"
+        className="block w-full bg-transparent border-none outline-none px-6 pt-3 pb-7 font-body text-base font-light text-white"
       />
     </div>
   );

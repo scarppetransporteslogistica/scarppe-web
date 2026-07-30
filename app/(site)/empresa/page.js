@@ -1,6 +1,5 @@
 import { getContent } from "@/lib/db";
 import Gallery from "@/components/Gallery";
-import Timeline from "@/components/Timeline";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 
@@ -28,24 +27,18 @@ export default function EmpresaPage() {
         </div>
       </section>
 
-      {/* Historia: primero, con una foto grande y rectangular para verse mejor */}
+      {/* Historia: primero, texto a lo ancho y la foto grande debajo, bien visual */}
       <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
-        <Reveal className="max-w-2xl mb-10">
+        <Reveal className="mb-12">
           <SectionTag label={e.historia.titulo} />
-          <p className="font-body text-black/65 leading-relaxed whitespace-pre-line">{e.historia.texto}</p>
+          <p className="font-body text-black/65 leading-relaxed whitespace-pre-line text-lg">{e.historia.texto}</p>
         </Reveal>
         <Reveal delay={120}>
           <Gallery
             images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
-            aspectClass="aspect-[16/9] md:aspect-[21/8]"
+            aspectClass="aspect-[16/10] md:aspect-[2/1]"
           />
         </Reveal>
-      </section>
-
-      <section style={{ background: "#F2F1F1" }}>
-        <div className="max-w-container mx-auto px-6 lg:px-10 py-24">
-          <Timeline items={e.historia.timeline} />
-        </div>
       </section>
 
       <section className="max-w-container mx-auto px-6 lg:px-10 pt-24 pb-8">

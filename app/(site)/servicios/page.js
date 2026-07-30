@@ -13,7 +13,7 @@ export async function generateMetadata() {
 function ServiceGroup({ title, items }) {
   if (!items || items.length === 0) return null;
   return (
-    <div className="mb-20 last:mb-0">
+    <div className="mb-14 last:mb-0 bg-[#F7F7F6] border border-black/10 rounded-sm p-6 md:p-10">
       <Reveal className="mb-10">
         <h2 className="font-heading text-2xl md:text-3xl font-extrabold uppercase text-primary tracking-tight">{title}</h2>
       </Reveal>

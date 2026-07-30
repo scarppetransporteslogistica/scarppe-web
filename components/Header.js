@@ -31,7 +31,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
             ))}
             <Link
               href="/contacto"
-              className="font-heading text-[11px] font-bold uppercase tracking-[0.1em] text-accent hover:text-white transition-colors px-2.5 py-2 rounded-sm whitespace-nowrap"
+              className="font-heading text-[11px] font-bold uppercase tracking-[0.1em] text-primary bg-accent hover:brightness-90 transition-all px-3.5 py-2 rounded-sm whitespace-nowrap ml-2"
             >
               Solicitar Cotización
             </Link>

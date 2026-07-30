@@ -12,16 +12,6 @@ export default function AdminEmpresaPage() {
   function updateEmpresa(patch) {
     setContent({ ...content, pages: { ...content.pages, empresa: { ...e, ...patch } } });
   }
-  function updateTimeline(i, patch) {
-    const timeline = e.historia.timeline.map((t, idx) => (idx === i ? { ...t, ...patch } : t));
-    updateEmpresa({ historia: { ...e.historia, timeline } });
-  }
-  function addTimeline() {
-    updateEmpresa({ historia: { ...e.historia, timeline: [...e.historia.timeline, { anio: "", hito: "" }] } });
-  }
-  function removeTimeline(i) {
-    updateEmpresa({ historia: { ...e.historia, timeline: e.historia.timeline.filter((_, idx) => idx !== i) } });
-  }
   function updateValor(i, patch) {
     const valores = e.valores.map((v, idx) => (idx === i ? { ...v, ...patch } : v));
     updateEmpresa({ valores });
@@ -50,19 +40,10 @@ export default function AdminEmpresaPage() {
         <AdminField label="Subtítulo de la sección" value={e.historia.titulo} onChange={(v) => updateEmpresa({ historia: { ...e.historia, titulo: v } })} />
         <AdminTextarea label="Texto" rows={8} value={e.historia.texto} onChange={(v) => updateEmpresa({ historia: { ...e.historia, texto: v } })} />
         <AdminGalleryManager
-          label="Foto grande de historia (rota automáticamente, se ve en tamaño grande arriba de la línea de tiempo)"
+          label="Fotos de historia (rotan automáticamente, se ven grandes debajo del texto)"
           value={e.historia.gallery || []}
           onChange={(v) => updateEmpresa({ historia: { ...e.historia, gallery: v } })}
         />
-        <p className="font-body text-sm font-medium text-primary/80">Línea de tiempo</p>
-        {e.historia.timeline.map((t, i) => (
-          <div key={i} className="border border-black/10 rounded-xl p-4 space-y-3">
-            <AdminField label="Año / período" value={t.anio} onChange={(v) => updateTimeline(i, { anio: v })} />
-            <AdminTextarea label="Hito" rows={2} value={t.hito} onChange={(v) => updateTimeline(i, { hito: v })} />
-            <button onClick={() => removeTimeline(i)} className="text-xs font-body text-red-600 hover:underline">Eliminar hito</button>
-          </div>
-        ))}
-        <button onClick={addTimeline} className="text-sm font-body text-tertiary hover:underline">+ Agregar hito</button>
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">

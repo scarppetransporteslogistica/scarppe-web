@@ -1,8 +1,9 @@
 import Reveal from "./Reveal";
 
-export default function StatsBar({ stats }) {
+export default function StatsBar({ stats, valueScale }) {
+  const scale = (Number(valueScale) || 100) / 100;
   return (
-    <section className="bg-primary">
+    <section className="bg-primary" style={{ "--stats-value-scale": scale }}>
       <div className="max-w-container mx-auto grid grid-cols-2 md:grid-cols-4">
         {stats.map((s, i) => (
           <Reveal
@@ -12,7 +13,7 @@ export default function StatsBar({ stats }) {
               i < stats.length - 1 ? "border-r border-white/10" : ""
             }`}
           >
-            <p className="font-heading text-5xl md:text-6xl font-extrabold text-accent leading-none">{s.value}</p>
+            <p className="stats-value font-heading font-extrabold text-accent leading-none">{s.value}</p>
             <p className="font-body text-xs uppercase tracking-wide text-light mt-3">{s.label}</p>
           </Reveal>
         ))}

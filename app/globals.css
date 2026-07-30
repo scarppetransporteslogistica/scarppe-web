@@ -132,3 +132,9 @@ body {
   .hero-subtitle { font-size: calc(1.5rem * var(--hero-text-scale, 1)) !important; }
 }
 .hero-text { font-size: calc(1rem * var(--hero-text-scale, 1)) !important; }
+
+/* ---- Stats bar value scale, percentage-based (Admin > Inicio) ---- */
+.stats-value { font-size: calc(3rem * var(--stats-value-scale, 1)) !important; }
+@media (min-width: 768px) {
+  .stats-value { font-size: calc(3.75rem * var(--stats-value-scale, 1)) !important; }
+}

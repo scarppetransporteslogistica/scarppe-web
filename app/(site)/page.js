@@ -29,7 +29,7 @@ export default function InicioPage() {
         textScale={inicio.heroTextScale}
       />
       <TrustStrip items={inicio.badges || []} />
-      <StatsBar stats={inicio.stats} />
+      <StatsBar stats={inicio.stats} valueScale={inicio.statsValueScale} />
 
       <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
         <div className="flex flex-wrap items-end justify-between gap-8 mb-14">
