@@ -26,6 +26,7 @@ export default function InicioPage() {
         title={inicio.heroTitle}
         subtitle={inicio.heroSubtitle}
         text={inicio.heroText}
+        textScale={inicio.heroTextScale}
       />
       <TrustStrip items={inicio.badges || []} />
       <StatsBar stats={inicio.stats} />
@@ -33,7 +34,7 @@ export default function InicioPage() {
       <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
         <div className="flex flex-wrap items-end justify-between gap-8 mb-14">
           <Reveal>
-            <SectionTag label="Nuestros Servicios" title="Soluciones logísticas integrales" />
+            <SectionTag label={inicio.serviciosEyebrow || "Nuestros Servicios"} title={inicio.serviciosTitulo || "Soluciones logísticas integrales"} />
           </Reveal>
           <Reveal delay={100}>
             <Link
@@ -62,7 +63,7 @@ export default function InicioPage() {
       >
         <div className="max-w-container mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-14 items-center relative z-10">
           <Reveal>
-            <SectionTag label="Trayectoria" light />
+            <SectionTag label={inicio.trayectoriaEyebrow || "Trayectoria"} light />
             <h2 className="font-heading text-3xl md:text-4xl font-extrabold uppercase text-white leading-tight mb-5">
               Más de 80 años moviendo la carga de Uruguay y Brasil
             </h2>
@@ -81,7 +82,7 @@ export default function InicioPage() {
           </Reveal>
           <Reveal delay={150}>
             <img
-              src={pages.empresa.historia.timeline[0]?.imagen}
+              src={(pages.empresa.historia.gallery && pages.empresa.historia.gallery[0]) || "/uploads/hero-flota.jpg"}
               alt="Historia Scarppe"
               className="w-full h-80 object-cover border border-white/10"
             />

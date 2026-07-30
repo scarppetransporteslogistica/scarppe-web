@@ -31,6 +31,13 @@ export default function AdminContactoPage() {
       <h1 className="font-heading text-2xl font-bold text-primary mb-6">Contacto</h1>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <AdminField label="Subtítulo pequeño (eyebrow)" value={c.eyebrow} onChange={(v) => update({ eyebrow: v })} />
+          <AdminField label="Título principal" value={c.heroTitulo} onChange={(v) => update({ heroTitulo: v })} />
+        </div>
+      </section>
+
+      <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
         <p className="font-body text-sm font-semibold text-primary">Directores</p>
         {c.directores.map((d, i) => (
           <div key={i} className="grid sm:grid-cols-2 gap-3 items-end border border-black/10 rounded-xl p-4">
@@ -50,6 +57,13 @@ export default function AdminContactoPage() {
         <AdminField label="Teléfono Gerencia" value={c.gerencia} onChange={(v) => update({ gerencia: v })} />
         <AdminField label="Teléfono Logística" value={c.logistica} onChange={(v) => update({ logistica: v })} />
         <AdminField label="E-mail para recibir cotizaciones" value={c.quoteEmail} onChange={(v) => update({ quoteEmail: v })} />
+      </section>
+
+      <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <AdminField label="Subtítulo pequeño (eyebrow)" value={c.oficinasEyebrow} onChange={(v) => update({ oficinasEyebrow: v })} />
+          <AdminField label="Título" value={c.oficinasTitulo} onChange={(v) => update({ oficinasTitulo: v })} />
+        </div>
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">

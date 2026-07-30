@@ -83,7 +83,10 @@
         "/uploads/servicio-logistica.jpg",
         "/uploads/servicio-contenedores.jpg",
         "/uploads/historia-1.jpg"
-      ]
+      ],
+      "serviciosEyebrow": "Nuestros Servicios",
+      "serviciosTitulo": "Soluciones logísticas integrales",
+      "trayectoriaEyebrow": "Trayectoria"
     },
     "empresa": {
       "politicaGestion": {
@@ -153,18 +156,23 @@
       ],
       "seo": {
         "title": "Empresa | Scarppe Transporte y Logística",
-        "description": "Conocé la política de gestión, historia, misión, visión y valores de Scarppe Transporte y Logística, empresa familiar con más de 80 años de trayectoria."
+        "description": "Conocé la historia, misión, visión y valores de Scarppe Transporte y Logística, empresa familiar con más de 80 años de trayectoria."
       },
       "misionTitulo": "Misión",
       "visionTitulo": "Visión",
-      "valoresTitulo": "Nuestros Valores"
+      "valoresTitulo": "Nuestros Valores",
+      "eyebrow": "Empresa",
+      "heroTitulo": "Una empresa familiar con más de 80 años de trayectoria"
     },
     "servicios": {
       "titulo": "Nuestros Servicios",
       "seo": {
         "title": "Servicios | Scarppe Transporte y Logística",
         "description": "Transporte nacional e internacional, logística integral, depósito y almacenaje, trámites aduaneros, carga seca, carga por metraje cúbico y contenedores."
-      }
+      },
+      "eyebrow": "Servicios",
+      "categoriaTransporteTitulo": "Soluciones de Transporte",
+      "categoriaLogisticaTitulo": "Soluciones Logísticas"
     },
     "comercioExterior": {
       "titulo": "Trámites Aduaneros",
@@ -192,7 +200,8 @@
         "/uploads/servicio-aduana.jpg",
         "/uploads/servicio-contenedores.jpg",
         "/uploads/gestion-2.jpg"
-      ]
+      ],
+      "eyebrow": "Comercio Exterior"
     },
     "contacto": {
       "directores": [
@@ -225,7 +234,11 @@
       "seo": {
         "title": "Contacto | Scarppe Transporte y Logística",
         "description": "Contactate con Scarppe Transporte y Logística. Directores, gerencia, logística y formulario de cotización. Oficinas en Uruguay y Brasil."
-      }
+      },
+      "eyebrow": "Contacto",
+      "heroTitulo": "Hablemos de tu operación",
+      "oficinasEyebrow": "Oficinas",
+      "oficinasTitulo": "Nuestras Oficinas"
     },
     "trabajaConNosotros": {
       "titulo": "Trabaja con Nosotros",
@@ -234,7 +247,8 @@
       "seo": {
         "title": "Trabaja con Nosotros | Scarppe Transporte y Logística",
         "description": "Enviá tu currículum vitae y sumate al equipo de Scarppe Transporte y Logística."
-      }
+      },
+      "eyebrow": "Trabaja con Nosotros"
     }
   },
   "servicios": [
@@ -247,7 +261,8 @@
         "/uploads/servicio-nacional.jpg",
         "/uploads/gestion-1.jpg",
         "/uploads/historia-3.jpg"
-      ]
+      ],
+      "categoria": "transporte"
     },
     {
       "slug": "transporte-internacional",
@@ -258,7 +273,8 @@
         "/uploads/servicio-internacional.jpg",
         "/uploads/historia-2.jpg",
         "/uploads/gestion-3.jpg"
-      ]
+      ],
+      "categoria": "transporte"
     },
     {
       "slug": "logistica-integral",
@@ -269,7 +285,8 @@
         "/uploads/servicio-logistica.jpg",
         "/uploads/gestion-2.jpg",
         "/uploads/historia-4.jpg"
-      ]
+      ],
+      "categoria": "logistica"
     },
     {
       "slug": "deposito-y-almacenaje",
@@ -280,7 +297,8 @@
         "/uploads/servicio-deposito.jpg",
         "/uploads/historia-3.jpg",
         "/uploads/historia-1.jpg"
-      ]
+      ],
+      "categoria": "logistica"
     },
     {
       "slug": "tramites-aduaneros",
@@ -291,7 +309,8 @@
         "/uploads/servicio-aduana.jpg",
         "/uploads/gestion-3.jpg",
         "/uploads/hero-flota.jpg"
-      ]
+      ],
+      "categoria": "logistica"
     },
     {
       "slug": "carga-seca-en-general",
@@ -302,7 +321,8 @@
         "/uploads/servicio-carga-seca.jpg",
         "/uploads/historia-4.jpg",
         "/uploads/gestion-1.jpg"
-      ]
+      ],
+      "categoria": "transporte"
     },
     {
       "slug": "carga-por-metraje-cubico",
@@ -313,7 +333,8 @@
         "/uploads/servicio-metraje.jpg",
         "/uploads/historia-1.jpg",
         "/uploads/historia-2.jpg"
-      ]
+      ],
+      "categoria": "transporte"
     },
     {
       "slug": "contenedores-con-y-sin-carga",
@@ -324,7 +345,8 @@
         "/uploads/servicio-contenedores.jpg",
         "/uploads/hero-flota.jpg",
         "/uploads/gestion-2.jpg"
-      ]
+      ],
+      "categoria": "transporte"
     }
   ]
 }

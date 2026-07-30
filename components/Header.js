@@ -29,6 +29,12 @@ export default function Header({ menu, logo, siteName, servicios }) {
                 {item.label}
               </Link>
             ))}
+            <Link
+              href="/contacto"
+              className="font-heading text-[11px] font-bold uppercase tracking-[0.1em] text-accent hover:text-white transition-colors px-2.5 py-2 rounded-sm whitespace-nowrap"
+            >
+              Solicitar Cotización
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -42,12 +48,6 @@ export default function Header({ menu, logo, siteName, servicios }) {
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </button>
-            <Link
-              href="/contacto"
-              className="hidden md:inline-flex items-center rounded-sm bg-accent text-primary font-heading text-xs font-bold uppercase tracking-[0.15em] px-5 py-2.5 hover:brightness-95 transition-all"
-            >
-              Solicitar Cotización
-            </Link>
             <button
               className="xl:hidden h-10 w-10 flex items-center justify-center text-white"
               onClick={() => setOpen(!open)}

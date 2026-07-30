@@ -10,26 +10,41 @@ export async function generateMetadata() {
   return { title: pages.servicios.seo.title, description: pages.servicios.seo.description };
 }
 
+function ServiceGroup({ title, items }) {
+  if (!items || items.length === 0) return null;
+  return (
+    <div className="mb-20 last:mb-0">
+      <Reveal className="mb-10">
+        <h2 className="font-heading text-2xl md:text-3xl font-extrabold uppercase text-primary tracking-tight">{title}</h2>
+      </Reveal>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10 border border-black/10">
+        {items.map((s, i) => (
+          <Reveal key={s.slug} delay={i * 60}>
+            <ServiceCard servicio={s} index={i} />
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ServiciosPage() {
   const { pages, servicios } = getContent();
+  const transporte = servicios.filter((s) => (s.categoria || "transporte") === "transporte");
+  const logistica = servicios.filter((s) => s.categoria === "logistica");
 
   return (
     <>
       <section style={{ background: "#191D33" }} className="py-20">
         <div className="max-w-container mx-auto px-6 lg:px-10">
           <Reveal>
-            <SectionTag label="Servicios" light title={pages.servicios.titulo} />
+            <SectionTag label={pages.servicios.eyebrow || "Servicios"} light title={pages.servicios.titulo} />
           </Reveal>
         </div>
       </section>
       <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10 border border-black/10">
-          {servicios.map((s, i) => (
-            <Reveal key={s.slug} delay={i * 60}>
-              <ServiceCard servicio={s} index={i} />
-            </Reveal>
-          ))}
-        </div>
+        <ServiceGroup title={pages.servicios.categoriaTransporteTitulo || "Soluciones de Transporte"} items={transporte} />
+        <ServiceGroup title={pages.servicios.categoriaLogisticaTitulo || "Soluciones Logísticas"} items={logistica} />
       </section>
     </>
   );

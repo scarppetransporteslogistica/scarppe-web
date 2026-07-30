@@ -20,22 +20,25 @@ export default function EmpresaPage() {
       <section style={{ background: "#191D33" }} className="py-20">
         <div className="max-w-container mx-auto px-6 lg:px-10">
           <Reveal>
-            <SectionTag label="Empresa" light />
+            <SectionTag label={e.eyebrow || "Empresa"} light />
             <h1 className="font-heading text-4xl md:text-5xl font-extrabold uppercase text-white leading-tight max-w-2xl">
-              Una empresa familiar con más de 80 años de trayectoria
+              {e.heroTitulo || "Una empresa familiar con más de 80 años de trayectoria"}
             </h1>
           </Reveal>
         </div>
       </section>
 
       {/* Historia: primero, con una foto grande y rectangular para verse mejor */}
-      <section className="max-w-container mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-14 items-start">
-        <Reveal>
+      <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
+        <Reveal className="max-w-2xl mb-10">
           <SectionTag label={e.historia.titulo} />
           <p className="font-body text-black/65 leading-relaxed whitespace-pre-line">{e.historia.texto}</p>
         </Reveal>
-        <Reveal delay={150}>
-          <Gallery images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)} aspectClass="aspect-[16/11]" />
+        <Reveal delay={120}>
+          <Gallery
+            images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
+            aspectClass="aspect-[16/9] md:aspect-[21/8]"
+          />
         </Reveal>
       </section>
 
@@ -45,25 +48,17 @@ export default function EmpresaPage() {
         </div>
       </section>
 
-      <section className="max-w-container mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-14 items-start">
-        <Reveal>
-          <SectionTag label={e.politicaGestion.titulo} />
-          <p className="font-body text-black/65 leading-relaxed whitespace-pre-line">{e.politicaGestion.texto}</p>
-        </Reveal>
-        <Reveal delay={150}>
-          <Gallery images={e.politicaGestion.gallery} />
-        </Reveal>
-      </section>
-
-      <section className="max-w-container mx-auto px-6 lg:px-10 pt-24 pb-8 grid md:grid-cols-2 gap-px bg-black/10 border border-black/10">
-        <Reveal className="p-10" style={{ background: "#04325A" }}>
-          <h3 className="font-heading text-2xl font-extrabold uppercase text-white mb-4">{e.misionTitulo || "Misión"}</h3>
-          <p className="font-body font-light text-light leading-relaxed">{e.mision}</p>
-        </Reveal>
-        <Reveal delay={100} className="p-10" style={{ background: "#191D33" }}>
-          <h3 className="font-heading text-2xl font-extrabold uppercase text-white mb-4">{e.visionTitulo || "Visión"}</h3>
-          <p className="font-body font-light text-light leading-relaxed">{e.vision}</p>
-        </Reveal>
+      <section className="max-w-container mx-auto px-6 lg:px-10 pt-24 pb-8">
+        <div className="grid md:grid-cols-2 gap-6">
+          <Reveal className="p-10 rounded-sm shadow-sm" style={{ background: "#04325A" }}>
+            <h3 className="font-heading text-2xl font-extrabold uppercase text-white mb-4">{e.misionTitulo || "Misión"}</h3>
+            <p className="font-body font-light text-light leading-relaxed">{e.mision}</p>
+          </Reveal>
+          <Reveal delay={100} className="p-10 rounded-sm shadow-sm" style={{ background: "#191D33" }}>
+            <h3 className="font-heading text-2xl font-extrabold uppercase text-white mb-4">{e.visionTitulo || "Visión"}</h3>
+            <p className="font-body font-light text-light leading-relaxed">{e.vision}</p>
+          </Reveal>
+        </div>
       </section>
 
       <section className="max-w-container mx-auto px-6 lg:px-10 pt-20 md:pt-28 pb-28">

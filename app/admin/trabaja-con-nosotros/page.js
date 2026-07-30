@@ -16,6 +16,7 @@ export default function AdminTrabajaPage() {
     <div>
       <h1 className="font-heading text-2xl font-bold text-primary mb-6">Trabaja con Nosotros</h1>
       <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+        <AdminField label="Subtítulo pequeño (eyebrow)" value={t.eyebrow} onChange={(v) => update({ eyebrow: v })} />
         <AdminField label="Título" value={t.titulo} onChange={(v) => update({ titulo: v })} />
         <AdminTextarea label="Texto" rows={4} value={t.texto} onChange={(v) => update({ texto: v })} />
         <AdminField label="E-mail para recibir currículums" value={t.cvEmail} onChange={(v) => update({ cvEmail: v })} />

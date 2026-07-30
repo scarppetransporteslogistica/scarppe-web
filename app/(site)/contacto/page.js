@@ -20,7 +20,7 @@ export default function ContactoPage() {
       <section style={{ background: "#191D33" }} className="py-24">
         <div className="max-w-container mx-auto px-6 lg:px-10 grid lg:grid-cols-[1fr_1.4fr] gap-16">
           <Reveal>
-            <SectionTag label="Contacto" light title="Hablemos de tu operación" />
+            <SectionTag label={c.eyebrow || "Contacto"} light title={c.heroTitulo || "Hablemos de tu operación"} />
             <p className="font-body font-light text-light leading-relaxed mb-10">
               Completá el formulario o comunicate directamente con nosotros. Te respondemos a la brevedad.
             </p>
@@ -50,7 +50,7 @@ export default function ContactoPage() {
 
       <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
         <Reveal className="mb-12">
-          <SectionTag label="Oficinas" title="Nuestras Oficinas" />
+          <SectionTag label={c.oficinasEyebrow || "Oficinas"} title={c.oficinasTitulo || "Nuestras Oficinas"} />
         </Reveal>
         <div className="grid md:grid-cols-2 gap-10">
           {c.mapas.map((m, i) => (

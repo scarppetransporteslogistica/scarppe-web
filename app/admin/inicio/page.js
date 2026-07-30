@@ -42,6 +42,19 @@ export default function AdminInicioPage() {
         <AdminField label="Título principal" value={inicio.heroTitle} onChange={(v) => update({ heroTitle: v })} />
         <AdminField label="Subtítulo" value={inicio.heroSubtitle} onChange={(v) => update({ heroSubtitle: v })} />
         <AdminTextarea label="Texto descriptivo" value={inicio.heroText} onChange={(v) => update({ heroText: v })} />
+        <div>
+          <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño de las letras del banner (%)</label>
+          <input
+            type="number"
+            min="50"
+            max="250"
+            step="5"
+            value={inicio.heroTextScale || 100}
+            onChange={(e) => update({ heroTextScale: e.target.value })}
+            className="w-full sm:w-40 rounded-lg border border-black/10 px-4 py-2.5 font-body text-primary text-sm focus:outline-none focus:ring-2 focus:ring-tertiary/40"
+          />
+          <p className="font-body text-xs text-primary/50 mt-1.5">100% es el tamaño actual. Poné, por ejemplo, 130 para agrandar un 30%.</p>
+        </div>
       </div>
 
       <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
@@ -59,6 +72,14 @@ export default function AdminInicioPage() {
         <button onClick={addBadge} className="text-sm font-body text-tertiary hover:underline">+ Agregar destacado</button>
       </div>
 
+      <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+        <p className="font-body text-sm font-semibold text-primary">Sección "Nuestros Servicios" (debajo del banner)</p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <AdminField label="Subtítulo pequeño (eyebrow)" value={inicio.serviciosEyebrow} onChange={(v) => update({ serviciosEyebrow: v })} />
+          <AdminField label="Título" value={inicio.serviciosTitulo} onChange={(v) => update({ serviciosTitulo: v })} />
+        </div>
+      </div>
+
       <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
         <p className="font-body text-sm font-semibold text-primary mb-4">Indicadores de trayectoria</p>
         <div className="grid sm:grid-cols-2 gap-4">
@@ -69,6 +90,10 @@ export default function AdminInicioPage() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
+        <AdminField label='Subtítulo pequeño de la sección "Trayectoria" (bloque con la reseña de la empresa)' value={inicio.trayectoriaEyebrow} onChange={(v) => update({ trayectoriaEyebrow: v })} />
       </div>
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function Hero({ images, video, title, subtitle, text }) {
+export default function Hero({ images, video, title, subtitle, text, textScale }) {
   const [idx, setIdx] = useState(0);
   const list = images && images.length > 0 ? images : [];
 
@@ -11,8 +11,13 @@ export default function Hero({ images, video, title, subtitle, text }) {
     return () => clearInterval(t);
   }, [video, list.length]);
 
+  const scale = (Number(textScale) || 100) / 100;
+
   return (
-    <section className="relative min-h-[88vh] flex flex-col justify-center overflow-hidden bg-primary">
+    <section
+      className="relative min-h-[88vh] flex flex-col justify-center overflow-hidden bg-primary"
+      style={{ "--hero-text-scale": scale }}
+    >
       <div className="absolute inset-0">
         {video ? (
           <video className="w-full h-full object-cover" src={video} autoPlay muted loop playsInline />
@@ -47,11 +52,11 @@ export default function Hero({ images, video, title, subtitle, text }) {
             <span className="w-6 h-0.5 bg-accent inline-block" />
             Transporte y Logística
           </p>
-          <h1 className="font-heading text-5xl md:text-6xl font-extrabold uppercase text-white leading-[0.95] tracking-tight">
+          <h1 className="hero-title font-heading font-extrabold uppercase text-white leading-[0.95] tracking-tight">
             {title}
           </h1>
-          <p className="font-heading text-xl md:text-2xl font-semibold text-white/90 mt-4">{subtitle}</p>
-          <p className="font-body font-light text-light mt-5 leading-relaxed max-w-md">{text}</p>
+          <p className="hero-subtitle font-heading font-semibold text-white/90 mt-4">{subtitle}</p>
+          <p className="hero-text font-body font-light text-light mt-5 leading-relaxed max-w-md">{text}</p>
           <div className="flex flex-wrap gap-4 mt-9">
             <a
               href="/contacto"

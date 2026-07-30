@@ -18,7 +18,7 @@ export default function TrabajaConNosotrosPage() {
     <section style={{ background: "#F2F1F1" }} className="py-24">
       <div className="max-w-container mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-start">
         <Reveal>
-          <SectionTag label="Trabaja con Nosotros" title={t.titulo} />
+          <SectionTag label={t.eyebrow || "Trabaja con Nosotros"} title={t.titulo} />
           <p className="font-body text-black/65 leading-relaxed text-lg">{t.texto}</p>
         </Reveal>
         <Reveal delay={100} className="bg-white border border-black/10 p-8">

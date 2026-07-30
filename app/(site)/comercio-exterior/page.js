@@ -19,7 +19,7 @@ export default function ComercioExteriorPage() {
       <div className="max-w-container mx-auto px-6 lg:px-10 grid md:grid-cols-2 gap-16 items-start">
         <div>
           <Reveal>
-            <SectionTag label="Comercio Exterior" title={c.titulo} />
+            <SectionTag label={c.eyebrow || "Comercio Exterior"} title={c.titulo} />
             <p className="font-body text-black/65 leading-relaxed text-lg mb-8">{c.intro}</p>
           </Reveal>
 

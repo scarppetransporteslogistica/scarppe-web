@@ -121,3 +121,14 @@ body {
 .override-text-dark-bg .text-light {
   color: var(--text-color-dark-bg) !important;
 }
+
+/* ---- Hero banner text scale, percentage-based (Admin > Inicio) ---- */
+.hero-title { font-size: calc(3rem * var(--hero-text-scale, 1)) !important; }
+@media (min-width: 768px) {
+  .hero-title { font-size: calc(3.75rem * var(--hero-text-scale, 1)) !important; }
+}
+.hero-subtitle { font-size: calc(1.25rem * var(--hero-text-scale, 1)) !important; }
+@media (min-width: 768px) {
+  .hero-subtitle { font-size: calc(1.5rem * var(--hero-text-scale, 1)) !important; }
+}
+.hero-text { font-size: calc(1rem * var(--hero-text-scale, 1)) !important; }

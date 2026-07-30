@@ -27,6 +27,7 @@ export default function AdminComercioExteriorPage() {
     <div>
       <h1 className="font-heading text-2xl font-bold text-primary mb-6">Comercio Exterior</h1>
       <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
+        <AdminField label="Subtítulo pequeño (eyebrow)" value={c.eyebrow} onChange={(v) => update({ eyebrow: v })} />
         <AdminField label="Título" value={c.titulo} onChange={(v) => update({ titulo: v })} />
         <AdminTextarea label="Texto introductorio" rows={4} value={c.intro} onChange={(v) => update({ intro: v })} />
         <AdminTextarea label="Aviso importante (Scarppe no posee despachantes propios)" rows={3} value={c.aviso} onChange={(v) => update({ aviso: v })} />
