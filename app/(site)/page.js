@@ -50,7 +50,7 @@ export default function InicioPage() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {servicios.slice(0, 6).map((s, i) => (
-            <Reveal key={s.slug} delay={i * 60}>
+            <Reveal key={s.slug} delay={i * 60} className="h-full">
               <ServiceCard servicio={s} index={i} />
             </Reveal>
           ))}

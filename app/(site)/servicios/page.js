@@ -19,7 +19,7 @@ function ServiceGroup({ title, items }) {
       </Reveal>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((s, i) => (
-          <Reveal key={s.slug} delay={i * 60}>
+          <Reveal key={s.slug} delay={i * 60} className="h-full">
             <ServiceCard servicio={s} index={i} />
           </Reveal>
         ))}
