@@ -58,9 +58,9 @@ export default function EmpresaPage() {
         <Reveal className="mb-12">
           <SectionTag label={e.valoresTitulo || "Nuestros Valores"} />
         </Reveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-black/10 border border-black/10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {e.valores.map((v, i) => (
-            <Reveal key={v.nombre} delay={i * 80} className="bg-white p-7 text-center">
+            <Reveal key={v.nombre} delay={i * 80} className="bg-white border border-black/10 p-7 text-center">
               <h4 className="font-heading font-bold uppercase tracking-wide text-tertiary mb-2">{v.nombre}</h4>
               <p className="font-body text-sm text-black/60 leading-relaxed">{v.descripcion}</p>
             </Reveal>

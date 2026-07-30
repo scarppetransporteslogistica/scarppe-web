@@ -18,7 +18,7 @@ module.exports = {
         body: ["var(--font-body)", "sans-serif"],
       },
       maxWidth: {
-        container: "1280px",
+        container: "1600px",
       },
       letterSpacing: {
         widest2: "0.2em",

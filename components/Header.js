@@ -19,7 +19,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
             )}
           </Link>
 
-          <nav className="hidden xl:flex items-center gap-0.5 shrink-0">
+          <nav className="hidden lg:flex items-center gap-1 shrink-0">
             {menu.map((item) => (
               <Link
                 key={item.href}
@@ -49,7 +49,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
               </svg>
             </button>
             <button
-              className="xl:hidden h-10 w-10 flex items-center justify-center text-white"
+              className="lg:hidden h-10 w-10 flex items-center justify-center text-white"
               onClick={() => setOpen(!open)}
               aria-label="Menú"
             >
@@ -61,7 +61,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
         </div>
 
         {open && (
-          <nav className="xl:hidden border-t border-white/10 px-6 py-4 flex flex-col gap-1">
+          <nav className="lg:hidden border-t border-white/10 px-6 py-4 flex flex-col gap-1">
             {menu.map((item) => (
               <Link
                 key={item.href}

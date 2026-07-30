@@ -48,7 +48,7 @@ export default function InicioPage() {
             </Link>
           </Reveal>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10 border border-black/10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {servicios.slice(0, 6).map((s, i) => (
             <Reveal key={s.slug} delay={i * 60}>
               <ServiceCard servicio={s} index={i} />
