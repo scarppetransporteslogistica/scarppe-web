@@ -60,7 +60,7 @@ export default function AdminGeneralPage() {
 
         <div>
           <p className="font-body text-sm font-semibold text-primary mb-3">Tipografía de títulos</p>
-          <div className="grid sm:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Fuente</label>
               <select
@@ -93,12 +93,25 @@ export default function AdminGeneralPage() {
                 className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
               />
             </div>
+            <div>
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Interlineado (%)</label>
+              <input
+                type="number"
+                min="50"
+                max="200"
+                step="5"
+                value={typo.headingLineHeightPercent || 100}
+                onChange={(e) => updateTypography({ headingLineHeightPercent: e.target.value })}
+                className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
+              />
+            </div>
           </div>
         </div>
 
         <div>
           <p className="font-body text-sm font-semibold text-primary mb-3">Tipografía de texto</p>
-          <div className="grid sm:grid-cols-3 gap-4">
+          <p className="font-body text-xs text-primary/50 mb-3">Esto aplica a los párrafos de texto de todo el sitio.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Fuente</label>
               <select
@@ -128,6 +141,18 @@ export default function AdminGeneralPage() {
                 step="5"
                 value={typo.bodySizePercent || 100}
                 onChange={(e) => updateTypography({ bodySizePercent: e.target.value })}
+                className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
+              />
+            </div>
+            <div>
+              <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Interlineado (%)</label>
+              <input
+                type="number"
+                min="50"
+                max="200"
+                step="5"
+                value={typo.bodyLineHeightPercent || 100}
+                onChange={(e) => updateTypography({ bodyLineHeightPercent: e.target.value })}
                 className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-sm"
               />
             </div>

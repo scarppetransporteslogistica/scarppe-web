@@ -138,3 +138,13 @@ body {
 @media (min-width: 768px) {
   .stats-value { font-size: calc(3.75rem * var(--stats-value-scale, 1)) !important; }
 }
+
+/* ---- Paragraph / heading line-height ("interlineado"), percentage-based ---- */
+.font-body { line-height: calc(1.5 * var(--body-line-height, 1)); }
+.font-body.leading-relaxed { line-height: calc(1.625 * var(--body-line-height, 1)) !important; }
+.font-body.leading-none { line-height: calc(1 * var(--body-line-height, 1)) !important; }
+
+.font-heading { line-height: calc(1.2 * var(--heading-line-height, 1)); }
+.font-heading.leading-tight { line-height: calc(1.25 * var(--heading-line-height, 1)) !important; }
+.font-heading.leading-none { line-height: calc(1 * var(--heading-line-height, 1)) !important; }
+.font-heading.leading-\[0\.95\] { line-height: calc(0.95 * var(--heading-line-height, 1)) !important; }
