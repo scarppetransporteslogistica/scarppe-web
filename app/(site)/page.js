@@ -5,6 +5,7 @@ import StatsBar from "@/components/StatsBar";
 import ServiceCard from "@/components/ServiceCard";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
+import TextFormatStyle from "@/components/TextFormatStyle";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +18,7 @@ export async function generateMetadata() {
 export default function InicioPage() {
   const { pages, servicios } = getContent();
   const inicio = pages.inicio;
+  const fmt = inicio.formats || {};
 
   return (
     <>
@@ -27,6 +29,7 @@ export default function InicioPage() {
         subtitle={inicio.heroSubtitle}
         text={inicio.heroText}
         textScale={inicio.heroTextScale}
+        formats={fmt}
       />
       <TrustStrip items={inicio.badges || []} />
       <StatsBar stats={inicio.stats} valueScale={inicio.statsValueScale} />
@@ -34,9 +37,16 @@ export default function InicioPage() {
       <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
         <div className="flex flex-wrap items-end justify-between gap-8 mb-14">
           <Reveal>
-            <SectionTag label={inicio.serviciosEyebrow || "Nuestros Servicios"} title={inicio.serviciosTitulo || "Soluciones logísticas integrales"} />
+            <SectionTag
+              id="inicio-servicios"
+              label={inicio.serviciosEyebrow || "Nuestros Servicios"}
+              title={inicio.serviciosTitulo || "Soluciones logísticas integrales"}
+              labelFormat={fmt.serviciosEyebrow}
+              titleFormat={fmt.serviciosTitulo}
+            />
           </Reveal>
-          <Reveal delay={100}>
+          <TextFormatStyle id="inicio-servicios-cta" format={fmt.serviciosCta} />
+          <Reveal delay={100} className="tf-inicio-servicios-cta">
             <Link
               href="/servicios"
               className="inline-flex items-center gap-2 font-heading text-xs font-bold uppercase tracking-[0.2em] text-tertiary hover:text-accent transition-colors"
@@ -63,22 +73,32 @@ export default function InicioPage() {
       >
         <div className="max-w-container mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-14 items-center relative z-10">
           <Reveal>
-            <SectionTag label={inicio.trayectoriaEyebrow || "Trayectoria"} light />
-            <h2 className="font-heading text-3xl md:text-4xl font-extrabold uppercase text-white leading-tight mb-5">
+            <SectionTag
+              id="inicio-trayectoria"
+              label={inicio.trayectoriaEyebrow || "Trayectoria"}
+              light
+              labelFormat={fmt.trayectoriaEyebrow}
+            />
+            <TextFormatStyle id="inicio-trayectoria-titulo" format={fmt.trayectoriaTitulo} />
+            <h2 className="tf-inicio-trayectoria-titulo font-heading text-3xl md:text-4xl font-extrabold uppercase text-white leading-tight mb-5">
               Más de 80 años moviendo la carga de Uruguay y Brasil
             </h2>
-            <p className="font-body font-light text-light leading-relaxed mb-8">
+            <TextFormatStyle id="inicio-trayectoria-texto" format={fmt.trayectoriaTexto} />
+            <p className="tf-inicio-trayectoria-texto font-body font-light text-light leading-relaxed mb-8">
               {pages.empresa.historia.texto.split("\n\n")[0]}
             </p>
-            <Link
-              href="/empresa"
-              className="inline-flex items-center gap-2 text-white font-heading text-xs font-bold uppercase tracking-[0.2em] hover:text-accent transition-colors"
-            >
-              Conocer la empresa
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </Link>
+            <TextFormatStyle id="inicio-trayectoria-cta" format={fmt.trayectoriaCta} />
+            <div className="tf-inicio-trayectoria-cta">
+              <Link
+                href="/empresa"
+                className="inline-flex items-center gap-2 text-white font-heading text-xs font-bold uppercase tracking-[0.2em] hover:text-accent transition-colors"
+              >
+                Conocer la empresa
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </Link>
+            </div>
           </Reveal>
           <Reveal delay={150}>
             <img

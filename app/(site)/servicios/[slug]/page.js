@@ -4,6 +4,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ServiceIcon from "@/components/ServiceIcon";
 import ServicioGallery from "@/components/ServicioGallery";
+import TextFormatStyle from "@/components/TextFormatStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -18,11 +19,13 @@ export async function generateMetadata({ params }) {
 }
 
 export default function ServicioPage({ params }) {
-  const { servicios } = getContent();
+  const { pages, servicios } = getContent();
   const servicio = servicios.find((s) => s.slug === params.slug);
   if (!servicio) notFound();
 
   const otros = servicios.filter((s) => s.slug !== params.slug).slice(0, 4);
+  const sfmt = servicio.formats || {};
+  const pfmt = pages.servicios.formats || {};
 
   return (
     <>
@@ -37,7 +40,8 @@ export default function ServicioPage({ params }) {
           </Link>
           <div className="flex items-center gap-5 mt-6">
             <ServiceIcon slug={servicio.slug} className="w-12 h-12 text-accent shrink-0" />
-            <h1 className="font-heading text-3xl md:text-5xl font-extrabold uppercase text-white">{servicio.nombre}</h1>
+            <TextFormatStyle id={`servicio-${servicio.slug}-nombre`} format={sfmt.nombre} />
+            <h1 className={`tf-servicio-${servicio.slug}-nombre font-heading text-3xl md:text-5xl font-extrabold uppercase text-white`}>{servicio.nombre}</h1>
           </div>
         </div>
       </section>
@@ -45,17 +49,22 @@ export default function ServicioPage({ params }) {
       <section className="max-w-container mx-auto px-6 lg:px-10 py-20 grid md:grid-cols-3 gap-14">
         <Reveal className="md:col-span-2">
           <ServicioGallery images={servicio.imagenes || (servicio.imagen ? [servicio.imagen] : [])} />
-          <p className="font-body text-black/70 leading-relaxed whitespace-pre-line text-lg mt-8">{servicio.texto}</p>
-          <Link
-            href="/contacto"
-            className="btn-cta inline-flex items-center justify-center rounded-sm bg-secondary text-white font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:bg-tertiary transition-colors mt-8"
-          >
-            Solicitar Cotización
-          </Link>
+          <TextFormatStyle id={`servicio-${servicio.slug}-texto`} format={sfmt.texto} />
+          <p className={`tf-servicio-${servicio.slug}-texto font-body text-black/70 leading-relaxed whitespace-pre-line text-lg mt-8`}>{servicio.texto}</p>
+          <TextFormatStyle id="servicios-detalle-cta" format={pfmt.detailCta} />
+          <div className={`tf-servicios-detalle-cta mt-8`}>
+            <Link
+              href="/contacto"
+              className="inline-flex items-center justify-center rounded-sm bg-secondary text-white font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:bg-tertiary transition-colors btn-cta"
+            >
+              Solicitar Cotización
+            </Link>
+          </div>
         </Reveal>
         <Reveal delay={120}>
           <div className="border border-black/10 p-6">
-            <h3 className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-5">Otros servicios</h3>
+            <TextFormatStyle id="servicios-otros-titulo" format={pfmt.otrosTitulo} />
+            <h3 className="tf-servicios-otros-titulo font-heading text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-5">Otros servicios</h3>
             <div className="space-y-1">
               {otros.map((s) => (
                 <Link

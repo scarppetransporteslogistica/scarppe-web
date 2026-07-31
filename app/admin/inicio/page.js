@@ -3,6 +3,7 @@ import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
+import TextFormatControls from "@/components/admin/TextFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminInicioPage() {
@@ -10,8 +11,12 @@ export default function AdminInicioPage() {
   if (loading || !content) return <p className="font-body text-primary/60">Cargando...</p>;
 
   const inicio = content.pages.inicio;
+  const fmt = inicio.formats || {};
   function update(patch) {
     setContent({ ...content, pages: { ...content.pages, inicio: { ...inicio, ...patch } } });
+  }
+  function updateFormat(key, value) {
+    update({ formats: { ...fmt, [key]: value } });
   }
   function updateStat(i, patch) {
     const stats = inicio.stats.map((s, idx) => (idx === i ? { ...s, ...patch } : s));
@@ -39,9 +44,23 @@ export default function AdminInicioPage() {
           onChange={(v) => update({ heroImages: v })}
         />
         <AdminField label="Video de fondo (URL, opcional — reemplaza la foto si se completa)" value={inicio.heroVideo} onChange={(v) => update({ heroVideo: v })} />
+
         <AdminField label="Título principal" value={inicio.heroTitle} onChange={(v) => update({ heroTitle: v })} />
+        <TextFormatControls label="Formato: título principal" value={fmt.heroTitle} onChange={(v) => updateFormat("heroTitle", v)} />
+
         <AdminField label="Subtítulo" value={inicio.heroSubtitle} onChange={(v) => update({ heroSubtitle: v })} />
+        <TextFormatControls label="Formato: subtítulo" value={fmt.heroSubtitle} onChange={(v) => updateFormat("heroSubtitle", v)} />
+
         <AdminTextarea label="Texto descriptivo" value={inicio.heroText} onChange={(v) => update({ heroText: v })} />
+        <TextFormatControls label="Formato: texto descriptivo" value={fmt.heroText} onChange={(v) => updateFormat("heroText", v)} />
+
+        <TextFormatControls
+          label='Formato: fila de botones ("Solicitar Cotización" / "Conocer nuestros servicios")'
+          value={fmt.heroCtas}
+          onChange={(v) => updateFormat("heroCtas", v)}
+          showFirstLine={false}
+        />
+
         <div>
           <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Tamaño de las letras del banner (%)</label>
           <input
@@ -75,9 +94,21 @@ export default function AdminInicioPage() {
       <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6 space-y-4">
         <p className="font-body text-sm font-semibold text-primary">Sección "Nuestros Servicios" (debajo del banner)</p>
         <div className="grid sm:grid-cols-2 gap-4">
-          <AdminField label="Subtítulo pequeño (eyebrow)" value={inicio.serviciosEyebrow} onChange={(v) => update({ serviciosEyebrow: v })} />
-          <AdminField label="Título" value={inicio.serviciosTitulo} onChange={(v) => update({ serviciosTitulo: v })} />
+          <div className="space-y-2">
+            <AdminField label="Subtítulo pequeño (eyebrow)" value={inicio.serviciosEyebrow} onChange={(v) => update({ serviciosEyebrow: v })} />
+            <TextFormatControls label="Formato: eyebrow" value={fmt.serviciosEyebrow} onChange={(v) => updateFormat("serviciosEyebrow", v)} showFirstLine={false} />
+          </div>
+          <div className="space-y-2">
+            <AdminField label="Título" value={inicio.serviciosTitulo} onChange={(v) => update({ serviciosTitulo: v })} />
+            <TextFormatControls label="Formato: título" value={fmt.serviciosTitulo} onChange={(v) => updateFormat("serviciosTitulo", v)} />
+          </div>
         </div>
+        <TextFormatControls
+          label='Formato: enlace "Ver todos los servicios"'
+          value={fmt.serviciosCta}
+          onChange={(v) => updateFormat("serviciosCta", v)}
+          showFirstLine={false}
+        />
       </div>
 
       <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
@@ -105,8 +136,31 @@ export default function AdminInicioPage() {
         </div>
       </div>
 
-      <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
-        <AdminField label='Subtítulo pequeño de la sección "Trayectoria" (bloque con la reseña de la empresa)' value={inicio.trayectoriaEyebrow} onChange={(v) => update({ trayectoriaEyebrow: v })} />
+      <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+        <div className="space-y-2">
+          <AdminField
+            label='Subtítulo pequeño de la sección "Trayectoria" (bloque con la reseña de la empresa)'
+            value={inicio.trayectoriaEyebrow}
+            onChange={(v) => update({ trayectoriaEyebrow: v })}
+          />
+          <TextFormatControls label="Formato: eyebrow trayectoria" value={fmt.trayectoriaEyebrow} onChange={(v) => updateFormat("trayectoriaEyebrow", v)} showFirstLine={false} />
+        </div>
+        <TextFormatControls
+          label='Formato: título "Más de 80 años moviendo la carga..."'
+          value={fmt.trayectoriaTitulo}
+          onChange={(v) => updateFormat("trayectoriaTitulo", v)}
+        />
+        <TextFormatControls
+          label="Formato: párrafo (primer párrafo de la Historia de Empresa)"
+          value={fmt.trayectoriaTexto}
+          onChange={(v) => updateFormat("trayectoriaTexto", v)}
+        />
+        <TextFormatControls
+          label='Formato: enlace "Conocer la empresa"'
+          value={fmt.trayectoriaCta}
+          onChange={(v) => updateFormat("trayectoriaCta", v)}
+          showFirstLine={false}
+        />
       </div>
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>

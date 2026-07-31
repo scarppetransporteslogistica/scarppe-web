@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
+import TextFormatStyle from "./TextFormatStyle";
 
-export default function Hero({ images, video, title, subtitle, text, textScale }) {
+export default function Hero({ images, video, title, subtitle, text, textScale, formats = {} }) {
   const [idx, setIdx] = useState(0);
   const list = images && images.length > 0 ? images : [];
 
@@ -62,12 +63,16 @@ export default function Hero({ images, video, title, subtitle, text, textScale }
             <span className="w-6 h-0.5 bg-accent inline-block" />
             Transporte y Logística
           </p>
-          <h1 className="hero-title font-heading font-extrabold uppercase text-white leading-[0.95] tracking-tight">
+          <TextFormatStyle id="inicio-hero-titulo" format={formats.heroTitle} />
+          <h1 className="hero-title tf-inicio-hero-titulo font-heading font-extrabold uppercase text-white leading-[0.95] tracking-tight">
             {title}
           </h1>
-          <p className="hero-subtitle font-heading font-semibold text-white/95 mt-4">{subtitle}</p>
-          <p className="hero-text font-body font-light text-light mt-5 leading-relaxed">{text}</p>
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 mt-9">
+          <TextFormatStyle id="inicio-hero-subtitulo" format={formats.heroSubtitle} />
+          <p className="hero-subtitle tf-inicio-hero-subtitulo font-heading font-semibold text-white/95 mt-4">{subtitle}</p>
+          <TextFormatStyle id="inicio-hero-texto" format={formats.heroText} />
+          <p className="hero-text tf-inicio-hero-texto font-body font-light text-light mt-5 leading-relaxed">{text}</p>
+          <TextFormatStyle id="inicio-hero-ctas" format={formats.heroCtas} mode="flex" />
+          <div className="tf-inicio-hero-ctas flex flex-col sm:flex-row flex-wrap gap-4 mt-9">
             <a
               href="/contacto"
               className="btn-cta inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:brightness-95 transition-all w-full sm:w-auto"

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import ServiceIcon from "./ServiceIcon";
+import TextFormatStyle from "./TextFormatStyle";
 
 export default function ServiceCard({ servicio, index = 0 }) {
   const images = servicio.imagenes && servicio.imagenes.length > 0 ? servicio.imagenes : [servicio.imagen];
@@ -35,13 +36,16 @@ export default function ServiceCard({ servicio, index = 0 }) {
         </div>
         <ServiceIcon slug={servicio.slug} className="w-11 h-11 text-tertiary group-hover:text-accent transition-colors relative" />
       </div>
-      <h3 className="font-heading text-xl font-bold uppercase tracking-wide text-primary group-hover:text-white transition-colors mb-3 relative">
+      <TextFormatStyle id={`servicio-${servicio.slug}-nombre`} format={servicio.formats?.nombre} />
+      <h3 className={`tf-servicio-${servicio.slug}-nombre font-heading text-xl font-bold uppercase tracking-wide text-primary group-hover:text-white transition-colors mb-3 relative`}>
         {servicio.nombre}
       </h3>
-      <p className="font-body text-sm text-black/60 group-hover:text-light leading-relaxed line-clamp-3 relative transition-colors">
+      <TextFormatStyle id={`servicio-${servicio.slug}-resumen`} format={servicio.formats?.resumen} />
+      <p className={`tf-servicio-${servicio.slug}-resumen font-body text-sm text-black/60 group-hover:text-light leading-relaxed line-clamp-3 relative transition-colors`}>
         {servicio.resumen}
       </p>
-      <span className="inline-flex items-center gap-2 text-tertiary group-hover:text-accent font-heading text-xs font-bold uppercase tracking-wide mt-auto pt-5 relative transition-colors">
+      <TextFormatStyle id={`servicio-${servicio.slug}-cta`} format={servicio.formats?.cta} mode="flex" />
+      <span className={`tf-servicio-${servicio.slug}-cta inline-flex items-center gap-2 text-tertiary group-hover:text-accent font-heading text-xs font-bold uppercase tracking-wide mt-auto pt-5 relative transition-colors`}>
         Ver más
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M5 12h14M13 6l6 6-6 6" />

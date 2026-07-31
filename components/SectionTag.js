@@ -1,14 +1,30 @@
-export default function SectionTag({ label, title, light = false }) {
+import TextFormatStyle from "./TextFormatStyle";
+
+export default function SectionTag({ label, title, light = false, id, labelFormat, titleFormat }) {
+  const labelId = id ? `${id}-eyebrow` : null;
+  const titleId = id ? `${id}-titulo` : null;
   return (
     <div className="mb-6">
-      <p className={`font-heading text-sm md:text-base font-bold uppercase tracking-[0.25em] mb-4 flex items-center gap-3 ${light ? "text-accent" : "text-tertiary"}`}>
+      {labelId && <TextFormatStyle id={labelId} format={labelFormat} mode="flex" />}
+      <p
+        className={`font-heading text-sm md:text-base font-bold uppercase tracking-[0.25em] mb-4 flex items-center gap-3 ${labelId ? `tf-${labelId}` : ""} ${
+          light ? "text-accent" : "text-tertiary"
+        }`}
+      >
         <span className="w-6 h-0.5 bg-current inline-block shrink-0" />
         {label}
       </p>
       {title && (
-        <h2 className={`font-heading text-4xl md:text-5xl font-extrabold uppercase leading-[0.95] tracking-tight ${light ? "text-white" : "text-primary"}`}>
-          {title}
-        </h2>
+        <>
+          {titleId && <TextFormatStyle id={titleId} format={titleFormat} />}
+          <h2
+            className={`font-heading text-4xl md:text-5xl font-extrabold uppercase leading-[0.95] tracking-tight ${titleId ? `tf-${titleId}` : ""} ${
+              light ? "text-white" : "text-primary"
+            }`}
+          >
+            {title}
+          </h2>
+        </>
       )}
     </div>
   );
