@@ -1,7 +1,7 @@
 "use client";
 import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
-import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
+import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
 
@@ -31,6 +31,17 @@ export default function AdminComercioExteriorPage() {
   function removeBloque(i) {
     update({ bloques: c.bloques.filter((_, idx) => idx !== i) });
   }
+  const tarjetas = c.tarjetas || [];
+  function updateTarjeta(i, patch) {
+    const next = tarjetas.map((t, idx) => (idx === i ? { ...t, ...patch } : t));
+    update({ tarjetas: next });
+  }
+  function addTarjeta() {
+    update({ tarjetas: [...tarjetas, { titulo: "", texto: "" }] });
+  }
+  function removeTarjeta(i) {
+    update({ tarjetas: tarjetas.filter((_, idx) => idx !== i) });
+  }
 
   return (
     <div>
@@ -44,11 +55,25 @@ export default function AdminComercioExteriorPage() {
         <TextFormatControls label="Formato: texto introductorio" value={fmt.intro} onChange={(v) => updateFormat("intro", v)} />
         <AdminTextarea label="Aviso importante (Scarppe no posee despachantes propios)" rows={3} value={c.aviso} onChange={(v) => update({ aviso: v })} />
         <TextFormatControls label="Formato: aviso importante" value={fmt.aviso} onChange={(v) => updateFormat("aviso", v)} />
-        <AdminGalleryManager
-          label="Fotos (rotan automáticamente)"
-          value={c.gallery || []}
-          onChange={(v) => update({ gallery: v })}
+        <AdminImageUpload
+          label="Fotografía grande (columna derecha de la sección — una sola foto, sin carrusel)"
+          value={c.heroImage || (c.gallery && c.gallery[0]) || ""}
+          onChange={(v) => update({ heroImage: v })}
         />
+      </div>
+
+      <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
+        <p className="font-body text-sm font-semibold text-primary">Tarjetas flotantes sobre la fotografía (indicadores cortos, no descripciones largas)</p>
+        {tarjetas.map((t, i) => (
+          <div key={i} className="border border-black/10 rounded-xl p-4 space-y-3">
+            <AdminField label="Título" value={t.titulo} onChange={(v) => updateTarjeta(i, { titulo: v })} />
+            <AdminField label="Texto corto" value={t.texto} onChange={(v) => updateTarjeta(i, { texto: v })} />
+            <button onClick={() => removeTarjeta(i)} className="text-xs font-body text-red-600 hover:underline">Eliminar tarjeta</button>
+          </div>
+        ))}
+        {tarjetas.length < 3 && (
+          <button onClick={addTarjeta} className="text-sm font-body text-tertiary hover:underline">+ Agregar tarjeta</button>
+        )}
       </div>
       <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
         <p className="font-body text-sm font-semibold text-primary">Bloques (Coordinación, Depósitos Fiscales, Asesoramiento)</p>

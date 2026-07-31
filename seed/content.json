@@ -47,7 +47,7 @@
       "heroVideo": "",
       "heroTitle": "Su carga, nuestra prioridad.",
       "heroSubtitle": "Transporte y logística con flota propia.",
-      "heroText": "Más de 80 años brindando soluciones de transporte nacional e internacional, logística y coordinación de operaciones para empresas de Uruguay y Brasil.",
+      "heroText": "Más de 80 años ofreciendo transporte y logística integral en Uruguay y Brasil.",
       "stats": [
         {
           "label": "Años de trayectoria",
@@ -201,7 +201,22 @@
         "/uploads/servicio-contenedores.jpg",
         "/uploads/gestion-2.jpg"
       ],
-      "eyebrow": "Comercio Exterior"
+      "eyebrow": "Comercio Exterior",
+      "heroImage": "/uploads/servicio-aduana.jpg",
+      "tarjetas": [
+        {
+          "titulo": "Coordinación documental",
+          "texto": "Seguimiento y coordinación de la documentación requerida para cada operación."
+        },
+        {
+          "titulo": "Depósitos fiscales",
+          "texto": "Gestión y coordinación de operaciones vinculadas a depósitos fiscales."
+        },
+        {
+          "titulo": "Seguimiento de la operación",
+          "texto": "Acompañamiento durante todo el proceso hasta su finalización."
+        }
+      ]
     },
     "contacto": {
       "directores": [

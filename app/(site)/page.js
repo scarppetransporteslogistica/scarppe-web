@@ -34,7 +34,7 @@ export default function InicioPage() {
       <TrustStrip items={inicio.badges || []} />
       <StatsBar stats={inicio.stats} valueScale={inicio.statsValueScale} />
 
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
+      <section id="servicios" className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24 scroll-mt-16 sm:scroll-mt-20 desktop:scroll-mt-24">
         <div className="flex flex-wrap items-end justify-between gap-6 mb-8 sm:mb-10 md:mb-14">
           <Reveal>
             <SectionTag
