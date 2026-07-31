@@ -18,8 +18,8 @@ export default function EmpresaPage() {
 
   return (
     <>
-      <section style={{ background: "#191D33" }} className="py-20">
-        <div className="max-w-container mx-auto px-6 lg:px-10">
+      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-20">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10">
           <Reveal>
             <SectionTag id="empresa-hero" label={e.eyebrow || "Empresa"} light labelFormat={fmt.eyebrow} />
             <TextFormatStyle id="empresa-hero-titulo" format={fmt.heroTitulo} />
@@ -31,42 +31,42 @@ export default function EmpresaPage() {
       </section>
 
       {/* Historia: primero, texto a lo ancho y la foto grande debajo, bien visual */}
-      <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
-        <Reveal className="mb-12">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
+        <Reveal className="mb-6 sm:mb-8 md:mb-12">
           <SectionTag id="empresa-historia" label={e.historia.titulo} labelFormat={fmt.historiaTitulo} />
           <TextFormatStyle id="empresa-historia-texto" format={fmt.historiaTexto} />
-          <p className="tf-empresa-historia-texto font-body text-black/65 leading-relaxed whitespace-pre-line text-lg">{e.historia.texto}</p>
+          <p className="tf-empresa-historia-texto font-body text-black/65 leading-relaxed whitespace-pre-line text-lg tablet:max-w-[820px] tablet:mx-auto">{e.historia.texto}</p>
         </Reveal>
         <Reveal delay={120}>
           <Gallery
             images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
-            aspectClass="aspect-[16/10] md:aspect-[2/1]"
+            aspectClass="aspect-[16/9] tablet:aspect-[16/9] desktop:aspect-[2/1]"
           />
         </Reveal>
       </section>
 
-      <section className="max-w-container mx-auto px-6 lg:px-10 pt-24 pb-8">
-        <div className="grid md:grid-cols-2 gap-6">
-          <Reveal className="p-10 rounded-sm shadow-sm" style={{ background: "#04325A" }}>
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-14 md:pt-24 pb-4 sm:pb-6 md:pb-8">
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+          <Reveal className="p-5 sm:p-7 md:p-10 rounded-sm shadow-sm" style={{ background: "#04325A" }}>
             <TextFormatStyle id="empresa-mision-titulo" format={fmt.misionTitulo} />
-            <h3 className="tf-empresa-mision-titulo font-heading text-2xl font-extrabold uppercase text-white mb-4">{e.misionTitulo || "Misión"}</h3>
+            <h3 className="tf-empresa-mision-titulo font-heading text-lg sm:text-xl md:text-2xl font-extrabold uppercase text-white mb-2 sm:mb-3 md:mb-4">{e.misionTitulo || "Misión"}</h3>
             <TextFormatStyle id="empresa-mision-texto" format={fmt.misionTexto} />
-            <p className="tf-empresa-mision-texto font-body font-light text-light leading-relaxed">{e.mision}</p>
+            <p className="tf-empresa-mision-texto font-body font-light text-light leading-normal sm:leading-relaxed text-sm sm:text-base">{e.mision}</p>
           </Reveal>
-          <Reveal delay={100} className="p-10 rounded-sm shadow-sm" style={{ background: "#191D33" }}>
+          <Reveal delay={100} className="p-5 sm:p-7 md:p-10 rounded-sm shadow-sm" style={{ background: "#191D33" }}>
             <TextFormatStyle id="empresa-vision-titulo" format={fmt.visionTitulo} />
-            <h3 className="tf-empresa-vision-titulo font-heading text-2xl font-extrabold uppercase text-white mb-4">{e.visionTitulo || "Visión"}</h3>
+            <h3 className="tf-empresa-vision-titulo font-heading text-lg sm:text-xl md:text-2xl font-extrabold uppercase text-white mb-2 sm:mb-3 md:mb-4">{e.visionTitulo || "Visión"}</h3>
             <TextFormatStyle id="empresa-vision-texto" format={fmt.visionTexto} />
-            <p className="tf-empresa-vision-texto font-body font-light text-light leading-relaxed">{e.vision}</p>
+            <p className="tf-empresa-vision-texto font-body font-light text-light leading-normal sm:leading-relaxed text-sm sm:text-base">{e.vision}</p>
           </Reveal>
         </div>
       </section>
 
-      <section className="max-w-container mx-auto px-6 lg:px-10 pt-20 md:pt-28 pb-28">
-        <Reveal className="mb-12">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-16 md:pt-28 pb-10 sm:pb-16 md:pb-28">
+        <Reveal className="mb-6 sm:mb-8 md:mb-12">
           <SectionTag id="empresa-valores" label={e.valoresTitulo || "Nuestros Valores"} labelFormat={fmt.valoresTitulo} />
         </Reveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
           {e.valores.map((v, i) => {
             const vfmt = v.formats || {};
             return (

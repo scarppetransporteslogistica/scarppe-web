@@ -6,6 +6,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        // A real, independent tablet composition (iPad portrait/landscape,
+        // Android tablets) instead of inheriting the desktop ("lg") layout
+        // shrunk into a narrower viewport. Only used on the specific
+        // components that needed a dedicated tablet treatment (Header, Hero);
+        // every other lg:/md: usage across the site is untouched.
+        tablet: { min: "768px", max: "1179px" },
+        desktop: "1180px",
+      },
       colors: {
         primary: "var(--color-primary)",
         secondary: "var(--color-secondary)",

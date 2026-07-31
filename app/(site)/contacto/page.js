@@ -19,8 +19,8 @@ export default function ContactoPage() {
 
   return (
     <>
-      <section style={{ background: "#191D33" }} className="py-24">
-        <div className="max-w-container mx-auto px-6 lg:px-10 grid lg:grid-cols-[1fr_1.4fr] gap-16">
+      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-24">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[1fr_1.4fr] gap-8 sm:gap-10 md:gap-16">
           <Reveal>
             <SectionTag
               id="contacto-hero"
@@ -67,8 +67,8 @@ export default function ContactoPage() {
         </div>
       </section>
 
-      <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
-        <Reveal className="mb-12">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
+        <Reveal className="mb-6 sm:mb-8 md:mb-12">
           <SectionTag
             id="contacto-oficinas"
             label={c.oficinasEyebrow || "Oficinas"}

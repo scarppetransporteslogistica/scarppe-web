@@ -34,8 +34,8 @@ export default function InicioPage() {
       <TrustStrip items={inicio.badges || []} />
       <StatsBar stats={inicio.stats} valueScale={inicio.statsValueScale} />
 
-      <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
-        <div className="flex flex-wrap items-end justify-between gap-8 mb-14">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-8 sm:mb-10 md:mb-14">
           <Reveal>
             <SectionTag
               id="inicio-servicios"
@@ -58,7 +58,7 @@ export default function InicioPage() {
             </Link>
           </Reveal>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {servicios.slice(0, 6).map((s, i) => (
             <Reveal key={s.slug} delay={i * 60} className="h-full">
               <ServiceCard servicio={s} index={i} />
@@ -71,7 +71,7 @@ export default function InicioPage() {
         className="relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, #04325A 0%, #191D33 100%)" }}
       >
-        <div className="max-w-container mx-auto px-6 lg:px-10 py-24 grid md:grid-cols-2 gap-14 items-center relative z-10">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24 grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-14 items-center relative z-10">
           <Reveal>
             <SectionTag
               id="inicio-trayectoria"

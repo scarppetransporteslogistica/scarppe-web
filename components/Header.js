@@ -10,16 +10,16 @@ export default function Header({ menu, logo, siteName, servicios }) {
   return (
     <header className="sticky top-0 z-40">
       <div className="bg-primary shadow-[0_2px_24px_rgba(0,0,0,0.25)]">
-        <div className="max-w-container mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 shrink-0">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 h-16 tablet:h-20 desktop:h-24 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0">
             {logo ? (
-              <img src={logo} alt={siteName} className="site-logo-header h-14 md:h-16 w-auto" />
+              <img src={logo} alt={siteName} className="site-logo-header w-auto" />
             ) : (
-              <span className="font-heading text-xl font-bold text-white uppercase tracking-wide">{siteName}</span>
+              <span className="font-heading text-lg sm:text-xl font-bold text-white uppercase tracking-wide truncate">{siteName}</span>
             )}
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1 shrink-0">
+          <nav className="hidden desktop:flex items-center gap-1 shrink-0">
             {menu.map((item) => (
               <Link
                 key={item.href}
@@ -41,7 +41,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
             <button
               aria-label="Buscar"
               onClick={() => setSearchOpen(true)}
-              className="h-11 w-11 rounded-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-white/[0.08] transition-colors"
+              className="h-10 w-10 sm:h-11 sm:w-11 rounded-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-white/[0.08] transition-colors shrink-0"
             >
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="7" />
@@ -49,7 +49,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
               </svg>
             </button>
             <button
-              className="lg:hidden h-11 w-11 flex items-center justify-center text-white"
+              className="desktop:hidden h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center text-white shrink-0"
               onClick={() => setOpen(!open)}
               aria-label="Menú"
             >
@@ -61,7 +61,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
         </div>
 
         {open && (
-          <nav className="lg:hidden border-t border-white/10 px-6 py-4 flex flex-col gap-1">
+          <nav className="desktop:hidden border-t border-white/10 px-4 sm:px-6 py-4 flex flex-col gap-1">
             {menu.map((item) => (
               <Link
                 key={item.href}

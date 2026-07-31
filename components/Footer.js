@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function Footer({ menu, siteName, logo }) {
   return (
     <footer style={{ background: "#0d1020" }} className="border-t border-white/10">
-      <div className="max-w-container mx-auto px-6 lg:px-10 pt-16 pb-10">
-        <div className="grid gap-10 md:grid-cols-4 pb-10 border-b border-white/10">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-12 md:pt-16 pb-6 sm:pb-8 md:pb-10">
+        <div className="grid gap-6 sm:gap-8 md:gap-10 md:grid-cols-4 pb-6 sm:pb-8 md:pb-10 border-b border-white/10">
           <div className="md:col-span-2">
             {logo ? (
               <img src={logo} alt={siteName} className="site-logo-footer h-14 w-auto mb-5" />

@@ -9,7 +9,7 @@ export default function StatsBar({ stats, valueScale }) {
           <Reveal
             key={s.label}
             delay={i * 80}
-            className={`text-center py-12 px-6 hover:bg-secondary transition-colors ${
+            className={`text-center py-6 sm:py-8 md:py-12 px-4 sm:px-6 hover:bg-secondary transition-colors ${
               i < stats.length - 1 ? "border-r border-white/10" : ""
             }`}
           >

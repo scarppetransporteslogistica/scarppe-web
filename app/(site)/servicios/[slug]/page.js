@@ -30,11 +30,11 @@ export default function ServicioPage({ params }) {
   return (
     <>
       <section
-        className="relative py-24 overflow-hidden"
+        className="relative py-10 sm:py-14 md:py-24 overflow-hidden"
         style={{ background: "linear-gradient(135deg, #191D33 0%, #04325A 100%)" }}
       >
         <div className="dot-grid absolute inset-0 pointer-events-none opacity-60" />
-        <div className="relative max-w-container mx-auto px-6 lg:px-10">
+        <div className="relative max-w-container mx-auto px-4 sm:px-6 lg:px-10">
           <Link href="/servicios" className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-light hover:text-white transition-colors">
             ← Volver a Servicios
           </Link>
@@ -46,7 +46,7 @@ export default function ServicioPage({ params }) {
         </div>
       </section>
 
-      <section className="max-w-container mx-auto px-6 lg:px-10 py-20 grid md:grid-cols-3 gap-14">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 md:py-20 grid md:grid-cols-3 gap-8 sm:gap-10 md:gap-14">
         <Reveal className="md:col-span-2">
           <ServicioGallery images={servicio.imagenes || (servicio.imagen ? [servicio.imagen] : [])} />
           <TextFormatStyle id={`servicio-${servicio.slug}-texto`} format={sfmt.texto} />

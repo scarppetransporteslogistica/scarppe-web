@@ -14,12 +14,12 @@ export async function generateMetadata() {
 function ServiceGroup({ title, titleId, titleFormat, items }) {
   if (!items || items.length === 0) return null;
   return (
-    <div className="mb-16 last:mb-0 border border-black/10 border-t-4 border-t-tertiary rounded-sm p-6 md:p-10">
-      <Reveal className="mb-10">
+    <div className="mb-8 sm:mb-10 md:mb-16 last:mb-0 border border-black/10 border-t-4 border-t-tertiary rounded-sm p-4 sm:p-5 md:p-10">
+      <Reveal className="mb-5 sm:mb-6 md:mb-10">
         <TextFormatStyle id={titleId} format={titleFormat} />
-        <h2 className={`tf-${titleId} font-heading text-2xl md:text-3xl font-extrabold uppercase text-primary tracking-tight`}>{title}</h2>
+        <h2 className={`tf-${titleId} font-heading text-xl sm:text-2xl md:text-3xl font-extrabold uppercase text-primary tracking-tight`}>{title}</h2>
       </Reveal>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {items.map((s, i) => (
           <Reveal key={s.slug} delay={i * 60} className="h-full">
             <ServiceCard servicio={s} index={i} />
@@ -38,8 +38,8 @@ export default function ServiciosPage() {
 
   return (
     <>
-      <section style={{ background: "#191D33" }} className="py-20">
-        <div className="max-w-container mx-auto px-6 lg:px-10">
+      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-20">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10">
           <Reveal>
             <SectionTag
               id="servicios-hero"
@@ -52,7 +52,7 @@ export default function ServiciosPage() {
           </Reveal>
         </div>
       </section>
-      <section className="max-w-container mx-auto px-6 lg:px-10 py-24">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
         <ServiceGroup
           title={pages.servicios.categoriaTransporteTitulo || "Soluciones de Transporte"}
           titleId="servicios-grupo-transporte-titulo"

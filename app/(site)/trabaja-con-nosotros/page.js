@@ -17,8 +17,8 @@ export default function TrabajaConNosotrosPage() {
   const fmt = t.formats || {};
 
   return (
-    <section style={{ background: "#F2F1F1" }} className="py-24">
-      <div className="max-w-container mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-start">
+    <section style={{ background: "#F2F1F1" }} className="py-10 sm:py-14 md:py-24">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-16 items-start">
         <Reveal>
           <SectionTag id="tcn-hero" label={t.eyebrow || "Trabaja con Nosotros"} title={t.titulo} labelFormat={fmt.eyebrow} titleFormat={fmt.titulo} />
           <TextFormatStyle id="tcn-texto" format={fmt.texto} />
