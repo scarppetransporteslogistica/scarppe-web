@@ -15,39 +15,49 @@ export default function Hero({ images, video, title, subtitle, text, textScale }
 
   return (
     <section
-      className="relative min-h-[88vh] flex flex-col justify-center overflow-hidden bg-primary"
+      className="relative min-h-[640px] sm:min-h-[680px] md:min-h-[70vh] lg:min-h-[88vh] flex overflow-hidden bg-primary"
       style={{ "--hero-text-scale": scale }}
     >
       <div className="absolute inset-0">
         {video ? (
-          <video className="w-full h-full object-cover" src={video} autoPlay muted loop playsInline />
+          <video className="w-full h-full object-cover object-center" src={video} autoPlay muted loop playsInline />
         ) : (
           list.map((src, i) => (
             <img
               key={src + i}
               src={src}
               alt=""
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out ${
+              className={`absolute inset-0 w-full h-full object-cover object-[62%_center] md:object-[56%_center] lg:object-center transition-opacity duration-[2000ms] ease-in-out ${
                 i === idx ? "opacity-100" : "opacity-0"
               }`}
             />
           ))
         )}
+
+        {/* Mobile: text spans nearly the full width, so a more uniform, slightly stronger scrim keeps it legible */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 md:hidden"
           style={{
             background:
-              "linear-gradient(90deg, rgba(25,29,51,0.94) 0%, rgba(25,29,51,0.75) 35%, rgba(25,29,51,0.35) 65%, rgba(4,50,90,0.35) 100%)",
+              "linear-gradient(180deg, rgba(13,16,32,0.82) 0%, rgba(13,16,32,0.66) 45%, rgba(13,16,32,0.8) 100%)",
+          }}
+        />
+        {/* Tablet/desktop: darkest directly behind the text column, fading out so the central truck and the right-side trailer stay visible */}
+        <div
+          className="absolute inset-0 hidden md:block"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(13,16,32,0.9) 0%, rgba(13,16,32,0.68) 32%, rgba(13,16,32,0.28) 55%, rgba(13,16,32,0.06) 78%, rgba(13,16,32,0) 100%)",
           }}
         />
         <div
-          className="absolute inset-x-0 bottom-0 h-1/3"
-          style={{ background: "linear-gradient(to top, rgba(13,16,32,0.9), transparent)" }}
+          className="absolute inset-x-0 bottom-0 h-1/4"
+          style={{ background: "linear-gradient(to top, rgba(9,11,24,0.6), transparent)" }}
         />
       </div>
 
-      <div className="relative z-[2] max-w-container mx-auto w-full px-6 lg:px-10 py-28">
-        <div className="max-w-xl">
+      <div className="relative z-[2] w-full flex items-center px-5 md:px-[6%] lg:px-[7%] py-20 md:py-0 pb-24 md:pb-0">
+        <div className="w-full md:max-w-[60%] lg:max-w-[min(600px,45%)]">
           <p className="font-heading text-xs font-semibold uppercase tracking-[0.3em] text-accent mb-5 flex items-center gap-3">
             <span className="w-6 h-0.5 bg-accent inline-block" />
             Transporte y Logística
@@ -55,27 +65,27 @@ export default function Hero({ images, video, title, subtitle, text, textScale }
           <h1 className="hero-title font-heading font-extrabold uppercase text-white leading-[0.95] tracking-tight">
             {title}
           </h1>
-          <p className="hero-subtitle font-heading font-semibold text-white/90 mt-4">{subtitle}</p>
-          <p className="hero-text font-body font-light text-light mt-5 leading-relaxed max-w-md">{text}</p>
-          <div className="flex flex-wrap gap-4 mt-9">
+          <p className="hero-subtitle font-heading font-semibold text-white/95 mt-4">{subtitle}</p>
+          <p className="hero-text font-body font-light text-light mt-5 leading-relaxed">{text}</p>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 mt-9">
             <a
               href="/contacto"
-              className="inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading text-xs font-bold uppercase tracking-[0.2em] px-8 py-4 hover:brightness-95 transition-all"
+              className="btn-cta inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:brightness-95 transition-all w-full sm:w-auto"
             >
               Solicitar Cotización
             </a>
             <a
               href="/servicios"
-              className="inline-flex items-center justify-center rounded-sm border border-white/30 text-white font-heading text-xs font-bold uppercase tracking-[0.2em] px-8 py-4 hover:bg-white/10 transition-colors"
+              className="btn-cta inline-flex items-center justify-center rounded-sm border border-white/30 text-white font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:bg-white/10 transition-colors w-full sm:w-auto"
             >
-              Nuestros Servicios
+              Conocer nuestros servicios
             </a>
           </div>
         </div>
       </div>
 
       {list.length > 1 && !video && (
-        <div className="relative z-[2] flex items-center gap-2 px-6 lg:px-10 pb-8">
+        <div className="absolute z-[2] bottom-7 md:bottom-8 left-5 md:left-[6%] lg:left-[7%] flex items-center gap-2">
           {list.map((_, i) => (
             <button
               key={i}

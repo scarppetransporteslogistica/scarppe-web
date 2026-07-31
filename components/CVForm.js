@@ -55,7 +55,7 @@ export default function CVForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="inline-flex items-center justify-center rounded-sm bg-secondary text-white font-heading text-xs font-bold uppercase tracking-[0.2em] px-8 py-4 hover:bg-tertiary transition-colors disabled:opacity-60"
+        className="btn-cta w-full sm:w-auto inline-flex items-center justify-center rounded-sm bg-secondary text-white font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:bg-tertiary transition-colors disabled:opacity-60"
       >
         {status === "sending" ? "Enviando..." : "Enviar Currículum"}
       </button>

@@ -85,7 +85,7 @@ export default function QuoteForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full py-6 font-heading text-sm font-bold uppercase tracking-[0.25em] text-primary bg-accent hover:brightness-95 transition-all disabled:opacity-60"
+        className="btn-cta w-full py-6 font-heading font-bold uppercase tracking-[0.25em] text-primary bg-accent hover:brightness-95 transition-all disabled:opacity-60"
       >
         {status === "sending" ? "Enviando..." : "Enviar Cotización"}
       </button>

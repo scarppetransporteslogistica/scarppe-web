@@ -41,7 +41,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
             <button
               aria-label="Buscar"
               onClick={() => setSearchOpen(true)}
-              className="h-10 w-10 rounded-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-white/[0.08] transition-colors"
+              className="h-11 w-11 rounded-sm flex items-center justify-center text-white/70 hover:text-white hover:bg-white/[0.08] transition-colors"
             >
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="7" />
@@ -49,7 +49,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
               </svg>
             </button>
             <button
-              className="lg:hidden h-10 w-10 flex items-center justify-center text-white"
+              className="lg:hidden h-11 w-11 flex items-center justify-center text-white"
               onClick={() => setOpen(!open)}
               aria-label="Menú"
             >
@@ -75,7 +75,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
             <Link
               href="/contacto"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading text-xs font-bold uppercase tracking-[0.15em] px-5 py-3 mt-2"
+              className="btn-cta inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.15em] px-5 py-3.5 mt-2"
             >
               Solicitar Cotización
             </Link>
