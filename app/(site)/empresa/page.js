@@ -1,8 +1,10 @@
+import React from "react";
 import { getContent } from "@/lib/db";
 import Gallery from "@/components/Gallery";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
+import BoxFormatStyle, { bfClass } from "@/components/BoxFormatStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +24,7 @@ export default function EmpresaPage() {
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10">
           <Reveal>
             <SectionTag id="empresa-hero" label={e.eyebrow || "Empresa"} light labelFormat={fmt.eyebrow} />
-            <TextFormatStyle id="empresa-hero-titulo" format={fmt.heroTitulo} />
+            <TextFormatStyle id="empresa-hero-titulo" format={fmt.heroTitulo} sizeCategory="heading-4xl" />
             <h1 className="tf-empresa-hero-titulo font-heading text-4xl md:text-5xl font-extrabold uppercase text-white leading-tight max-w-2xl">
               {e.heroTitulo || "Una empresa familiar con más de 80 años de trayectoria"}
             </h1>
@@ -34,7 +36,7 @@ export default function EmpresaPage() {
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
         <Reveal className="mb-6 sm:mb-8 md:mb-12">
           <SectionTag id="empresa-historia" label={e.historia.titulo} labelFormat={fmt.historiaTitulo} />
-          <TextFormatStyle id="empresa-historia-texto" format={fmt.historiaTexto} />
+          <TextFormatStyle id="empresa-historia-texto" format={fmt.historiaTexto} sizeCategory="body-lg" />
           <p className="tf-empresa-historia-texto font-body text-black/65 leading-relaxed whitespace-pre-line text-lg tablet:max-w-[820px] tablet:mx-auto">{e.historia.texto}</p>
         </Reveal>
         <Reveal delay={120}>
@@ -47,16 +49,18 @@ export default function EmpresaPage() {
 
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-14 md:pt-24 pb-4 sm:pb-6 md:pb-8">
         <div className="grid md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-          <Reveal className="p-5 sm:p-7 md:p-10 rounded-sm shadow-sm" style={{ background: "#04325A" }}>
-            <TextFormatStyle id="empresa-mision-titulo" format={fmt.misionTitulo} />
+          <BoxFormatStyle id="empresa-mision-box" format={fmt.misionBox} />
+          <Reveal className={`p-5 sm:p-7 md:p-10 rounded-sm shadow-sm ${bfClass("empresa-mision-box")}`} style={{ background: "#04325A" }}>
+            <TextFormatStyle id="empresa-mision-titulo" format={fmt.misionTitulo} sizeCategory="heading-xl" />
             <h3 className="tf-empresa-mision-titulo font-heading text-lg sm:text-xl md:text-2xl font-extrabold uppercase text-white mb-2 sm:mb-3 md:mb-4">{e.misionTitulo || "Misión"}</h3>
-            <TextFormatStyle id="empresa-mision-texto" format={fmt.misionTexto} />
+            <TextFormatStyle id="empresa-mision-texto" format={fmt.misionTexto} sizeCategory="body-base" />
             <p className="tf-empresa-mision-texto font-body font-light text-light leading-normal sm:leading-relaxed text-sm sm:text-base">{e.mision}</p>
           </Reveal>
-          <Reveal delay={100} className="p-5 sm:p-7 md:p-10 rounded-sm shadow-sm" style={{ background: "#191D33" }}>
-            <TextFormatStyle id="empresa-vision-titulo" format={fmt.visionTitulo} />
+          <BoxFormatStyle id="empresa-vision-box" format={fmt.visionBox} />
+          <Reveal delay={100} className={`p-5 sm:p-7 md:p-10 rounded-sm shadow-sm ${bfClass("empresa-vision-box")}`} style={{ background: "#191D33" }}>
+            <TextFormatStyle id="empresa-vision-titulo" format={fmt.visionTitulo} sizeCategory="heading-xl" />
             <h3 className="tf-empresa-vision-titulo font-heading text-lg sm:text-xl md:text-2xl font-extrabold uppercase text-white mb-2 sm:mb-3 md:mb-4">{e.visionTitulo || "Visión"}</h3>
-            <TextFormatStyle id="empresa-vision-texto" format={fmt.visionTexto} />
+            <TextFormatStyle id="empresa-vision-texto" format={fmt.visionTexto} sizeCategory="body-base" />
             <p className="tf-empresa-vision-texto font-body font-light text-light leading-normal sm:leading-relaxed text-sm sm:text-base">{e.vision}</p>
           </Reveal>
         </div>
@@ -70,12 +74,15 @@ export default function EmpresaPage() {
           {e.valores.map((v, i) => {
             const vfmt = v.formats || {};
             return (
-              <Reveal key={v.nombre} delay={i * 80} className="bg-white border border-black/10 p-7 text-center">
-                <TextFormatStyle id={`empresa-valor-${i}-nombre`} format={vfmt.nombre} />
-                <h4 className={`tf-empresa-valor-${i}-nombre font-heading font-bold uppercase tracking-wide text-tertiary mb-2`}>{v.nombre}</h4>
-                <TextFormatStyle id={`empresa-valor-${i}-descripcion`} format={vfmt.descripcion} />
-                <p className={`tf-empresa-valor-${i}-descripcion font-body text-sm text-black/60 leading-relaxed`}>{v.descripcion}</p>
-              </Reveal>
+              <React.Fragment key={v.nombre}>
+                <BoxFormatStyle id={`empresa-valor-${i}-box`} format={vfmt.box} />
+                <Reveal delay={i * 80} className={`bg-white border border-black/10 p-7 text-center ${bfClass(`empresa-valor-${i}-box`)}`}>
+                  <TextFormatStyle id={`empresa-valor-${i}-nombre`} format={vfmt.nombre} sizeCategory="heading-base" />
+                  <h4 className={`tf-empresa-valor-${i}-nombre font-heading font-bold uppercase tracking-wide text-tertiary mb-2`}>{v.nombre}</h4>
+                  <TextFormatStyle id={`empresa-valor-${i}-descripcion`} format={vfmt.descripcion} sizeCategory="body-sm" />
+                  <p className={`tf-empresa-valor-${i}-descripcion font-body text-sm text-black/60 leading-relaxed`}>{v.descripcion}</p>
+                </Reveal>
+              </React.Fragment>
             );
           })}
         </div>

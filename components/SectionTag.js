@@ -5,7 +5,7 @@ export default function SectionTag({ label, title, light = false, id, labelForma
   const titleId = id ? `${id}-titulo` : null;
   return (
     <div className="mb-6">
-      {labelId && <TextFormatStyle id={labelId} format={labelFormat} mode="flex" />}
+      {labelId && <TextFormatStyle id={labelId} format={labelFormat} mode="flex" sizeCategory="heading-sm" />}
       <p
         className={`font-heading text-sm md:text-base font-bold uppercase tracking-[0.25em] mb-4 flex items-center gap-3 ${labelId ? `tf-${labelId}` : ""} ${
           light ? "text-accent" : "text-tertiary"
@@ -16,7 +16,7 @@ export default function SectionTag({ label, title, light = false, id, labelForma
       </p>
       {title && (
         <>
-          {titleId && <TextFormatStyle id={titleId} format={titleFormat} />}
+          {titleId && <TextFormatStyle id={titleId} format={titleFormat} sizeCategory="heading-5xl" />}
           <h2
             className={`font-heading text-4xl md:text-5xl font-extrabold uppercase leading-[0.95] tracking-tight ${titleId ? `tf-${titleId}` : ""} ${
               light ? "text-white" : "text-primary"

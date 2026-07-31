@@ -4,6 +4,7 @@ import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import TextFormatControls from "@/components/admin/TextFormatControls";
+import BoxFormatControls from "@/components/admin/BoxFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminInicioPage() {
@@ -55,10 +56,15 @@ export default function AdminInicioPage() {
         <TextFormatControls label="Formato: texto descriptivo" value={fmt.heroText} onChange={(v) => updateFormat("heroText", v)} />
 
         <TextFormatControls
-          label='Formato: fila de botones ("Solicitar Cotización" / "Conocer nuestros servicios")'
+          label='Formato: botón "Conocer Nuestros Servicios"'
           value={fmt.heroCtas}
           onChange={(v) => updateFormat("heroCtas", v)}
           showFirstLine={false}
+        />
+        <BoxFormatControls
+          label='Tamaño del botón "Conocer Nuestros Servicios"'
+          value={fmt.heroCtaBox}
+          onChange={(v) => updateFormat("heroCtaBox", v)}
         />
 
         <div>

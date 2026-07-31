@@ -45,7 +45,7 @@ export default function InicioPage() {
               titleFormat={fmt.serviciosTitulo}
             />
           </Reveal>
-          <TextFormatStyle id="inicio-servicios-cta" format={fmt.serviciosCta} />
+          <TextFormatStyle id="inicio-servicios-cta" format={fmt.serviciosCta} sizeCategory="heading-xs" />
           <Reveal delay={100} className="tf-inicio-servicios-cta">
             <Link
               href="/servicios"
@@ -79,15 +79,15 @@ export default function InicioPage() {
               light
               labelFormat={fmt.trayectoriaEyebrow}
             />
-            <TextFormatStyle id="inicio-trayectoria-titulo" format={fmt.trayectoriaTitulo} />
+            <TextFormatStyle id="inicio-trayectoria-titulo" format={fmt.trayectoriaTitulo} sizeCategory="heading-4xl" />
             <h2 className="tf-inicio-trayectoria-titulo font-heading text-3xl md:text-4xl font-extrabold uppercase text-white leading-tight mb-5">
               Más de 80 años moviendo la carga de Uruguay y Brasil
             </h2>
-            <TextFormatStyle id="inicio-trayectoria-texto" format={fmt.trayectoriaTexto} />
+            <TextFormatStyle id="inicio-trayectoria-texto" format={fmt.trayectoriaTexto} sizeCategory="body-base" />
             <p className="tf-inicio-trayectoria-texto font-body font-light text-light leading-relaxed mb-8">
               {pages.empresa.historia.texto.split("\n\n")[0]}
             </p>
-            <TextFormatStyle id="inicio-trayectoria-cta" format={fmt.trayectoriaCta} />
+            <TextFormatStyle id="inicio-trayectoria-cta" format={fmt.trayectoriaCta} sizeCategory="heading-xs" />
             <div className="tf-inicio-trayectoria-cta">
               <Link
                 href="/empresa"

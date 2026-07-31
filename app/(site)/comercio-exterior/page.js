@@ -2,6 +2,7 @@ import { getContent } from "@/lib/db";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
+import BoxFormatStyle, { bfClass } from "@/components/BoxFormatStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -29,12 +30,12 @@ export default function ComercioExteriorPage() {
         <div>
           <Reveal>
             <SectionTag id="comercio-hero" label={c.eyebrow || "Comercio Exterior"} title={c.titulo} labelFormat={fmt.eyebrow} titleFormat={fmt.titulo} />
-            <TextFormatStyle id="comercio-intro" format={fmt.intro} />
+            <TextFormatStyle id="comercio-intro" format={fmt.intro} sizeCategory="body-lg" />
             <p className="tf-comercio-intro font-body text-black/65 leading-relaxed text-lg mb-8">{c.intro}</p>
           </Reveal>
 
           <Reveal delay={80} className="border-l-4 border-tertiary bg-white/60 p-5 mb-10">
-            <TextFormatStyle id="comercio-aviso" format={fmt.aviso} />
+            <TextFormatStyle id="comercio-aviso" format={fmt.aviso} sizeCategory="body-sm" />
             <p className="tf-comercio-aviso font-body text-primary/85 text-sm leading-relaxed">
               <span className="font-heading font-bold uppercase text-xs tracking-wide text-tertiary block mb-1">Importante</span>
               {c.aviso}
@@ -54,9 +55,9 @@ export default function ComercioExteriorPage() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
-                    <TextFormatStyle id={`comercio-bloque-${i}-titulo`} format={bfmt.titulo} />
+                    <TextFormatStyle id={`comercio-bloque-${i}-titulo`} format={bfmt.titulo} sizeCategory="heading-base" />
                     <h3 className={`tf-comercio-bloque-${i}-titulo font-heading text-base font-bold uppercase tracking-wide text-primary mb-1.5`}>{b.titulo}</h3>
-                    <TextFormatStyle id={`comercio-bloque-${i}-texto`} format={bfmt.texto} />
+                    <TextFormatStyle id={`comercio-bloque-${i}-texto`} format={bfmt.texto} sizeCategory="body-sm" />
                     <p className={`tf-comercio-bloque-${i}-texto font-body text-sm text-black/60 leading-relaxed`}>{b.texto}</p>
                   </div>
                 </Reveal>
@@ -74,9 +75,10 @@ export default function ComercioExteriorPage() {
             {/* Floating info cards, overlapping the top of the photo */}
             <div className="absolute top-5 left-5 right-5 sm:right-auto sm:w-[72%] flex flex-col gap-2.5 sm:gap-3">
               {tarjetas.slice(0, 3).map((t, i) => (
+                <div key={t.titulo}>
+                <BoxFormatStyle id={`comercio-tarjeta-${i}-box`} format={t.formats?.box} />
                 <div
-                  key={t.titulo}
-                  className="bg-white/95 backdrop-blur-sm rounded-sm px-4 py-3 shadow-lg flex items-start gap-3"
+                  className={`bg-white/95 backdrop-blur-sm rounded-sm px-4 py-3 shadow-lg flex items-start gap-3 ${bfClass(`comercio-tarjeta-${i}-box`)}`}
                 >
                   <span className="font-heading text-lg font-extrabold text-accent leading-none shrink-0 mt-0.5">
                     {String(i + 1).padStart(2, "0")}
@@ -86,19 +88,21 @@ export default function ComercioExteriorPage() {
                     <p className="font-body text-xs text-primary/60 leading-snug mt-1 line-clamp-2">{t.texto}</p>
                   </div>
                 </div>
+                </div>
               ))}
             </div>
 
             {/* CTA integrated as a card overlapping the bottom of the photo, not an isolated box */}
             <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-              <div className="bg-primary/95 backdrop-blur-sm rounded-sm p-6">
-                <TextFormatStyle id="comercio-cta-titulo" format={fmt.ctaTitulo} />
+              <BoxFormatStyle id="comercio-cta-box" format={fmt.ctaBox} />
+              <div className={`bg-primary/95 backdrop-blur-sm rounded-sm p-6 ${bfClass("comercio-cta-box")}`}>
+                <TextFormatStyle id="comercio-cta-titulo" format={fmt.ctaTitulo} sizeCategory="heading-xl" />
                 <h3 className="tf-comercio-cta-titulo font-heading text-lg sm:text-xl font-extrabold uppercase text-white mb-2">¿Necesitás coordinar una operación?</h3>
-                <TextFormatStyle id="comercio-cta-texto" format={fmt.ctaTexto} />
+                <TextFormatStyle id="comercio-cta-texto" format={fmt.ctaTexto} sizeCategory="body-sm" />
                 <p className="tf-comercio-cta-texto font-body font-light text-light text-sm leading-relaxed mb-4">
                   Contactanos y te ayudamos a coordinar tu importación o exportación de principio a fin.
                 </p>
-                <TextFormatStyle id="comercio-cta-boton" format={fmt.ctaBoton} />
+                <TextFormatStyle id="comercio-cta-boton" format={fmt.ctaBoton} sizeCategory="btn" />
                 <div className="tf-comercio-cta-boton">
                   <a
                     href="/contacto"

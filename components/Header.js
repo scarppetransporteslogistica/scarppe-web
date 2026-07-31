@@ -2,8 +2,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import SearchModal from "./SearchModal";
+import TextFormatStyle from "./TextFormatStyle";
+import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
 
-export default function Header({ menu, logo, siteName, servicios }) {
+export default function Header({ menu, logo, siteName, servicios, headerCta, headerCtaBox }) {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -20,18 +22,22 @@ export default function Header({ menu, logo, siteName, servicios }) {
           </Link>
 
           <nav className="hidden desktop:flex items-center gap-1 shrink-0">
-            {menu.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 hover:text-white hover:bg-white/[0.08] transition-colors px-2.5 py-2 rounded-sm whitespace-nowrap"
-              >
-                {item.label}
-              </Link>
+            {menu.map((item, i) => (
+              <span key={item.href}>
+                <TextFormatStyle id={`menu-item-${i}`} format={item.formats} sizeCategory="label-xxs" />
+                <Link
+                  href={item.href}
+                  className={`tf-menu-item-${i} font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 hover:text-white hover:bg-white/[0.08] transition-colors px-2.5 py-2 rounded-sm whitespace-nowrap`}
+                >
+                  {item.label}
+                </Link>
+              </span>
             ))}
+            <TextFormatStyle id="menu-cta" format={headerCta} sizeCategory="label-xxs" />
+            <BoxFormatStyle id="menu-cta" format={headerCtaBox} />
             <Link
               href="/contacto"
-              className="font-heading text-[11px] font-bold uppercase tracking-[0.1em] text-primary bg-accent hover:brightness-90 transition-all px-3.5 py-2 rounded-sm whitespace-nowrap ml-2"
+              className={`tf-menu-cta ${bfClass("menu-cta")} font-heading text-[11px] font-bold uppercase tracking-[0.1em] text-primary bg-accent hover:brightness-90 transition-all px-3.5 py-2 rounded-sm whitespace-nowrap ml-2`}
             >
               Solicitar Cotización
             </Link>
@@ -62,12 +68,12 @@ export default function Header({ menu, logo, siteName, servicios }) {
 
         {open && (
           <nav className="desktop:hidden border-t border-white/10 px-4 sm:px-6 py-4 flex flex-col gap-1">
-            {menu.map((item) => (
+            {menu.map((item, i) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="font-heading text-sm font-semibold uppercase tracking-wide text-white/80 py-2"
+                className={`tf-menu-item-${i} font-heading text-sm font-semibold uppercase tracking-wide text-white/80 py-2`}
               >
                 {item.label}
               </Link>
@@ -75,7 +81,7 @@ export default function Header({ menu, logo, siteName, servicios }) {
             <Link
               href="/contacto"
               onClick={() => setOpen(false)}
-              className="btn-cta inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.15em] px-5 py-3.5 mt-2"
+              className={`tf-menu-cta ${bfClass("menu-cta")} btn-cta inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.15em] px-5 py-3.5 mt-2`}
             >
               Solicitar Cotización
             </Link>

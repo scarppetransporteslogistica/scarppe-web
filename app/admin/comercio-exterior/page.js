@@ -3,6 +3,7 @@ import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import TextFormatControls from "@/components/admin/TextFormatControls";
+import BoxFormatControls from "@/components/admin/BoxFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminComercioExteriorPage() {
@@ -42,6 +43,9 @@ export default function AdminComercioExteriorPage() {
   function removeTarjeta(i) {
     update({ tarjetas: tarjetas.filter((_, idx) => idx !== i) });
   }
+  function updateTarjetaBox(i, value) {
+    updateTarjeta(i, { formats: { ...(tarjetas[i].formats || {}), box: value } });
+  }
 
   return (
     <div>
@@ -68,6 +72,7 @@ export default function AdminComercioExteriorPage() {
           <div key={i} className="border border-black/10 rounded-xl p-4 space-y-3">
             <AdminField label="Título" value={t.titulo} onChange={(v) => updateTarjeta(i, { titulo: v })} />
             <AdminField label="Texto corto" value={t.texto} onChange={(v) => updateTarjeta(i, { texto: v })} />
+            <BoxFormatControls label="Tamaño de la tarjeta" value={t.formats?.box} onChange={(v) => updateTarjetaBox(i, v)} />
             <button onClick={() => removeTarjeta(i)} className="text-xs font-body text-red-600 hover:underline">Eliminar tarjeta</button>
           </div>
         ))}
@@ -96,6 +101,7 @@ export default function AdminComercioExteriorPage() {
         <TextFormatControls label="Formato: título del cuadro" value={fmt.ctaTitulo} onChange={(v) => updateFormat("ctaTitulo", v)} />
         <TextFormatControls label="Formato: párrafo del cuadro" value={fmt.ctaTexto} onChange={(v) => updateFormat("ctaTexto", v)} />
         <TextFormatControls label='Formato: botón "Solicitar Cotización"' value={fmt.ctaBoton} onChange={(v) => updateFormat("ctaBoton", v)} showFirstLine={false} />
+        <BoxFormatControls label="Tamaño del cuadro de cotización" value={fmt.ctaBox} onChange={(v) => updateFormat("ctaBox", v)} />
       </div>
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>

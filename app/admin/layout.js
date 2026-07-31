@@ -5,6 +5,7 @@ import { AdminProvider } from "@/lib/AdminContext";
 
 const NAV = [
   { href: "/admin", label: "Panel" },
+  { href: "/admin/preview", label: "Vista previa responsive" },
   { href: "/admin/general", label: "General (logo, colores, tipografías)" },
   { href: "/admin/menu", label: "Menú" },
   { href: "/admin/inicio", label: "Inicio (banners)" },

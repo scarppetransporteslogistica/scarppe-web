@@ -4,6 +4,7 @@ import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import TextFormatControls from "@/components/admin/TextFormatControls";
+import BoxFormatControls from "@/components/admin/BoxFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 function slugify(str) {
@@ -122,6 +123,7 @@ export default function AdminServiciosPage() {
               <AdminTextarea label="Texto completo (página propia)" rows={5} value={s.texto} onChange={(v) => updateServicio(i, { texto: v })} />
               <TextFormatControls label="Formato: texto completo" value={sfmt.texto} onChange={(v) => updateServicioFormat(i, "texto", v)} />
               <TextFormatControls label='Formato: "Ver más" (tarjeta)' value={sfmt.cta} onChange={(v) => updateServicioFormat(i, "cta", v)} showFirstLine={false} />
+              <BoxFormatControls label="Tamaño de la tarjeta" value={sfmt.box} onChange={(v) => updateServicioFormat(i, "box", v)} />
               <AdminGalleryManager
                 label="Imágenes (rotan en la tarjeta y en la página del servicio)"
                 value={s.imagenes || (s.imagen ? [s.imagen] : [])}

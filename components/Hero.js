@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import TextFormatStyle from "./TextFormatStyle";
+import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
 
 export default function Hero({ images, video, title, subtitle, text, textScale, formats = {} }) {
   const [idx, setIdx] = useState(0);
@@ -63,19 +64,20 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
             <span className="w-5 sm:w-6 h-0.5 bg-accent inline-block" />
             Transporte y Logística
           </p>
-          <TextFormatStyle id="inicio-hero-titulo" format={formats.heroTitle} />
+          <TextFormatStyle id="inicio-hero-titulo" format={formats.heroTitle} sizeCategory="hero-title" />
           <h1 className="hero-title tf-inicio-hero-titulo font-heading font-extrabold uppercase text-white leading-[0.98] sm:leading-[0.95] tracking-tight text-left">
             {title}
           </h1>
-          <TextFormatStyle id="inicio-hero-subtitulo" format={formats.heroSubtitle} />
+          <TextFormatStyle id="inicio-hero-subtitulo" format={formats.heroSubtitle} sizeCategory="hero-subtitle" />
           <p className="hero-subtitle tf-inicio-hero-subtitulo font-heading font-semibold text-white/95 mt-4 sm:mt-5 text-left">{subtitle}</p>
-          <TextFormatStyle id="inicio-hero-texto" format={formats.heroText} />
+          <TextFormatStyle id="inicio-hero-texto" format={formats.heroText} sizeCategory="hero-text" />
           <p className="hero-text tf-inicio-hero-texto font-body font-light text-light mt-4 sm:mt-6 leading-relaxed text-left">{text}</p>
-          <TextFormatStyle id="inicio-hero-ctas" format={formats.heroCtas} mode="flex" />
+          <TextFormatStyle id="inicio-hero-ctas" format={formats.heroCtas} mode="flex" sizeCategory="btn" />
+          <BoxFormatStyle id="inicio-hero-cta-box" format={formats.heroCtaBox} />
           <div className="tf-inicio-hero-ctas flex mt-8 sm:mt-10">
             <a
               href="#servicios"
-              className="btn-cta inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:brightness-95 transition-all w-full sm:w-auto"
+              className={`btn-cta ${bfClass("inicio-hero-cta-box")} inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:brightness-95 transition-all w-full sm:w-auto`}
             >
               Conocer Nuestros Servicios
             </a>

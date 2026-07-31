@@ -16,7 +16,7 @@ function ServiceGroup({ title, titleId, titleFormat, items }) {
   return (
     <div className="mb-8 sm:mb-10 md:mb-16 last:mb-0 border border-black/10 border-t-4 border-t-tertiary rounded-sm p-4 sm:p-5 md:p-10">
       <Reveal className="mb-5 sm:mb-6 md:mb-10">
-        <TextFormatStyle id={titleId} format={titleFormat} />
+        <TextFormatStyle id={titleId} format={titleFormat} sizeCategory="heading-3xl" />
         <h2 className={`tf-${titleId} font-heading text-xl sm:text-2xl md:text-3xl font-extrabold uppercase text-primary tracking-tight`}>{title}</h2>
       </Reveal>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">

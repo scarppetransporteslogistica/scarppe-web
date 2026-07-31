@@ -21,7 +21,7 @@ export default function TrabajaConNosotrosPage() {
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-16 items-start">
         <Reveal>
           <SectionTag id="tcn-hero" label={t.eyebrow || "Trabaja con Nosotros"} title={t.titulo} labelFormat={fmt.eyebrow} titleFormat={fmt.titulo} />
-          <TextFormatStyle id="tcn-texto" format={fmt.texto} />
+          <TextFormatStyle id="tcn-texto" format={fmt.texto} sizeCategory="body-lg" />
           <p className="tf-tcn-texto font-body text-black/65 leading-relaxed text-lg">{t.texto}</p>
         </Reveal>
         <Reveal delay={100} className="bg-white border border-black/10 p-8">

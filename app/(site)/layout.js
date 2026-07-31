@@ -10,7 +10,14 @@ export default function SiteLayout({ children }) {
 
   return (
     <>
-      <Header menu={menu} logo={settings.logo} siteName={settings.siteName} servicios={servicios} />
+      <Header
+        menu={menu}
+        logo={settings.logo}
+        siteName={settings.siteName}
+        servicios={servicios}
+        headerCta={settings.headerCta}
+        headerCtaBox={settings.headerCtaBox}
+      />
       <main>{children}</main>
       <Footer menu={menu} siteName={settings.siteName} logo={settings.logo} />
     </>

@@ -40,7 +40,7 @@ export default function ServicioPage({ params }) {
           </Link>
           <div className="flex items-center gap-5 mt-6">
             <ServiceIcon slug={servicio.slug} className="w-12 h-12 text-accent shrink-0" />
-            <TextFormatStyle id={`servicio-${servicio.slug}-nombre`} format={sfmt.nombre} />
+            <TextFormatStyle id={`servicio-${servicio.slug}-nombre`} format={sfmt.nombre} sizeCategory="heading-5xl" />
             <h1 className={`tf-servicio-${servicio.slug}-nombre font-heading text-3xl md:text-5xl font-extrabold uppercase text-white`}>{servicio.nombre}</h1>
           </div>
         </div>
@@ -49,9 +49,9 @@ export default function ServicioPage({ params }) {
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 md:py-20 grid md:grid-cols-3 gap-8 sm:gap-10 md:gap-14">
         <Reveal className="md:col-span-2">
           <ServicioGallery images={servicio.imagenes || (servicio.imagen ? [servicio.imagen] : [])} />
-          <TextFormatStyle id={`servicio-${servicio.slug}-texto`} format={sfmt.texto} />
+          <TextFormatStyle id={`servicio-${servicio.slug}-texto`} format={sfmt.texto} sizeCategory="body-lg" />
           <p className={`tf-servicio-${servicio.slug}-texto font-body text-black/70 leading-relaxed whitespace-pre-line text-lg mt-8`}>{servicio.texto}</p>
-          <TextFormatStyle id="servicios-detalle-cta" format={pfmt.detailCta} />
+          <TextFormatStyle id="servicios-detalle-cta" format={pfmt.detailCta} sizeCategory="btn" />
           <div className={`tf-servicios-detalle-cta mt-8`}>
             <Link
               href="/contacto"
@@ -63,7 +63,7 @@ export default function ServicioPage({ params }) {
         </Reveal>
         <Reveal delay={120}>
           <div className="border border-black/10 p-6">
-            <TextFormatStyle id="servicios-otros-titulo" format={pfmt.otrosTitulo} />
+            <TextFormatStyle id="servicios-otros-titulo" format={pfmt.otrosTitulo} sizeCategory="heading-xs" />
             <h3 className="tf-servicios-otros-titulo font-heading text-xs font-bold uppercase tracking-[0.2em] text-tertiary mb-5">Otros servicios</h3>
             <div className="space-y-1">
               {otros.map((s) => (

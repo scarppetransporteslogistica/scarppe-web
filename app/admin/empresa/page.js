@@ -3,6 +3,7 @@ import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import TextFormatControls from "@/components/admin/TextFormatControls";
+import BoxFormatControls from "@/components/admin/BoxFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminEmpresaPage() {
@@ -76,8 +77,10 @@ export default function AdminEmpresaPage() {
         </div>
         <AdminTextarea label="Misión" rows={4} value={e.mision} onChange={(v) => updateEmpresa({ mision: v })} />
         <TextFormatControls label="Formato: texto de Misión" value={fmt.misionTexto} onChange={(v) => updateFormat("misionTexto", v)} />
+        <BoxFormatControls label="Tamaño del cuadro de Misión" value={fmt.misionBox} onChange={(v) => updateFormat("misionBox", v)} />
         <AdminTextarea label="Visión" rows={4} value={e.vision} onChange={(v) => updateEmpresa({ vision: v })} />
         <TextFormatControls label="Formato: texto de Visión" value={fmt.visionTexto} onChange={(v) => updateFormat("visionTexto", v)} />
+        <BoxFormatControls label="Tamaño del cuadro de Visión" value={fmt.visionBox} onChange={(v) => updateFormat("visionBox", v)} />
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4">
@@ -95,6 +98,7 @@ export default function AdminEmpresaPage() {
               <div className="space-y-2">
                 <AdminTextarea label="Descripción" rows={2} value={v.descripcion} onChange={(val) => updateValor(i, { descripcion: val })} />
                 <TextFormatControls label="Formato: descripción" value={vfmt.descripcion} onChange={(val) => updateValorFormat(i, "descripcion", val)} />
+                <BoxFormatControls label="Tamaño de la tarjeta" value={vfmt.box} onChange={(val) => updateValorFormat(i, "box", val)} />
                 <button onClick={() => removeValor(i)} className="text-xs font-body text-red-600 hover:underline mt-2">Eliminar valor</button>
               </div>
             </div>
