@@ -31,7 +31,7 @@ export default function InicioPage() {
         textScale={inicio.heroTextScale}
         formats={fmt}
       />
-      <TrustStrip items={inicio.badges || []} />
+      <TrustStrip items={inicio.badges || []} formats={inicio.badgeFormats || []} />
       <StatsBar stats={inicio.stats} valueScale={inicio.statsValueScale} />
 
       <section id="servicios" className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24 scroll-mt-16 sm:scroll-mt-20 desktop:scroll-mt-24">

@@ -17,6 +17,8 @@ export default function SiteLayout({ children }) {
         servicios={servicios}
         headerCta={settings.headerCta}
         headerCtaBox={settings.headerCtaBox}
+        menuGapDesktop={settings.menuGapDesktop}
+        menuGapMobile={settings.menuGapMobile}
       />
       <main>{children}</main>
       <Footer menu={menu} siteName={settings.siteName} logo={settings.logo} />

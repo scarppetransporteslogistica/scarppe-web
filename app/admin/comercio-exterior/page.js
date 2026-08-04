@@ -32,20 +32,6 @@ export default function AdminComercioExteriorPage() {
   function removeBloque(i) {
     update({ bloques: c.bloques.filter((_, idx) => idx !== i) });
   }
-  const tarjetas = c.tarjetas || [];
-  function updateTarjeta(i, patch) {
-    const next = tarjetas.map((t, idx) => (idx === i ? { ...t, ...patch } : t));
-    update({ tarjetas: next });
-  }
-  function addTarjeta() {
-    update({ tarjetas: [...tarjetas, { titulo: "", texto: "" }] });
-  }
-  function removeTarjeta(i) {
-    update({ tarjetas: tarjetas.filter((_, idx) => idx !== i) });
-  }
-  function updateTarjetaBox(i, value) {
-    updateTarjeta(i, { formats: { ...(tarjetas[i].formats || {}), box: value } });
-  }
 
   return (
     <div>
@@ -66,20 +52,6 @@ export default function AdminComercioExteriorPage() {
         />
       </div>
 
-      <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
-        <p className="font-body text-sm font-semibold text-primary">Tarjetas flotantes sobre la fotografía (indicadores cortos, no descripciones largas)</p>
-        {tarjetas.map((t, i) => (
-          <div key={i} className="border border-black/10 rounded-xl p-4 space-y-3">
-            <AdminField label="Título" value={t.titulo} onChange={(v) => updateTarjeta(i, { titulo: v })} />
-            <AdminField label="Texto corto" value={t.texto} onChange={(v) => updateTarjeta(i, { texto: v })} />
-            <BoxFormatControls label="Tamaño de la tarjeta" value={t.formats?.box} onChange={(v) => updateTarjetaBox(i, v)} />
-            <button onClick={() => removeTarjeta(i)} className="text-xs font-body text-red-600 hover:underline">Eliminar tarjeta</button>
-          </div>
-        ))}
-        {tarjetas.length < 3 && (
-          <button onClick={addTarjeta} className="text-sm font-body text-tertiary hover:underline">+ Agregar tarjeta</button>
-        )}
-      </div>
       <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
         <p className="font-body text-sm font-semibold text-primary">Bloques (Coordinación, Depósitos Fiscales, Asesoramiento)</p>
         {c.bloques.map((b, i) => {

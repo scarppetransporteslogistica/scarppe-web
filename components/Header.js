@@ -5,7 +5,7 @@ import SearchModal from "./SearchModal";
 import TextFormatStyle from "./TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
 
-export default function Header({ menu, logo, siteName, servicios, headerCta, headerCtaBox }) {
+export default function Header({ menu, logo, siteName, servicios, headerCta, headerCtaBox, menuGapDesktop, menuGapMobile }) {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -21,7 +21,7 @@ export default function Header({ menu, logo, siteName, servicios, headerCta, hea
             )}
           </Link>
 
-          <nav className="hidden desktop:flex items-center gap-1 shrink-0">
+          <nav className="hidden desktop:flex items-center gap-1 shrink-0" style={menuGapDesktop ? { gap: `${menuGapDesktop}px` } : undefined}>
             {menu.map((item, i) => (
               <span key={item.href}>
                 <TextFormatStyle id={`menu-item-${i}`} format={item.formats} sizeCategory="label-xxs" />
@@ -67,7 +67,7 @@ export default function Header({ menu, logo, siteName, servicios, headerCta, hea
         </div>
 
         {open && (
-          <nav className="desktop:hidden border-t border-white/10 px-4 sm:px-6 py-4 flex flex-col gap-1">
+          <nav className="desktop:hidden border-t border-white/10 px-4 sm:px-6 py-4 flex flex-col gap-1" style={menuGapMobile ? { gap: `${menuGapMobile}px` } : undefined}>
             {menu.map((item, i) => (
               <Link
                 key={item.href}

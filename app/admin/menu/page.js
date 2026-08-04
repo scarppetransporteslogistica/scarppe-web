@@ -66,6 +66,39 @@ export default function AdminMenuPage() {
         <BoxFormatControls label="Tamaño del botón" value={settings.headerCtaBox} onChange={(v) => updateSettings({ headerCtaBox: v })} />
       </div>
 
+      <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+        <p className="font-body text-sm font-semibold text-primary">Separación entre los ítems del menú</p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Escritorio (separación horizontal, px)</label>
+            <input
+              type="number"
+              min="0"
+              max="80"
+              step="1"
+              value={settings.menuGapDesktop || ""}
+              onChange={(e) => updateSettings({ menuGapDesktop: e.target.value })}
+              placeholder="Por defecto"
+              className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-primary text-sm focus:outline-none focus:ring-2 focus:ring-tertiary/40"
+            />
+          </div>
+          <div>
+            <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Menú desplegable móvil/tablet (separación vertical, px)</label>
+            <input
+              type="number"
+              min="0"
+              max="60"
+              step="1"
+              value={settings.menuGapMobile || ""}
+              onChange={(e) => updateSettings({ menuGapMobile: e.target.value })}
+              placeholder="Por defecto"
+              className="w-full rounded-lg border border-black/10 px-4 py-2.5 font-body text-primary text-sm focus:outline-none focus:ring-2 focus:ring-tertiary/40"
+            />
+          </div>
+        </div>
+        <p className="font-body text-xs text-primary/50">Dejalo vacío para usar la separación por defecto. Para agrandar o achicar el texto de cada ítem, o el espacio entre las letras dentro de una palabra, usá el "Formato de este ítem del menú" de cada ítem arriba.</p>
+      </div>
+
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>
   );
