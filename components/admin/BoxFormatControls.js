@@ -92,7 +92,7 @@ export default function BoxFormatControls({ label = "Tamaño del cuadro", value,
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
+      <div className="grid grid-cols-2 gap-2 mb-2">
         <NumField label="Ancho (%)" value={current.width} onChange={(v) => patch({ width: v })} placeholder="auto" />
         <NumField label="Ancho máx. (%)" value={current.maxWidth} onChange={(v) => patch({ maxWidth: v })} placeholder="100" />
         <NumField label="Alto (px)" value={current.height} onChange={(v) => patch({ height: v })} placeholder="auto" />
@@ -100,7 +100,7 @@ export default function BoxFormatControls({ label = "Tamaño del cuadro", value,
       </div>
 
       <p className="font-body text-[10.5px] text-primary/45 mb-1">Padding interno (px)</p>
-      <div className="grid grid-cols-4 gap-2 mb-2">
+      <div className="grid grid-cols-2 gap-2 mb-2">
         <NumField label="Arriba" value={current.paddingTop} onChange={(v) => patch({ paddingTop: v })} />
         <NumField label="Abajo" value={current.paddingBottom} onChange={(v) => patch({ paddingBottom: v })} />
         <NumField label="Izq." value={current.paddingLeft} onChange={(v) => patch({ paddingLeft: v })} />
@@ -108,14 +108,14 @@ export default function BoxFormatControls({ label = "Tamaño del cuadro", value,
       </div>
 
       <p className="font-body text-[10.5px] text-primary/45 mb-1">Margen externo (px)</p>
-      <div className="grid grid-cols-4 gap-2 mb-2">
+      <div className="grid grid-cols-2 gap-2 mb-2">
         <NumField label="Arriba" value={current.marginTop} onChange={(v) => patch({ marginTop: v })} />
         <NumField label="Abajo" value={current.marginBottom} onChange={(v) => patch({ marginBottom: v })} />
         <NumField label="Izq." value={current.marginLeft} onChange={(v) => patch({ marginLeft: v })} />
         <NumField label="Der." value={current.marginRight} onChange={(v) => patch({ marginRight: v })} />
       </div>
 
-      <div className="grid grid-cols-3 gap-2 mb-1">
+      <div className="grid grid-cols-2 gap-2 mb-1">
         <NumField label="Radio de borde (px)" value={current.borderRadius} onChange={(v) => patch({ borderRadius: v })} />
         <NumField label="Tamaño texto interno (%)" value={current.fontSizePercent} onChange={(v) => patch({ fontSizePercent: v })} step={5} placeholder="100" />
         <div>

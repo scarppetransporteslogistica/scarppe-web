@@ -112,7 +112,7 @@ export default function TextFormatControls({ label = "Formato del texto", value,
         ))}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
+      <div className="grid grid-cols-2 gap-2 mb-2">
         <NumField label="Tamaño (%)" value={current.fontSizePercent} onChange={(v) => patch({ fontSizePercent: v })} step={5} placeholder="100" />
         <div>
           <label className="font-body text-[10.5px] text-primary/55 block mb-1">Peso</label>
@@ -130,7 +130,7 @@ export default function TextFormatControls({ label = "Formato del texto", value,
         <NumField label="Espaciado letras (px)" value={current.letterSpacing} onChange={(v) => patch({ letterSpacing: v })} step={0.5} placeholder="0" />
       </div>
 
-      <div className={`grid gap-2 mb-2 ${showFirstLine ? "grid-cols-3" : "grid-cols-2"}`}>
+      <div className="grid grid-cols-2 gap-2 mb-2">
         <div>
           <label className="font-body text-[10.5px] text-primary/55 block mb-1">Sangría izq. (px)</label>
           <div className="flex items-center gap-1">
@@ -161,7 +161,7 @@ export default function TextFormatControls({ label = "Formato del texto", value,
         {showFirstLine && <NumField label="1ª línea (px)" value={current.firstLine} onChange={(v) => patch({ firstLine: v })} />}
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <NumField label="Ancho máx. (%)" value={current.maxWidth} onChange={(v) => patch({ maxWidth: v })} step={1} placeholder="100" />
         <NumField label="Margen sup. (px)" value={current.marginTop} onChange={(v) => patch({ marginTop: v })} />
         <NumField label="Margen inf. (px)" value={current.marginBottom} onChange={(v) => patch({ marginBottom: v })} />
