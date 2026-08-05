@@ -112,6 +112,13 @@ body {
 .font-heading.text-6xl  { font-size: calc(clamp(2.5rem,   2.06rem + 1.878vw, 3.75rem)   * var(--heading-scale, 1)) !important; }
 .font-heading.text-\[10px\] { font-size: calc(10px * var(--heading-scale, 1)) !important; }
 .font-heading.text-\[11px\] { font-size: calc(11px * var(--heading-scale, 1)) !important; }
+.font-heading.text-\[36px\] { font-size: calc(36px * var(--heading-scale, 1)) !important; }
+@media (min-width: 640px) {
+  .font-heading.sm\:text-\[52px\] { font-size: calc(52px * var(--heading-scale, 1)) !important; }
+}
+@media (min-width: 768px) {
+  .font-heading.md\:text-\[80px\] { font-size: calc(80px * var(--heading-scale, 1)) !important; }
+}
 
 @media (min-width: 768px) {
   .font-heading.md\:text-2xl { font-size: calc(clamp(1.375rem, 1.232rem + 0.298vw, 1.5rem)  * var(--heading-scale, 1)) !important; }
@@ -179,12 +186,12 @@ body {
 /* ---- Hero banner text scale, fluid across the full viewport range, percentage-editable (Admin > Inicio) ---- */
 /* Lower floor than before (30px vs 34px) so the title reliably wraps into
    fewer lines on real phones and the banner takes up less vertical space. */
-.hero-title { font-size: calc(clamp(1.875rem, 1.215rem + 2.817vw, 3.75rem) * var(--hero-text-scale, 1)) !important; }
-.hero-subtitle { font-size: calc(clamp(1.0625rem, 0.909rem + 0.657vw, 1.5rem) * var(--hero-text-scale, 1)) !important; }
-.hero-text { font-size: calc(clamp(1rem, 0.978rem + 0.094vw, 1.0625rem) * var(--hero-text-scale, 1)) !important; }
+.hero-title { font-size: calc(clamp(1.875rem, 1.215rem + 2.817vw, 3.75rem) * var(--hero-text-scale, 1) * var(--heading-scale, 1)) !important; }
+.hero-subtitle { font-size: calc(clamp(1.0625rem, 0.909rem + 0.657vw, 1.5rem) * var(--hero-text-scale, 1) * var(--heading-scale, 1)) !important; }
+.hero-text { font-size: calc(clamp(1rem, 0.978rem + 0.094vw, 1.0625rem) * var(--hero-text-scale, 1) * var(--body-scale, 1)) !important; }
 
 /* ---- Stats bar value scale, fluid, percentage-editable (Admin > Inicio) ---- */
-.stats-value { font-size: calc(clamp(3rem, 2.736rem + 1.127vw, 3.75rem) * var(--stats-value-scale, 1)) !important; }
+.stats-value { font-size: calc(clamp(3rem, 2.736rem + 1.127vw, 3.75rem) * var(--stats-value-scale, 1) * var(--heading-scale, 1)) !important; }
 
 /* ---- Paragraph / heading line-height ("interlineado"), percentage-based ---- */
 .font-body { line-height: calc(1.5 * var(--body-line-height, 1)); }
