@@ -24,16 +24,19 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
         {video ? (
           <video className="w-full h-full object-cover object-center" src={video} autoPlay muted loop playsInline />
         ) : (
-          list.map((src, i) => (
-            <img
-              key={src + i}
-              src={src}
-              alt=""
-              className={`absolute inset-0 w-full h-full object-cover object-[70%_center] tablet:object-[58%_center] desktop:object-center transition-opacity duration-[2000ms] ease-in-out ${
-                i === idx ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          ))
+          <>
+            <BoxFormatStyle id="inicio-hero-imagen" format={formats.heroImagenFoco} />
+            {list.map((src, i) => (
+              <img
+                key={src + i}
+                src={src}
+                alt=""
+                className={`absolute inset-0 w-full h-full object-cover object-[70%_center] tablet:object-[58%_center] desktop:object-center ${bfClass("inicio-hero-imagen")} transition-opacity duration-[2000ms] ease-in-out ${
+                  i === idx ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            ))}
+          </>
         )}
 
         {/* Mobile: text spans nearly the full width, so a stronger, more uniform scrim keeps contrast high without flattening the photo */}

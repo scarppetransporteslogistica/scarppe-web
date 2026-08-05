@@ -1,12 +1,30 @@
 "use client";
 import { useState } from "react";
-import { ALIGN_OPTIONS, WEIGHT_OPTIONS } from "@/lib/textFormat";
+import { ALIGN_OPTIONS, WEIGHT_OPTIONS, hasOverride } from "@/lib/textFormat";
 
-const DEVICES = [
+// Primary device buttons; tablet/mobile additionally have a portrait/landscape
+// orientation toggle, since tablet horizontal needs its own composition and
+// must never silently reuse the desktop or tablet-vertical one.
+const PRIMARY_DEVICES = [
   ["desktop", "Escritorio"],
   ["tablet", "Tablet"],
   ["mobile", "Celular"],
+  ["wide", "Pantalla grande"],
 ];
+
+function effectiveKey(primary, orientation) {
+  if (primary === "tablet") return orientation === "landscape" ? "tabletLandscape" : "tabletPortrait";
+  if (primary === "mobile") return orientation === "landscape" ? "mobileLandscape" : "mobilePortrait";
+  return primary; // "desktop" | "wide"
+}
+
+function primaryHasOverride(fmt, primary) {
+  if (primary === "desktop") return hasOverride(fmt, "desktop");
+  if (primary === "wide") return hasOverride(fmt, "wide");
+  if (primary === "tablet") return hasOverride(fmt, "tabletPortrait") || hasOverride(fmt, "tabletLandscape");
+  if (primary === "mobile") return hasOverride(fmt, "mobilePortrait") || hasOverride(fmt, "mobileLandscape");
+  return false;
+}
 
 function NumField({ label, value, onChange, step = 1, placeholder = "" }) {
   return (
@@ -29,8 +47,10 @@ function NumField({ label, value, onChange, step = 1, placeholder = "" }) {
 // receives the updated object. Nothing set = no visual change on the site.
 export default function TextFormatControls({ label = "Formato del texto", value, onChange, showFirstLine = true }) {
   const fmt = value || {};
-  const [device, setDevice] = useState("desktop");
-  const current = device === "desktop" ? fmt : fmt[device] || {};
+  const [primary, setPrimary] = useState("desktop");
+  const [orientation, setOrientation] = useState("portrait");
+  const device = effectiveKey(primary, orientation);
+  const current = device === "desktop" ? fmt : fmt[device] || (device === "tabletPortrait" && fmt.tablet) || (device === "mobilePortrait" && fmt.mobile) || {};
 
   function patch(p) {
     if (device === "desktop") {
@@ -42,24 +62,23 @@ export default function TextFormatControls({ label = "Formato del texto", value,
 
   function resetDevice() {
     if (device === "desktop") {
-      onChange({ tablet: fmt.tablet, mobile: fmt.mobile });
+      const { tabletPortrait, tabletLandscape, mobilePortrait, mobileLandscape, wide, tablet, mobile, ...rest } = fmt;
+      onChange({ tabletPortrait, tabletLandscape, mobilePortrait, mobileLandscape, wide, tablet, mobile });
     } else {
       const next = { ...fmt };
       delete next[device];
+      if (device === "tabletPortrait") delete next.tablet;
+      if (device === "mobilePortrait") delete next.mobile;
       onChange(next);
     }
   }
 
   function copyFromDesktop() {
-    const { tablet, mobile, ...desktopOnly } = fmt;
+    const { tabletPortrait, tabletLandscape, mobilePortrait, mobileLandscape, wide, tablet, mobile, ...desktopOnly } = fmt;
     onChange({ ...fmt, [device]: { ...desktopOnly } });
   }
 
-  const hasAnything =
-    fmt.align || fmt.indentLeft || fmt.indentRight || fmt.firstLine || fmt.fontSizePercent || fmt.weight ||
-    fmt.lineHeightPercent || fmt.letterSpacing || fmt.maxWidth || fmt.marginTop || fmt.marginBottom ||
-    (fmt.tablet && Object.keys(fmt.tablet).length) ||
-    (fmt.mobile && Object.keys(fmt.mobile).length);
+  const hasAnything = PRIMARY_DEVICES.some(([k]) => primaryHasOverride(fmt, k));
 
   return (
     <div className="border border-black/10 rounded-lg p-3 bg-black/[0.015]">
@@ -68,26 +87,47 @@ export default function TextFormatControls({ label = "Formato del texto", value,
           {label}
           {!hasAnything && <span className="font-normal normal-case text-primary/35"> · sin cambios</span>}
         </p>
-        <div className="flex gap-1">
-          {DEVICES.map(([k, l]) => (
+        <div className="flex gap-1 flex-wrap">
+          {PRIMARY_DEVICES.map(([k, l]) => (
             <button
               key={k}
               type="button"
-              onClick={() => setDevice(k)}
-              className={`px-2 py-1 rounded text-[11px] font-body transition-colors ${
-                device === k ? "bg-tertiary text-white" : "bg-white text-primary/60 border border-black/10 hover:border-tertiary/40"
+              onClick={() => setPrimary(k)}
+              className={`relative px-2 py-1 rounded text-[11px] font-body transition-colors ${
+                primary === k ? "bg-tertiary text-white" : "bg-white text-primary/60 border border-black/10 hover:border-tertiary/40"
+              }`}
+            >
+              {l}
+              {primaryHasOverride(fmt, k) && (
+                <span className={`absolute -top-1 -right-1 h-2 w-2 rounded-full ${primary === k ? "bg-white" : "bg-tertiary"}`} title="Personalizado" />
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {(primary === "tablet" || primary === "mobile") && (
+        <div className="flex gap-1 mb-2">
+          {[["portrait", "Vertical"], ["landscape", "Horizontal"]].map(([k, l]) => (
+            <button
+              key={k}
+              type="button"
+              onClick={() => setOrientation(k)}
+              className={`px-2.5 py-1 rounded text-[10.5px] font-body border transition-colors ${
+                orientation === k ? "bg-primary text-white border-primary" : "bg-white text-primary/60 border-black/10 hover:border-primary/30"
               }`}
             >
               {l}
             </button>
           ))}
         </div>
-      </div>
+      )}
 
       {device !== "desktop" && (
         <div className="flex items-center justify-between gap-2 mb-2 -mt-1">
           <p className="font-body text-[10.5px] text-primary/45">
-            Solo aplica en {device === "tablet" ? "tablet" : "celular"}. Lo que dejes vacío usa la configuración de Escritorio.
+            {hasOverride(fmt, device) ? "Personalizado" : "Hereda de Escritorio"} — solo aplica en {PRIMARY_DEVICES.find(([k]) => k === primary)[1].toLowerCase()}
+            {primary !== "wide" ? ` ${orientation === "landscape" ? "horizontal" : "vertical"}` : ""}.
           </p>
           <button type="button" onClick={copyFromDesktop} className="shrink-0 text-[10.5px] font-body text-tertiary hover:underline">
             Copiar de Escritorio
@@ -161,14 +201,22 @@ export default function TextFormatControls({ label = "Formato del texto", value,
         {showFirstLine && <NumField label="1ª línea (px)" value={current.firstLine} onChange={(v) => patch({ firstLine: v })} />}
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2 mb-2">
         <NumField label="Ancho máx. (%)" value={current.maxWidth} onChange={(v) => patch({ maxWidth: v })} step={1} placeholder="100" />
         <NumField label="Margen sup. (px)" value={current.marginTop} onChange={(v) => patch({ marginTop: v })} />
         <NumField label="Margen inf. (px)" value={current.marginBottom} onChange={(v) => patch({ marginBottom: v })} />
+        <NumField label="Orden (order)" value={current.order} onChange={(v) => patch({ order: v })} placeholder="auto" />
       </div>
 
-      <button type="button" onClick={resetDevice} className="mt-2 text-[10.5px] font-body text-red-500/80 hover:underline">
-        Restablecer {device === "desktop" ? "todo" : device === "tablet" ? "tablet" : "celular"}
+      <label className="flex items-center gap-2 mb-2 cursor-pointer">
+        <input type="checkbox" checked={!!current.hidden} onChange={(e) => patch({ hidden: e.target.checked })} className="rounded border-black/20" />
+        <span className="font-body text-[11px] text-primary/70">
+          Ocultar {device === "desktop" ? "" : `en ${PRIMARY_DEVICES.find(([k]) => k === primary)[1].toLowerCase()}${primary !== "wide" ? (orientation === "landscape" ? " horizontal" : " vertical") : ""}`}
+        </span>
+      </label>
+
+      <button type="button" onClick={resetDevice} className="mt-1 text-[10.5px] font-body text-red-500/80 hover:underline">
+        Restablecer {device === "desktop" ? "todo" : PRIMARY_DEVICES.find(([k]) => k === primary)[1].toLowerCase()}
       </button>
     </div>
   );

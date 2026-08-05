@@ -5,6 +5,7 @@ import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
+import ImageFocalControls from "@/components/admin/ImageFocalControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminInicioPage() {
@@ -60,6 +61,11 @@ export default function AdminInicioPage() {
           onChange={(v) => update({ heroImages: v })}
         />
         <AdminField label="Video de fondo (URL, opcional — reemplaza la foto si se completa)" value={inicio.heroVideo} onChange={(v) => update({ heroVideo: v })} />
+        <ImageFocalControls
+          label="Encuadre de las fotos de fondo del banner"
+          value={fmt.heroImagenFoco}
+          onChange={(v) => updateFormat("heroImagenFoco", v)}
+        />
 
         <AdminField label="Título principal" value={inicio.heroTitle} onChange={(v) => update({ heroTitle: v })} />
         <TextFormatControls label="Formato: título principal" value={fmt.heroTitle} onChange={(v) => updateFormat("heroTitle", v)} />
