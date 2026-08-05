@@ -45,6 +45,7 @@ export default function EmpresaPage() {
           <Reveal delay={120} className="md:sticky md:top-28">
             <Gallery
               images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
+              itemFormats={e.historia.galleryFormats || []}
               aspectClass="aspect-[4/5] sm:aspect-[3/4] md:aspect-[4/5]"
               fit="contain"
               bgClass="bg-black/[0.04]"
