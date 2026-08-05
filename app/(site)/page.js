@@ -104,7 +104,7 @@ export default function InicioPage() {
             <img
               src={(pages.empresa.historia.gallery && pages.empresa.historia.gallery[0]) || "/uploads/hero-flota.jpg"}
               alt="Historia Scarppe"
-              className="w-full h-80 object-cover border border-white/10"
+              className="w-full aspect-[4/5] sm:aspect-[3/4] md:aspect-[4/5] object-cover border border-white/10"
             />
           </Reveal>
         </div>
