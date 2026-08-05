@@ -52,13 +52,13 @@ export default function AdminEmpresaPage() {
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
-        <p className="font-body text-sm font-semibold text-primary">Historia (aparece primero en la página)</p>
+        <p className="font-body text-sm font-semibold text-primary">Historia (aparece primero en la página, texto y fotos en dos columnas)</p>
         <AdminField label="Subtítulo de la sección" value={e.historia.titulo} onChange={(v) => updateEmpresa({ historia: { ...e.historia, titulo: v } })} />
         <TextFormatControls label="Formato: subtítulo de la sección" value={fmt.historiaTitulo} onChange={(v) => updateFormat("historiaTitulo", v)} showFirstLine={false} />
         <AdminTextarea label="Texto" rows={8} value={e.historia.texto} onChange={(v) => updateEmpresa({ historia: { ...e.historia, texto: v } })} />
         <TextFormatControls label="Formato: texto de la historia" value={fmt.historiaTexto} onChange={(v) => updateFormat("historiaTexto", v)} />
         <AdminGalleryManager
-          label="Fotos de historia (rotan automáticamente, se ven grandes debajo del texto)"
+          label="Fotos de historia (rotan automáticamente, en un cuadro fijo junto al texto; cada foto se ve completa, sin recortar ni deformar)"
           value={e.historia.gallery || []}
           onChange={(v) => updateEmpresa({ historia: { ...e.historia, gallery: v } })}
         />

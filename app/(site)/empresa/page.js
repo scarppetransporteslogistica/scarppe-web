@@ -32,19 +32,25 @@ export default function EmpresaPage() {
         </div>
       </section>
 
-      {/* Historia: primero, texto a lo ancho y la foto grande debajo, bien visual */}
+      {/* Historia: composición editorial en dos columnas — texto a la izquierda,
+          fotos en un cuadro de tamaño fijo a la derecha, que acompaña la
+          lectura (sticky) en vez de quedar como un bloque aparte al final. */}
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
-        <Reveal className="mb-6 sm:mb-8 md:mb-12">
-          <SectionTag id="empresa-historia" label={e.historia.titulo} labelFormat={fmt.historiaTitulo} />
-          <TextFormatStyle id="empresa-historia-texto" format={fmt.historiaTexto} sizeCategory="body-lg" />
-          <p className="tf-empresa-historia-texto font-body text-black/65 leading-relaxed whitespace-pre-line text-lg tablet:max-w-[820px] tablet:mx-auto">{e.historia.texto}</p>
-        </Reveal>
-        <Reveal delay={120}>
-          <Gallery
-            images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
-            aspectClass="aspect-[16/9] tablet:aspect-[16/9] desktop:aspect-[2/1]"
-          />
-        </Reveal>
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-14 items-start">
+          <Reveal>
+            <SectionTag id="empresa-historia" label={e.historia.titulo} labelFormat={fmt.historiaTitulo} />
+            <TextFormatStyle id="empresa-historia-texto" format={fmt.historiaTexto} sizeCategory="body-lg" />
+            <p className="tf-empresa-historia-texto font-body text-black/65 leading-relaxed whitespace-pre-line text-lg">{e.historia.texto}</p>
+          </Reveal>
+          <Reveal delay={120} className="md:sticky md:top-28">
+            <Gallery
+              images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
+              aspectClass="aspect-[4/5] sm:aspect-[3/4] md:aspect-[4/5]"
+              fit="contain"
+              bgClass="bg-black/[0.04]"
+            />
+          </Reveal>
+        </div>
       </section>
 
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-14 md:pt-24 pb-4 sm:pb-6 md:pb-8">
