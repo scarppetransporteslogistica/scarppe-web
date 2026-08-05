@@ -6,6 +6,7 @@ import ServiceCard from "@/components/ServiceCard";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
+import BoxFormatStyle, { bfClass } from "@/components/BoxFormatStyle";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -101,10 +102,11 @@ export default function InicioPage() {
             </div>
           </Reveal>
           <Reveal delay={150}>
+            <BoxFormatStyle id="inicio-trayectoria-imagen" format={fmt.trayectoriaImagenFoco} />
             <img
-              src={(pages.empresa.historia.gallery && pages.empresa.historia.gallery[0]) || "/uploads/hero-flota.jpg"}
+              src={inicio.trayectoriaImagen || (pages.empresa.historia.gallery && pages.empresa.historia.gallery[0]) || "/uploads/hero-flota.jpg"}
               alt="Historia Scarppe"
-              className="w-full aspect-[4/5] sm:aspect-[3/4] md:aspect-[4/5] object-cover border border-white/10"
+              className={`w-full h-80 object-cover border border-white/10 ${bfClass("inicio-trayectoria-imagen")}`}
             />
           </Reveal>
         </div>

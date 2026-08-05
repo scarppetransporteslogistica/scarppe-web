@@ -204,6 +204,17 @@ export default function AdminInicioPage() {
       </div>
 
       <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+        <AdminImageUpload
+          label='Foto de la sección "Trayectoria"'
+          helpText="Si no subís una foto acá, se usa por defecto la primera foto de Historia (en Empresa). El cuadro es horizontal (más ancho que alto), así que una foto apaisada se va a ver mejor que una vertical."
+          value={inicio.trayectoriaImagen || ""}
+          onChange={(v) => update({ trayectoriaImagen: v })}
+        />
+        <ImageFocalControls
+          label="Encuadre de la foto de Trayectoria"
+          value={fmt.trayectoriaImagenFoco}
+          onChange={(v) => updateFormat("trayectoriaImagenFoco", v)}
+        />
         <div className="space-y-2">
           <AdminField
             label='Subtítulo pequeño de la sección "Trayectoria" (bloque con la reseña de la empresa)'
