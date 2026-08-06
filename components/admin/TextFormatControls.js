@@ -45,7 +45,7 @@ function NumField({ label, value, onChange, step = 1, placeholder = "" }) {
 // Reusable formatting panel used next to every title/subtítulo/párrafo/CTA in
 // the admin. `value` is a format object (see lib/textFormat.js), `onChange`
 // receives the updated object. Nothing set = no visual change on the site.
-export default function TextFormatControls({ label = "Formato del texto", value, onChange, showFirstLine = true }) {
+export default function TextFormatControls({ label = "Formato del texto", value, onChange, showFirstLine = true, previewText }) {
   const fmt = value || {};
   const [primary, setPrimary] = useState("desktop");
   const [orientation, setOrientation] = useState("portrait");
@@ -83,10 +83,17 @@ export default function TextFormatControls({ label = "Formato del texto", value,
   return (
     <div className="border border-black/10 rounded-lg p-3 bg-black/[0.015]">
       <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-        <p className="font-body text-[11px] font-semibold text-primary/60 uppercase tracking-wide">
-          {label}
-          {!hasAnything && <span className="font-normal normal-case text-primary/35"> · sin cambios</span>}
-        </p>
+        <div>
+          <p className="font-body text-[11px] font-semibold text-primary/60 uppercase tracking-wide">
+            {label}
+            {!hasAnything && <span className="font-normal normal-case text-primary/35"> · sin cambios</span>}
+          </p>
+          {previewText ? (
+            <p className="font-body text-[11px] text-primary/40 normal-case mt-0.5 truncate max-w-[280px]">
+              Texto: “{String(previewText).slice(0, 60)}{String(previewText).length > 60 ? "…" : ""}”
+            </p>
+          ) : null}
+        </div>
         <div className="flex gap-1 flex-wrap">
           {PRIMARY_DEVICES.map(([k, l]) => (
             <button

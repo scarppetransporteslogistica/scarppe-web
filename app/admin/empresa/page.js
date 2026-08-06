@@ -97,11 +97,11 @@ export default function AdminEmpresaPage() {
             <div key={i} className="grid sm:grid-cols-2 gap-3 items-start border border-black/10 rounded-xl p-4">
               <div className="space-y-2">
                 <AdminField label="Nombre" value={v.nombre} onChange={(val) => updateValor(i, { nombre: val })} />
-                <TextFormatControls label="Formato: nombre" value={vfmt.nombre} onChange={(val) => updateValorFormat(i, "nombre", val)} showFirstLine={false} />
+                <TextFormatControls label={`Formato: nombre del valor ${i + 1}`} value={vfmt.nombre} onChange={(val) => updateValorFormat(i, "nombre", val)} showFirstLine={false} previewText={v.nombre} />
               </div>
               <div className="space-y-2">
                 <AdminTextarea label="Descripción" rows={2} value={v.descripcion} onChange={(val) => updateValor(i, { descripcion: val })} />
-                <TextFormatControls label="Formato: descripción" value={vfmt.descripcion} onChange={(val) => updateValorFormat(i, "descripcion", val)} />
+                <TextFormatControls label={`Formato: descripción del valor ${i + 1}`} value={vfmt.descripcion} onChange={(val) => updateValorFormat(i, "descripcion", val)} previewText={v.descripcion} />
                 <BoxFormatControls label="Tamaño de la tarjeta" value={vfmt.box} onChange={(val) => updateValorFormat(i, "box", val)} />
                 <button onClick={() => removeValor(i)} className="text-xs font-body text-red-600 hover:underline mt-2">Eliminar valor</button>
               </div>

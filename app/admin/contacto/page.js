@@ -75,7 +75,7 @@ export default function AdminContactoPage() {
                 <button onClick={() => removeDirector(i)} className="h-9 w-9 rounded-full border border-red-200 text-red-600 hover:bg-red-50 shrink-0">✕</button>
               </div>
               <div className="sm:col-span-2">
-                <TextFormatControls label="Formato: línea (nombre — teléfono)" value={dfmt.linea} onChange={(v) => updateDirectorFormat(i, "linea", v)} showFirstLine={false} />
+                <TextFormatControls label={`Formato: línea del director ${i + 1} (nombre — teléfono)`} value={dfmt.linea} onChange={(v) => updateDirectorFormat(i, "linea", v)} showFirstLine={false} previewText={`${d.nombre || ""} — ${d.telefono || ""}`} />
               </div>
             </div>
           );
@@ -116,9 +116,9 @@ export default function AdminContactoPage() {
                 <AdminField label="Latitud" value={m.lat} onChange={(v) => updateMapa(i, { lat: parseFloat(v) })} />
                 <AdminField label="Longitud" value={m.lng} onChange={(v) => updateMapa(i, { lng: parseFloat(v) })} />
               </div>
-              <TextFormatControls label="Formato: nombre del país" value={mfmt.pais} onChange={(v) => updateMapaFormat(i, "pais", v)} showFirstLine={false} />
+              <TextFormatControls label={`Formato: nombre del país (oficina ${i + 1})`} value={mfmt.pais} onChange={(v) => updateMapaFormat(i, "pais", v)} showFirstLine={false} previewText={m.pais} />
               <AdminField label="Dirección" value={m.direccion} onChange={(v) => updateMapa(i, { direccion: v })} />
-              <TextFormatControls label="Formato: dirección" value={mfmt.direccion} onChange={(v) => updateMapaFormat(i, "direccion", v)} />
+              <TextFormatControls label={`Formato: dirección (oficina ${i + 1})`} value={mfmt.direccion} onChange={(v) => updateMapaFormat(i, "direccion", v)} previewText={m.direccion} />
             </div>
           );
         })}

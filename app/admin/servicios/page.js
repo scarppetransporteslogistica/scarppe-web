@@ -106,7 +106,7 @@ export default function AdminServiciosPage() {
                 />
                 <AdminField label="URL (slug, se genera solo)" value={s.slug} onChange={(v) => updateServicio(i, { slug: v })} />
               </div>
-              <TextFormatControls label="Formato: nombre" value={sfmt.nombre} onChange={(v) => updateServicioFormat(i, "nombre", v)} />
+              <TextFormatControls label={`Formato: nombre del servicio ${i + 1}`} value={sfmt.nombre} onChange={(v) => updateServicioFormat(i, "nombre", v)} previewText={s.nombre} />
               <div>
                 <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Grupo</label>
                 <select
@@ -119,11 +119,11 @@ export default function AdminServiciosPage() {
                 </select>
               </div>
               <AdminField label="Resumen (para la tarjeta)" value={s.resumen} onChange={(v) => updateServicio(i, { resumen: v })} />
-              <TextFormatControls label="Formato: resumen" value={sfmt.resumen} onChange={(v) => updateServicioFormat(i, "resumen", v)} />
+              <TextFormatControls label={`Formato: resumen del servicio ${i + 1}`} value={sfmt.resumen} onChange={(v) => updateServicioFormat(i, "resumen", v)} previewText={s.resumen} />
               <AdminTextarea label="Texto completo (página propia)" rows={5} value={s.texto} onChange={(v) => updateServicio(i, { texto: v })} />
-              <TextFormatControls label="Formato: texto completo" value={sfmt.texto} onChange={(v) => updateServicioFormat(i, "texto", v)} />
-              <TextFormatControls label='Formato: "Ver más" (tarjeta)' value={sfmt.cta} onChange={(v) => updateServicioFormat(i, "cta", v)} showFirstLine={false} />
-              <BoxFormatControls label="Tamaño de la tarjeta" value={sfmt.box} onChange={(v) => updateServicioFormat(i, "box", v)} />
+              <TextFormatControls label={`Formato: texto completo del servicio ${i + 1}`} value={sfmt.texto} onChange={(v) => updateServicioFormat(i, "texto", v)} previewText={s.texto} />
+              <TextFormatControls label={`Formato: "Ver más" (tarjeta del servicio ${i + 1})`} value={sfmt.cta} onChange={(v) => updateServicioFormat(i, "cta", v)} showFirstLine={false} />
+              <BoxFormatControls label={`Tamaño de la tarjeta del servicio ${i + 1}`} value={sfmt.box} onChange={(v) => updateServicioFormat(i, "box", v)} />
               <AdminGalleryManager
                 label="Imágenes (rotan en la tarjeta y en la página del servicio)"
                 value={s.imagenes || (s.imagen ? [s.imagen] : [])}

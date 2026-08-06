@@ -59,9 +59,9 @@ export default function AdminComercioExteriorPage() {
           return (
             <div key={i} className="border border-black/10 rounded-xl p-4 space-y-3">
               <AdminField label="Título" value={b.titulo} onChange={(v) => updateBloque(i, { titulo: v })} />
-              <TextFormatControls label="Formato: título" value={bfmt.titulo} onChange={(v) => updateBloqueFormat(i, "titulo", v)} />
+              <TextFormatControls label={`Formato: título del bloque ${i + 1}`} value={bfmt.titulo} onChange={(v) => updateBloqueFormat(i, "titulo", v)} previewText={b.titulo} />
               <AdminTextarea label="Texto" rows={3} value={b.texto} onChange={(v) => updateBloque(i, { texto: v })} />
-              <TextFormatControls label="Formato: texto" value={bfmt.texto} onChange={(v) => updateBloqueFormat(i, "texto", v)} />
+              <TextFormatControls label={`Formato: texto del bloque ${i + 1}`} value={bfmt.texto} onChange={(v) => updateBloqueFormat(i, "texto", v)} previewText={b.texto} />
               <button onClick={() => removeBloque(i)} className="text-xs font-body text-red-600 hover:underline">Eliminar bloque</button>
             </div>
           );

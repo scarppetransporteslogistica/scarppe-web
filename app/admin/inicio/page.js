@@ -67,6 +67,13 @@ export default function AdminInicioPage() {
           onChange={(v) => updateFormat("heroImagenFoco", v)}
         />
 
+        <TextFormatControls
+          label='Formato: etiqueta "Transporte y Logística" (arriba del título)'
+          value={fmt.heroEyebrow}
+          onChange={(v) => updateFormat("heroEyebrow", v)}
+          showFirstLine={false}
+        />
+
         <AdminField label="Título principal" value={inicio.heroTitle} onChange={(v) => update({ heroTitle: v })} />
         <TextFormatControls label="Formato: título principal" value={fmt.heroTitle} onChange={(v) => updateFormat("heroTitle", v)} />
 
@@ -101,6 +108,20 @@ export default function AdminInicioPage() {
           />
           <p className="font-body text-xs text-primary/50 mt-1.5">100% es el tamaño actual. Poné, por ejemplo, 130 para agrandar un 30%.</p>
         </div>
+
+        <div>
+          <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Intensidad del degradado sobre la foto (%)</label>
+          <input
+            type="number"
+            min="0"
+            max="200"
+            step="5"
+            value={inicio.heroOverlayScale || 100}
+            onChange={(e) => update({ heroOverlayScale: e.target.value })}
+            className="w-full sm:w-40 rounded-lg border border-black/10 px-4 py-2.5 font-body text-primary text-sm focus:outline-none focus:ring-2 focus:ring-tertiary/40"
+          />
+          <p className="font-body text-xs text-primary/50 mt-1.5">100% es como está ahora. Bajalo (por ejemplo a 50) para que se vea más la foto y menos oscuro; subilo (por ejemplo a 150) para atenuar más la foto y que el texto resalte más.</p>
+        </div>
       </div>
 
       <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
@@ -117,13 +138,14 @@ export default function AdminInicioPage() {
                   <button onClick={() => removeBadge(i)} className="h-9 w-9 rounded-full border border-red-200 text-red-600 hover:bg-red-50 shrink-0 mt-6">✕</button>
                 </div>
                 <TextFormatControls
-                  label="Formato del texto"
+                  label={`Formato: texto del destacado ${i + 1}`}
                   value={bfmt.text}
                   onChange={(v) => updateBadgeFormat(i, "text", v)}
                   showFirstLine={false}
+                  previewText={b}
                 />
                 <BoxFormatControls
-                  label="Tamaño del cuadro"
+                  label={`Tamaño del cuadro del destacado ${i + 1}`}
                   value={bfmt.box}
                   onChange={(v) => updateBadgeFormat(i, "box", v)}
                 />
@@ -166,19 +188,21 @@ export default function AdminInicioPage() {
                   <AdminField label="Etiqueta" value={s.label} onChange={(v) => updateStat(i, { label: v })} />
                 </div>
                 <TextFormatControls
-                  label="Formato: valor (el número grande)"
+                  label={`Formato: número grande del indicador ${i + 1}`}
                   value={sfmt.valor}
                   onChange={(v) => updateStatFormat(i, "valor", v)}
                   showFirstLine={false}
+                  previewText={s.value}
                 />
                 <TextFormatControls
-                  label="Formato: etiqueta"
+                  label={`Formato: etiqueta del indicador ${i + 1}`}
                   value={sfmt.label}
                   onChange={(v) => updateStatFormat(i, "label", v)}
                   showFirstLine={false}
+                  previewText={s.label}
                 />
                 <BoxFormatControls
-                  label="Tamaño del cuadro"
+                  label={`Tamaño del cuadro del indicador ${i + 1}`}
                   value={sfmt.box}
                   onChange={(v) => updateStatFormat(i, "box", v)}
                 />

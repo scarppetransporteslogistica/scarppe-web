@@ -30,6 +30,7 @@ export default function InicioPage() {
         subtitle={inicio.heroSubtitle}
         text={inicio.heroText}
         textScale={inicio.heroTextScale}
+        overlayScale={inicio.heroOverlayScale}
         formats={fmt}
       />
       <TrustStrip items={inicio.badges || []} formats={inicio.badgeFormats || []} />

@@ -54,7 +54,7 @@ export default function AdminMenuPage() {
                 <button onClick={() => remove(i)} className="h-9 w-9 rounded-full border border-red-200 text-red-600 hover:bg-red-50">✕</button>
               </div>
             </div>
-            <TextFormatControls label="Formato de este ítem del menú" value={item.formats} onChange={(v) => updateItemFormat(i, v)} showFirstLine={false} />
+            <TextFormatControls label={`Formato: ítem del menú "${item.label || i + 1}"`} value={item.formats} onChange={(v) => updateItemFormat(i, v)} showFirstLine={false} previewText={item.label} />
           </div>
         ))}
         <button onClick={add} className="text-sm font-body text-tertiary hover:underline">+ Agregar ítem al menú</button>

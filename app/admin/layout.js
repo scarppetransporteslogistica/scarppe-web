@@ -64,7 +64,7 @@ export default function AdminLayout({ children }) {
             </button>
           </div>
         </aside>
-        <main className="flex-1 px-8 py-10 max-w-6xl">{children}</main>
+        <main className="flex-1 px-8 pt-10 pb-28 max-w-6xl">{children}</main>
       </div>
     </AdminProvider>
   );
