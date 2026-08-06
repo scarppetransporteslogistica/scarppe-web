@@ -5,6 +5,7 @@ import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
+import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 function slugify(str) {
@@ -135,6 +136,12 @@ export default function AdminServiciosPage() {
         })}
         <button onClick={addServicio} className="text-sm font-body text-tertiary hover:underline">+ Agregar servicio</button>
       </div>
+      <SectionTypographyControls
+        label='Tipografía de la sección "Servicios"'
+        value={pageInfo.sectionTypography}
+        onChange={(v) => updatePageInfo({ sectionTypography: v })}
+      />
+
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>
   );

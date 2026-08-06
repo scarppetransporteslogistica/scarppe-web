@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { hasOverride } from "@/lib/textFormat";
+import { hasOverride, percentToPt } from "@/lib/textFormat";
 
 const PRIMARY_DEVICES = [
   ["desktop", "Escritorio"],
@@ -180,7 +180,13 @@ export default function BoxFormatControls({ label = "Tamaño del cuadro", value,
       </div>
 
       <div className="grid grid-cols-2 gap-2 mb-2">
-        <NumField label="Tamaño texto interno (%)" value={current.fontSizePercent} onChange={(v) => patch({ fontSizePercent: v })} step={5} placeholder="100" />
+        <NumField
+          label="Tamaño texto interno (pt)"
+          value={current.fontSizePt ?? (current.fontSizePercent ? percentToPt(current.fontSizePercent) : "")}
+          onChange={(v) => patch({ fontSizePt: v, fontSizePercent: undefined })}
+          step={0.5}
+          placeholder="12"
+        />
         <div>
           <label className="font-body text-[10.5px] text-primary/55 block mb-1">Alineación del contenido</label>
           <select

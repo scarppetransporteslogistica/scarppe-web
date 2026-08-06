@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ALIGN_OPTIONS, WEIGHT_OPTIONS, hasOverride } from "@/lib/textFormat";
+import { ALIGN_OPTIONS, WEIGHT_OPTIONS, hasOverride, percentToPt } from "@/lib/textFormat";
 
 // Primary device buttons; tablet/mobile additionally have a portrait/landscape
 // orientation toggle, since tablet horizontal needs its own composition and
@@ -45,7 +45,7 @@ function NumField({ label, value, onChange, step = 1, placeholder = "" }) {
 // Reusable formatting panel used next to every title/subtítulo/párrafo/CTA in
 // the admin. `value` is a format object (see lib/textFormat.js), `onChange`
 // receives the updated object. Nothing set = no visual change on the site.
-export default function TextFormatControls({ label = "Formato del texto", value, onChange, showFirstLine = true, previewText }) {
+export default function TextFormatControls({ label = "Formato del texto", value, onChange, showFirstLine = true, previewText, sizeCategory }) {
   const fmt = value || {};
   const [primary, setPrimary] = useState("desktop");
   const [orientation, setOrientation] = useState("portrait");
@@ -160,7 +160,13 @@ export default function TextFormatControls({ label = "Formato del texto", value,
       </div>
 
       <div className="grid grid-cols-2 gap-2 mb-2">
-        <NumField label="Tamaño (%)" value={current.fontSizePercent} onChange={(v) => patch({ fontSizePercent: v })} step={5} placeholder="100" />
+        <NumField
+          label="Tamaño (pt)"
+          value={current.fontSizePt ?? (current.fontSizePercent ? percentToPt(current.fontSizePercent, sizeCategory) : "")}
+          onChange={(v) => patch({ fontSizePt: v, fontSizePercent: undefined })}
+          step={0.5}
+          placeholder="12"
+        />
         <div>
           <label className="font-body text-[10.5px] text-primary/55 block mb-1">Peso</label>
           <select

@@ -4,6 +4,7 @@ import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
+import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminComercioExteriorPage() {
@@ -75,6 +76,12 @@ export default function AdminComercioExteriorPage() {
         <TextFormatControls label='Formato: botón "Solicitar Cotización"' value={fmt.ctaBoton} onChange={(v) => updateFormat("ctaBoton", v)} showFirstLine={false} />
         <BoxFormatControls label="Tamaño del cuadro de cotización" value={fmt.ctaBox} onChange={(v) => updateFormat("ctaBox", v)} />
       </div>
+      <SectionTypographyControls
+        label='Tipografía de la sección "Comercio Exterior"'
+        value={c.sectionTypography}
+        onChange={(v) => update({ sectionTypography: v })}
+      />
+
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>
   );

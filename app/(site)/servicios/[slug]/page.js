@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import ServiceIcon from "@/components/ServiceIcon";
 import ServicioGallery from "@/components/ServicioGallery";
 import TextFormatStyle from "@/components/TextFormatStyle";
+import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -29,8 +30,9 @@ export default function ServicioPage({ params }) {
 
   return (
     <>
+      <SectionTypographyStyle className="sec-typo-servicios" format={pages.servicios.sectionTypography} />
       <section
-        className="relative py-10 sm:py-14 md:py-24 overflow-hidden"
+        className="relative py-10 sm:py-14 md:py-24 overflow-hidden sec-typo-servicios"
         style={{ background: "linear-gradient(135deg, #191D33 0%, #04325A 100%)" }}
       >
         <div className="dot-grid absolute inset-0 pointer-events-none opacity-60" />
@@ -46,7 +48,7 @@ export default function ServicioPage({ params }) {
         </div>
       </section>
 
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 md:py-20 grid md:grid-cols-3 gap-8 sm:gap-10 md:gap-14">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-12 md:py-20 grid md:grid-cols-3 gap-8 sm:gap-10 md:gap-14 sec-typo-servicios">
         <Reveal className="md:col-span-2">
           <ServicioGallery images={servicio.imagenes || (servicio.imagen ? [servicio.imagen] : [])} />
           <TextFormatStyle id={`servicio-${servicio.slug}-texto`} format={sfmt.texto} sizeCategory="body-lg" />

@@ -2,6 +2,7 @@
 import { useAdmin } from "@/lib/AdminContext";
 import { AdminField } from "@/components/admin/AdminField";
 import TextFormatControls from "@/components/admin/TextFormatControls";
+import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminContactoPage() {
@@ -123,6 +124,12 @@ export default function AdminContactoPage() {
           );
         })}
       </section>
+
+      <SectionTypographyControls
+        label='Tipografía de la sección "Contacto"'
+        value={c.sectionTypography}
+        onChange={(v) => update({ sectionTypography: v })}
+      />
 
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>

@@ -3,6 +3,7 @@ import ServiceCard from "@/components/ServiceCard";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
+import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -38,7 +39,8 @@ export default function ServiciosPage() {
 
   return (
     <>
-      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-20">
+      <SectionTypographyStyle className="sec-typo-servicios" format={pages.servicios.sectionTypography} />
+      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-20 sec-typo-servicios">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10">
           <Reveal>
             <SectionTag
@@ -52,7 +54,7 @@ export default function ServiciosPage() {
           </Reveal>
         </div>
       </section>
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24 sec-typo-servicios">
         <ServiceGroup
           title={pages.servicios.categoriaTransporteTitulo || "Soluciones de Transporte"}
           titleId="servicios-grupo-transporte-titulo"

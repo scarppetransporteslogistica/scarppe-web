@@ -19,9 +19,10 @@ export default function SiteLayout({ children }) {
         headerCtaBox={settings.headerCtaBox}
         menuGapDesktop={settings.menuGapDesktop}
         menuGapMobile={settings.menuGapMobile}
+        sectionTypography={settings.menuSectionTypography}
       />
       <main>{children}</main>
-      <Footer menu={menu} siteName={settings.siteName} logo={settings.logo} />
+      <Footer menu={menu} siteName={settings.siteName} logo={settings.logo} sectionTypography={settings.footerSectionTypography} />
     </>
   );
 }

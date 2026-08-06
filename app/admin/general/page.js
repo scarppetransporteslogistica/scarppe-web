@@ -4,6 +4,7 @@ import { AdminField, AdminColor } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import SaveBar from "@/components/admin/SaveBar";
 import { GOOGLE_FONT_OPTIONS, TYPOGRAPHY_WEIGHT_OPTIONS, LOGO_SIZE_OPTIONS } from "@/lib/theme";
+import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 
 export default function AdminGeneralPage() {
   const { content, setContent, save, saving, message, loading } = useAdmin();
@@ -159,6 +160,16 @@ export default function AdminGeneralPage() {
           </div>
         </div>
       </div>
+
+      <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
+        <p className="font-body text-sm font-semibold text-primary mb-4">Pie de página</p>
+        <SectionTypographyControls
+          label='Tipografía de la sección "Pie de página"'
+          value={s.footerSectionTypography}
+          onChange={(v) => updateSettings({ footerSectionTypography: v })}
+        />
+      </div>
+
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>
   );

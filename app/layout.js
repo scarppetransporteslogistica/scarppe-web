@@ -1,6 +1,6 @@
 import "./globals.css";
 import { getContent } from "@/lib/db";
-import { buildThemeVars, googleFontsHref, typographyBodyClasses } from "@/lib/theme";
+import { buildThemeVars, googleFontsHref, typographyBodyClasses, collectFontFamilies } from "@/lib/theme";
 
 export const dynamic = "force-dynamic";
 
@@ -15,12 +15,13 @@ export async function generateMetadata() {
 export default function RootLayout({ children }) {
   const content = getContent();
   const { settings } = content;
+  const extraFamilies = Array.from(collectFontFamilies(content));
 
   return (
     <html lang="es">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link href={googleFontsHref(settings.fonts)} rel="stylesheet" />
+        <link href={googleFontsHref(settings.fonts, extraFamilies)} rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: buildThemeVars(settings) }} />
       </head>
       <body className={`font-body antialiased ${typographyBodyClasses(settings)}`}>{children}</body>

@@ -7,6 +7,7 @@ import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "@/components/BoxFormatStyle";
+import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -22,7 +23,8 @@ export default function InicioPage() {
   const fmt = inicio.formats || {};
 
   return (
-    <>
+    <div className="sec-typo-inicio">
+      <SectionTypographyStyle className="sec-typo-inicio" format={inicio.sectionTypography} />
       <Hero
         images={inicio.heroImages || (inicio.heroImage ? [inicio.heroImage] : [])}
         video={inicio.heroVideo}
@@ -31,6 +33,7 @@ export default function InicioPage() {
         text={inicio.heroText}
         textScale={inicio.heroTextScale}
         overlayScale={inicio.heroOverlayScale}
+        gradient={inicio.heroGradient}
         formats={fmt}
       />
       <TrustStrip items={inicio.badges || []} formats={inicio.badgeFormats || []} />
@@ -112,6 +115,6 @@ export default function InicioPage() {
           </Reveal>
         </div>
       </section>
-    </>
+    </div>
   );
 }

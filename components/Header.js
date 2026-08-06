@@ -4,13 +4,15 @@ import Link from "next/link";
 import SearchModal from "./SearchModal";
 import TextFormatStyle from "./TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
+import SectionTypographyStyle from "./SectionTypographyStyle";
 
-export default function Header({ menu, logo, siteName, servicios, headerCta, headerCtaBox, menuGapDesktop, menuGapMobile }) {
+export default function Header({ menu, logo, siteName, servicios, headerCta, headerCtaBox, menuGapDesktop, menuGapMobile, sectionTypography }) {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40">
+    <header className="sticky top-0 z-40 sec-typo-menu">
+      <SectionTypographyStyle className="sec-typo-menu" format={sectionTypography} />
       <div className="bg-primary shadow-[0_2px_24px_rgba(0,0,0,0.25)]">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 h-16 tablet:h-20 desktop:h-24 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0">

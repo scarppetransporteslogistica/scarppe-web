@@ -6,6 +6,8 @@ import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
 import ImageFocalControls from "@/components/admin/ImageFocalControls";
+import HeroGradientControls from "@/components/admin/HeroGradientControls";
+import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminInicioPage() {
@@ -109,20 +111,18 @@ export default function AdminInicioPage() {
           <p className="font-body text-xs text-primary/50 mt-1.5">100% es el tamaño actual. Poné, por ejemplo, 130 para agrandar un 30%.</p>
         </div>
 
-        <div>
-          <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Intensidad del degradado sobre la foto (%)</label>
-          <input
-            type="number"
-            min="0"
-            max="200"
-            step="5"
-            value={inicio.heroOverlayScale || 100}
-            onChange={(e) => update({ heroOverlayScale: e.target.value })}
-            className="w-full sm:w-40 rounded-lg border border-black/10 px-4 py-2.5 font-body text-primary text-sm focus:outline-none focus:ring-2 focus:ring-tertiary/40"
-          />
-          <p className="font-body text-xs text-primary/50 mt-1.5">100% es como está ahora. Bajalo (por ejemplo a 50) para que se vea más la foto y menos oscuro; subilo (por ejemplo a 150) para atenuar más la foto y que el texto resalte más.</p>
-        </div>
+        <HeroGradientControls
+          value={inicio.heroGradient}
+          onChange={(v) => update({ heroGradient: v })}
+          legacyIntensity={inicio.heroOverlayScale}
+        />
       </div>
+
+      <SectionTypographyControls
+        label='Tipografía de la sección "Banner principal"'
+        value={inicio.sectionTypography}
+        onChange={(v) => update({ sectionTypography: v })}
+      />
 
       <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
         <p className="font-body text-sm font-semibold text-primary mb-4">Destacados (franja debajo del banner)</p>

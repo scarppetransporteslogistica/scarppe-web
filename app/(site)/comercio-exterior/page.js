@@ -3,6 +3,7 @@ import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "@/components/BoxFormatStyle";
+import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,8 @@ export default function ComercioExteriorPage() {
   const heroImage = c.heroImage || (c.gallery && c.gallery[0]) || "/uploads/servicio-aduana.jpg";
 
   return (
-    <section style={{ background: "#D9E8F5" }} className="py-10 sm:py-14 md:py-24">
+    <section style={{ background: "#D9E8F5" }} className="py-10 sm:py-14 md:py-24 sec-typo-comercio-exterior">
+      <SectionTypographyStyle className="sec-typo-comercio-exterior" format={c.sectionTypography} />
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid md:grid-cols-2 gap-10 sm:gap-12 md:gap-16 items-start">
         <div>
           <Reveal>

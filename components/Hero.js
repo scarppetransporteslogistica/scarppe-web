@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import TextFormatStyle from "./TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
+import { heroGradientCSS, hasGradientOverride } from "@/lib/textFormat";
 
 // Scales just the alpha channel of an "rgba(r,g,b,a)" string by `factor`,
 // clamped to a valid 0-1 range. Used to let the admin lighten or darken the
@@ -13,7 +14,7 @@ function scaleAlpha(rgba, factor) {
   });
 }
 
-export default function Hero({ images, video, title, subtitle, text, textScale, overlayScale, formats = {} }) {
+export default function Hero({ images, video, title, subtitle, text, textScale, overlayScale, gradient, formats = {} }) {
   const [idx, setIdx] = useState(0);
   const list = images && images.length > 0 ? images : [];
 
@@ -25,6 +26,7 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
 
   const scale = (Number(textScale) || 100) / 100;
   const overlay = (Number(overlayScale) || 100) / 100;
+  const customGradient = hasGradientOverride(gradient);
 
   return (
     <section
@@ -50,24 +52,36 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
           </>
         )}
 
-        {/* Mobile: text spans nearly the full width, so a stronger, more uniform scrim keeps contrast high without flattening the photo */}
-        <div
-          className="absolute inset-0 tablet:hidden desktop:hidden"
-          style={{
-            background: `linear-gradient(180deg, ${scaleAlpha("rgba(13,16,32,0.88)", overlay)} 0%, ${scaleAlpha("rgba(13,16,32,0.74)", overlay)} 45%, ${scaleAlpha("rgba(13,16,32,0.88)", overlay)} 100%)`,
-          }}
-        />
-        {/* Tablet/desktop: darkest directly behind the text column, fading out so the central truck and the right-side trailer stay visible */}
-        <div
-          className="absolute inset-0 hidden tablet:block desktop:block"
-          style={{
-            background: `linear-gradient(90deg, ${scaleAlpha("rgba(13,16,32,0.9)", overlay)} 0%, ${scaleAlpha("rgba(13,16,32,0.68)", overlay)} 32%, ${scaleAlpha("rgba(13,16,32,0.28)", overlay)} 55%, ${scaleAlpha("rgba(13,16,32,0.06)", overlay)} 78%, rgba(13,16,32,0) 100%)`,
-          }}
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-1/4"
-          style={{ background: `linear-gradient(to top, ${scaleAlpha("rgba(9,11,24,0.65)", overlay)}, transparent)` }}
-        />
+        {customGradient ? (
+          // Admin configured a custom degradado (color/opacity/intensity/height/
+          // direction, independently per device) — it fully replaces the
+          // default 3-layer scrim below for whichever device it was set on.
+          <>
+            <style dangerouslySetInnerHTML={{ __html: heroGradientCSS("hero-gradient-custom", gradient) }} />
+            <div className="absolute inset-0 hero-gradient-custom" />
+          </>
+        ) : (
+          <>
+            {/* Mobile: text spans nearly the full width, so a stronger, more uniform scrim keeps contrast high without flattening the photo */}
+            <div
+              className="absolute inset-0 tablet:hidden desktop:hidden"
+              style={{
+                background: `linear-gradient(180deg, ${scaleAlpha("rgba(13,16,32,0.88)", overlay)} 0%, ${scaleAlpha("rgba(13,16,32,0.74)", overlay)} 45%, ${scaleAlpha("rgba(13,16,32,0.88)", overlay)} 100%)`,
+              }}
+            />
+            {/* Tablet/desktop: darkest directly behind the text column, fading out so the central truck and the right-side trailer stay visible */}
+            <div
+              className="absolute inset-0 hidden tablet:block desktop:block"
+              style={{
+                background: `linear-gradient(90deg, ${scaleAlpha("rgba(13,16,32,0.9)", overlay)} 0%, ${scaleAlpha("rgba(13,16,32,0.68)", overlay)} 32%, ${scaleAlpha("rgba(13,16,32,0.28)", overlay)} 55%, ${scaleAlpha("rgba(13,16,32,0.06)", overlay)} 78%, rgba(13,16,32,0) 100%)`,
+              }}
+            />
+            <div
+              className="absolute inset-x-0 bottom-0 h-1/4"
+              style={{ background: `linear-gradient(to top, ${scaleAlpha("rgba(9,11,24,0.65)", overlay)}, transparent)` }}
+            />
+          </>
+        )}
       </div>
 
       <div className="relative z-[2] w-full flex items-center px-6 sm:px-8 tablet:px-10 desktop:px-[7%] pt-14 sm:pt-16 tablet:pt-[72px] desktop:py-0 pb-20 sm:pb-24 tablet:pb-16 desktop:pb-0">

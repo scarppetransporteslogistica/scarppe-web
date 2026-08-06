@@ -4,6 +4,7 @@ import SectionTag from "@/components/SectionTag";
 import MapEmbed from "@/components/MapEmbed";
 import QuoteForm from "@/components/QuoteForm";
 import TextFormatStyle from "@/components/TextFormatStyle";
+import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,8 @@ export default function ContactoPage() {
 
   return (
     <>
-      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-24">
+      <SectionTypographyStyle className="sec-typo-contacto" format={c.sectionTypography} />
+      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-24 sec-typo-contacto">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-[1fr_1.4fr] gap-8 sm:gap-10 md:gap-16">
           <Reveal>
             <SectionTag

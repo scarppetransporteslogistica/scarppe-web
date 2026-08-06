@@ -5,6 +5,7 @@ import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "@/components/BoxFormatStyle";
+import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +21,8 @@ export default function EmpresaPage() {
 
   return (
     <>
-      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-20">
+      <SectionTypographyStyle className="sec-typo-empresa" format={e.sectionTypography} />
+      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-20 sec-typo-empresa">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10">
           <Reveal>
             <SectionTag id="empresa-hero" label={e.eyebrow || "Empresa"} light labelFormat={fmt.eyebrow} />

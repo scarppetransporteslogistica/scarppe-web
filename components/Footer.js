@@ -1,8 +1,10 @@
 import Link from "next/link";
+import SectionTypographyStyle from "./SectionTypographyStyle";
 
-export default function Footer({ menu, siteName, logo }) {
+export default function Footer({ menu, siteName, logo, sectionTypography }) {
   return (
-    <footer style={{ background: "#0d1020" }} className="border-t border-white/10">
+    <footer style={{ background: "#0d1020" }} className="border-t border-white/10 sec-typo-footer">
+      <SectionTypographyStyle className="sec-typo-footer" format={sectionTypography} />
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-12 md:pt-16 pb-6 sm:pb-8 md:pb-10">
         <div className="grid gap-6 sm:gap-8 md:gap-10 md:grid-cols-4 pb-6 sm:pb-8 md:pb-10 border-b border-white/10">
           <div className="md:col-span-2">

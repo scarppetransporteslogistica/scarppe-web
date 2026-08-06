@@ -3,6 +3,7 @@ import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import CVForm from "@/components/CVForm";
 import TextFormatStyle from "@/components/TextFormatStyle";
+import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,8 @@ export default function TrabajaConNosotrosPage() {
   const fmt = t.formats || {};
 
   return (
-    <section style={{ background: "#F2F1F1" }} className="py-10 sm:py-14 md:py-24">
+    <section style={{ background: "#F2F1F1" }} className="py-10 sm:py-14 md:py-24 sec-typo-trabaja-con-nosotros">
+      <SectionTypographyStyle className="sec-typo-trabaja-con-nosotros" format={t.sectionTypography} />
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-16 items-start">
         <Reveal>
           <SectionTag id="tcn-hero" label={t.eyebrow || "Trabaja con Nosotros"} title={t.titulo} labelFormat={fmt.eyebrow} titleFormat={fmt.titulo} />
