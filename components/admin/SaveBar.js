@@ -8,7 +8,15 @@ export default function SaveBar({ onSave, saving, message }) {
       >
         {saving ? "Guardando..." : "Guardar cambios"}
       </button>
-      {message && <span className="font-body text-sm text-primary/60">{message}</span>}
+      {message && (
+        <span
+          className={`font-body text-sm font-medium ${
+            message.startsWith("✗") ? "text-red-600" : "text-green-700"
+          }`}
+        >
+          {message}
+        </span>
+      )}
     </div>
   );
 }

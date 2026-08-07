@@ -150,10 +150,11 @@ body {
 /* Header logo: compact on mobile, a bit bigger on tablet, full size on desktop
    (>=1180px) — matches the header's own compact/tablet/desktop heights. */
 .site-logo-header { height: calc(2.75rem * var(--logo-scale, 1)) !important; width: auto; max-width: 100%; }
-@media (min-width: 768px) and (max-width: 1179px) {
+@media (min-width: 768px) and (max-width: 1179px),
+       (orientation: landscape) and (min-width: 1180px) and (max-width: 1366px) and (max-height: 1024px) {
   .site-logo-header { height: calc(3.25rem * var(--logo-scale, 1)) !important; }
 }
-@media (min-width: 1180px) {
+@media (min-width: 1180px) and (not ((orientation: landscape) and (max-width: 1366px) and (max-height: 1024px))) {
   .site-logo-header { height: calc(4rem * var(--logo-scale, 1)) !important; }
 }
 .site-logo-footer { height: calc(3.5rem * var(--logo-scale, 1)) !important; width: auto; }
