@@ -3,7 +3,6 @@ import { useAdmin } from "@/lib/AdminContext";
 import { AdminField } from "@/components/admin/AdminField";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
-import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminMenuPage() {
@@ -100,11 +99,6 @@ export default function AdminMenuPage() {
         <p className="font-body text-xs text-primary/50">Dejalo vacío para usar la separación por defecto. Para agrandar o achicar el texto de cada ítem, o el espacio entre las letras dentro de una palabra, usá el "Formato de este ítem del menú" de cada ítem arriba.</p>
       </div>
 
-      <SectionTypographyControls
-        label='Tipografía de la sección "Menú de navegación"'
-        value={settings.menuSectionTypography}
-        onChange={(v) => updateSettings({ menuSectionTypography: v })}
-      />
 
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>

@@ -4,7 +4,6 @@ import { AdminField, AdminColor } from "@/components/admin/AdminField";
 import AdminImageUpload from "@/components/admin/AdminImageUpload";
 import SaveBar from "@/components/admin/SaveBar";
 import { GOOGLE_FONT_OPTIONS, TYPOGRAPHY_WEIGHT_OPTIONS, LOGO_SIZE_OPTIONS } from "@/lib/theme";
-import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 
 export default function AdminGeneralPage() {
   const { content, setContent, save, saving, message, loading } = useAdmin();
@@ -61,6 +60,9 @@ export default function AdminGeneralPage() {
 
         <div>
           <p className="font-body text-sm font-semibold text-primary mb-3">Tipografía de títulos</p>
+          <p className="font-body text-xs text-primary/50 mb-3">
+            Esto es la base general del sitio: se aplica a todos los títulos que no tengan su propio ajuste. Si en un título puntual usaste el cuadro "Formato" de esa sección para cambiar su tamaño, fuente o color, ese ajuste individual manda por sobre esto.
+          </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Fuente</label>
@@ -111,7 +113,9 @@ export default function AdminGeneralPage() {
 
         <div>
           <p className="font-body text-sm font-semibold text-primary mb-3">Tipografía de texto</p>
-          <p className="font-body text-xs text-primary/50 mb-3">Esto aplica a los párrafos de texto de todo el sitio.</p>
+          <p className="font-body text-xs text-primary/50 mb-3">
+            Base general para párrafos de todo el sitio. Los cuadros "Formato" de cada párrafo individual, si están configurados, tienen prioridad sobre esto.
+          </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="font-body text-sm font-medium text-primary/80 mb-1.5 block">Fuente</label>
@@ -159,15 +163,6 @@ export default function AdminGeneralPage() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
-        <p className="font-body text-sm font-semibold text-primary mb-4">Pie de página</p>
-        <SectionTypographyControls
-          label='Tipografía de la sección "Pie de página"'
-          value={s.footerSectionTypography}
-          onChange={(v) => updateSettings({ footerSectionTypography: v })}
-        />
       </div>
 
       <SaveBar onSave={() => save()} saving={saving} message={message} />

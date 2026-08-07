@@ -7,7 +7,6 @@ import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
 import ImageFocalControls from "@/components/admin/ImageFocalControls";
 import HeroGradientControls from "@/components/admin/HeroGradientControls";
-import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminInicioPage() {
@@ -118,11 +117,6 @@ export default function AdminInicioPage() {
         />
       </div>
 
-      <SectionTypographyControls
-        label='Tipografía de la sección "Banner principal"'
-        value={inicio.sectionTypography}
-        onChange={(v) => update({ sectionTypography: v })}
-      />
 
       <div className="mt-6 bg-white rounded-2xl border border-black/5 p-6">
         <p className="font-body text-sm font-semibold text-primary mb-4">Destacados (franja debajo del banner)</p>

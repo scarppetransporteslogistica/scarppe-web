@@ -2,7 +2,6 @@
 import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import TextFormatControls from "@/components/admin/TextFormatControls";
-import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminTrabajaPage() {
@@ -30,11 +29,6 @@ export default function AdminTrabajaPage() {
         <TextFormatControls label="Formato: texto" value={fmt.texto} onChange={(v) => updateFormat("texto", v)} />
         <AdminField label="E-mail para recibir currículums" value={t.cvEmail} onChange={(v) => update({ cvEmail: v })} />
       </div>
-      <SectionTypographyControls
-        label='Tipografía de la sección "Trabaja con Nosotros"'
-        value={t.sectionTypography}
-        onChange={(v) => update({ sectionTypography: v })}
-      />
 
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>

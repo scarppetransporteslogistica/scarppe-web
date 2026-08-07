@@ -4,7 +4,6 @@ import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
-import SectionTypographyControls from "@/components/admin/SectionTypographyControls";
 import SaveBar from "@/components/admin/SaveBar";
 
 export default function AdminEmpresaPage() {
@@ -112,11 +111,6 @@ export default function AdminEmpresaPage() {
         <button onClick={addValor} className="text-sm font-body text-tertiary hover:underline">+ Agregar valor</button>
       </section>
 
-      <SectionTypographyControls
-        label='Tipografía de la sección "Empresa"'
-        value={e.sectionTypography}
-        onChange={(v) => updateEmpresa({ sectionTypography: v })}
-      />
 
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>
