@@ -12,17 +12,19 @@ export default function TrustStrip({ items, formats }) {
   return (
     <div className="relative bg-accent shadow-[0_-10px_18px_-14px_rgba(0,0,0,0.35)]">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-5 sm:py-4">
-        <div className="grid grid-cols-2 items-start gap-x-4 gap-y-4 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-10 sm:gap-y-3">
+        <div className="grid grid-cols-2 items-center gap-x-3 gap-y-4 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-10 sm:gap-y-3">
           {items.map((text, i) => {
             const bfmt = (formats || [])[i] || {};
             return (
               <span key={text} className={`relative ${bfClass(`inicio-badge-${i}-box`)}`}>
                 <BoxFormatStyle id={`inicio-badge-${i}-box`} format={bfmt.box} />
                 <TextFormatStyle id={`inicio-badge-${i}-texto`} format={bfmt.text} mode="flex" sizeCategory="body-sm" />
-                <span className={`tf-inicio-badge-${i}-texto flex items-start sm:items-center gap-2.5 sm:gap-3 font-heading text-xs sm:text-sm font-bold uppercase tracking-wide text-primary leading-tight`}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 mt-0.5 sm:mt-0">
-                    <path d={ICONS[i % ICONS.length]} />
-                  </svg>
+                <span className={`tf-inicio-badge-${i}-texto flex items-center gap-2 sm:gap-3 font-heading text-[11px] sm:text-sm font-bold uppercase tracking-normal sm:tracking-wide text-primary leading-snug`}>
+                  <span className="shrink-0 flex items-center justify-center w-7 h-7 sm:w-6 sm:h-6 rounded-full bg-white/80">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                      <path d={ICONS[i % ICONS.length]} />
+                    </svg>
+                  </span>
                   {text}
                 </span>
               </span>
