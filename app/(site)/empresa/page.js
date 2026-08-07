@@ -36,9 +36,13 @@ export default function EmpresaPage() {
 
       {/* Historia: composición editorial en dos columnas — texto a la izquierda,
           fotos a la derecha en un cuadro que siempre iguala la altura del
-          texto (si el texto crece, el cuadro crece con él). */}
+          texto (si el texto crece, el cuadro crece con él). Two columns only
+          kick in at real desktop widths (our custom "desktop:" breakpoint) —
+          on tablet (portrait AND landscape) it stays a single stacked column,
+          same as mobile, so the photo never gets squeezed into a narrow-tall
+          box that crops it aggressively. */}
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
-        <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-14 md:items-stretch">
+        <div className="grid desktop:grid-cols-2 gap-8 sm:gap-10 desktop:gap-14 desktop:items-stretch">
           <Reveal>
             <SectionTag id="empresa-historia" label={e.historia.titulo} labelFormat={fmt.historiaTitulo} />
             <TextFormatStyle id="empresa-historia-texto" format={fmt.historiaTexto} sizeCategory="body-lg" />
@@ -48,7 +52,7 @@ export default function EmpresaPage() {
             <Gallery
               images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
               itemFormats={e.historia.galleryFormats || []}
-              aspectClass="aspect-[4/5] sm:aspect-[3/4] md:aspect-auto w-full md:h-full min-h-[320px]"
+              aspectClass="aspect-[4/5] sm:aspect-[3/4] desktop:aspect-auto w-full desktop:h-full min-h-[320px]"
               fit="contain"
               bgClass="bg-black/[0.04]"
             />
