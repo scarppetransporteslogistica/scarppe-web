@@ -1,6 +1,10 @@
 "use client";
 import { useState } from "react";
 import { ALIGN_OPTIONS, WEIGHT_OPTIONS, hasOverride, percentToPt } from "@/lib/textFormat";
+import { GOOGLE_FONT_OPTIONS } from "@/lib/theme";
+import { weightsForFont } from "@/lib/fonts";
+
+const WEIGHT_LABELS = Object.fromEntries(WEIGHT_OPTIONS.filter((w) => w.value).map((w) => [w.value, w.label]));
 
 // Primary device buttons; tablet/mobile additionally have a portrait/landscape
 // orientation toggle, since tablet horizontal needs its own composition and
@@ -160,6 +164,32 @@ export default function TextFormatControls({ label = "Formato del texto", value,
       </div>
 
       <div className="grid grid-cols-2 gap-2 mb-2">
+        <div>
+          <label className="font-body text-[10.5px] text-primary/55 block mb-1">Familia tipográfica</label>
+          <select
+            value={current.fontFamily ?? ""}
+            onChange={(e) => patch({ fontFamily: e.target.value || undefined, weight: "" })}
+            className="w-full rounded border border-black/10 px-1 py-1.5 text-xs font-body"
+          >
+            <option value="">Como está (tipografía general)</option>
+            {GOOGLE_FONT_OPTIONS.map((f) => (
+              <option key={f} value={f}>{f}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="font-body text-[10.5px] text-primary/55 block mb-1">Peso</label>
+          <select
+            value={current.weight ?? ""}
+            onChange={(e) => patch({ weight: e.target.value })}
+            className="w-full rounded border border-black/10 px-1 py-1.5 text-xs font-body"
+          >
+            <option value="">Como está</option>
+            {weightsForFont(current.fontFamily).map((w) => (
+              <option key={w} value={w}>{WEIGHT_LABELS[w] || w}</option>
+            ))}
+          </select>
+        </div>
         <NumField
           label="Tamaño (pt)"
           value={current.fontSizePt ?? (current.fontSizePercent ? percentToPt(current.fontSizePercent, sizeCategory) : "")}
@@ -168,16 +198,14 @@ export default function TextFormatControls({ label = "Formato del texto", value,
           placeholder="12"
         />
         <div>
-          <label className="font-body text-[10.5px] text-primary/55 block mb-1">Peso</label>
-          <select
-            value={current.weight ?? ""}
-            onChange={(e) => patch({ weight: e.target.value })}
-            className="w-full rounded border border-black/10 px-1 py-1.5 text-xs font-body"
-          >
-            {WEIGHT_OPTIONS.map((w) => (
-              <option key={w.value || "default"} value={w.value}>{w.label}</option>
-            ))}
-          </select>
+          <label className="font-body text-[10.5px] text-primary/55 block mb-1">Color</label>
+          <input
+            type="text"
+            value={current.color ?? ""}
+            onChange={(e) => patch({ color: e.target.value })}
+            placeholder="#193F73"
+            className="w-full rounded border border-black/10 px-2 py-1.5 text-xs font-body"
+          />
         </div>
         <NumField label="Interlineado (%)" value={current.lineHeightPercent} onChange={(v) => patch({ lineHeightPercent: v })} step={5} placeholder="100" />
         <NumField label="Espaciado letras (px)" value={current.letterSpacing} onChange={(v) => patch({ letterSpacing: v })} step={0.5} placeholder="0" />
