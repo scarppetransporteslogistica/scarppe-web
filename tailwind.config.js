@@ -29,6 +29,16 @@ module.exports = {
           { min: "768px", max: "1179px" },
           { raw: "(orientation: landscape) and (min-width: 1180px) and (max-width: 1366px) and (max-height: 1024px)" },
         ],
+        // Just the landscape slice of "tablet" above — same two ranges,
+        // restricted to orientation:landscape. Declared after "tablet" so,
+        // for viewports matching both, its rules win the cascade (same
+        // specificity, later wins). Used where we want landscape tablets to
+        // get a wider/side-by-side treatment while portrait tablets keep
+        // the compact stacked one.
+        tabletLandscape: [
+          { raw: "(orientation: landscape) and (min-width: 768px) and (max-width: 1179px)" },
+          { raw: "(orientation: landscape) and (min-width: 1180px) and (max-width: 1366px) and (max-height: 1024px)" },
+        ],
         desktop: {
           raw: "(min-width: 1180px) and (not ((orientation: landscape) and (max-width: 1366px) and (max-height: 1024px)))",
         },

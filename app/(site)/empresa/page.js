@@ -56,14 +56,13 @@ export default function EmpresaPage() {
       </section>
 
       {/* Historia: composición editorial en dos columnas — texto a la izquierda,
-          fotos a la derecha en un cuadro que siempre iguala la altura del
-          texto (si el texto crece, el cuadro crece con él). Two columns only
-          kick in at real desktop widths (our custom "desktop:" breakpoint) —
-          on tablet (portrait AND landscape) it stays a single stacked column,
-          same as mobile, so the photo never gets squeezed into a narrow-tall
-          box that crops it aggressively. */}
+          fotos a la derecha en un cuadro que iguala la altura del texto (si
+          el texto crece, el cuadro crece con él). Dos columnas en escritorio
+          Y en tablet horizontal (hay lugar de sobra ahí); en tablet vertical
+          y en celular sigue apilado en una sola columna con una altura fija
+          más compacta, para que la foto no quede recortada de forma agresiva. */}
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 md:py-24">
-        <div className="grid desktop:grid-cols-2 gap-8 sm:gap-10 desktop:gap-14 desktop:items-stretch">
+        <div className="grid tabletLandscape:grid-cols-2 desktop:grid-cols-2 gap-8 sm:gap-10 tabletLandscape:gap-10 desktop:gap-14 tabletLandscape:items-stretch desktop:items-stretch">
           <Reveal>
             <SectionTag id="empresa-historia" label={e.historia.titulo} labelFormat={fmt.historiaTitulo} />
             <TextFormatStyle id="empresa-historia-texto" format={fmt.historiaTexto} sizeCategory="body-lg" />
@@ -73,7 +72,7 @@ export default function EmpresaPage() {
             <Gallery
               images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
               itemFormats={e.historia.galleryFormats || []}
-              aspectClass="aspect-[4/5] sm:aspect-[3/4] tablet:aspect-auto tablet:h-[380px] desktop:aspect-auto w-full desktop:h-full min-h-[320px]"
+              aspectClass="aspect-[4/5] sm:aspect-[3/4] tablet:aspect-auto tablet:h-[380px] tabletLandscape:h-auto tabletLandscape:h-full desktop:aspect-auto w-full desktop:h-full min-h-[320px]"
               fit="contain"
               bgClass="bg-black/[0.04]"
             />
@@ -125,37 +124,40 @@ export default function EmpresaPage() {
       {/* Política de Gestión: intro + lista de principios + cierre. Vive
           como su propio bloque editable (título, intro, subtítulo de la
           lista, cada principio y el cierre), con texto por defecto tomado
-          de POLITICA_GESTION_DEFAULTS si todavía no se guardó nada. */}
+          de POLITICA_GESTION_DEFAULTS si todavía no se guardó nada. Sin
+          caja/fondo — mismo tratamiento tipográfico simple que "Nuestra
+          Historia", todo dentro de un mismo ancho de lectura cómodo
+          (max-w-3xl) para que no salte de angosto a ancho entre párrafos. */}
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pb-10 sm:pb-16 md:pb-28">
-        <div className="bg-light/40 border border-black/10 rounded-sm p-7 sm:p-10 md:p-14">
-          <Reveal>
-            <SectionTag id="empresa-politica" label={pg.titulo || POLITICA_GESTION_DEFAULTS.titulo} labelFormat={fmt.politicaTitulo} />
-            <TextFormatStyle id="empresa-politica-intro" format={fmt.politicaIntro} sizeCategory="body-lg" />
-            <p className="tf-empresa-politica-intro font-body text-black/65 leading-relaxed whitespace-pre-line text-base sm:text-lg mb-6 sm:mb-8 max-w-3xl">
-              {pg.intro || POLITICA_GESTION_DEFAULTS.intro}
-            </p>
-            <TextFormatStyle id="empresa-politica-principios-titulo" format={fmt.politicaPrincipiosTitulo} sizeCategory="heading-base" />
-            <p className="tf-empresa-politica-principios-titulo font-heading font-bold text-primary mb-4 sm:mb-5">
-              {pg.principiosTitulo || POLITICA_GESTION_DEFAULTS.principiosTitulo}
-            </p>
-            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 mb-8 sm:mb-10">
-              {(pg.principios && pg.principios.length ? pg.principios : POLITICA_GESTION_DEFAULTS.principios).map((p, i) => {
-                const pfmt = (pg.principiosFormats || [])[i] || {};
-                return (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-tertiary shrink-0" />
-                    <TextFormatStyle id={`empresa-politica-principio-${i}`} format={pfmt.text} mode="flex" sizeCategory="body-base" />
-                    <span className={`tf-empresa-politica-principio-${i} font-body text-black/70 leading-relaxed text-sm sm:text-base`}>{p}</span>
-                  </li>
-                );
-              })}
-            </ul>
-            <TextFormatStyle id="empresa-politica-cierre" format={fmt.politicaCierre} sizeCategory="body-base" />
-            <p className="tf-empresa-politica-cierre font-body text-black/60 italic leading-relaxed border-t border-black/10 pt-6 max-w-3xl">
-              {pg.cierre || POLITICA_GESTION_DEFAULTS.cierre}
-            </p>
-          </Reveal>
-        </div>
+        <Reveal>
+          <SectionTag id="empresa-politica" label={pg.titulo || POLITICA_GESTION_DEFAULTS.titulo} labelFormat={fmt.politicaTitulo} />
+          <TextFormatStyle id="empresa-politica-intro" format={fmt.politicaIntro} sizeCategory="body-lg" />
+          <p className="tf-empresa-politica-intro font-body text-black/65 leading-relaxed whitespace-pre-line text-base sm:text-lg max-w-3xl mb-8 sm:mb-10">
+            {pg.intro || POLITICA_GESTION_DEFAULTS.intro}
+          </p>
+          <TextFormatStyle id="empresa-politica-principios-titulo" format={fmt.politicaPrincipiosTitulo} sizeCategory="heading-base" />
+          <p className="tf-empresa-politica-principios-titulo font-heading font-bold uppercase tracking-wide text-tertiary text-sm sm:text-base max-w-3xl mb-5 sm:mb-6">
+            {pg.principiosTitulo || POLITICA_GESTION_DEFAULTS.principiosTitulo}
+          </p>
+          <ul className="space-y-4 sm:space-y-5 max-w-3xl mb-10 sm:mb-12">
+            {(pg.principios && pg.principios.length ? pg.principios : POLITICA_GESTION_DEFAULTS.principios).map((p, i) => {
+              const pfmt = (pg.principiosFormats || [])[i] || {};
+              return (
+                <li key={i} className="flex items-start gap-4">
+                  <span className="shrink-0 mt-0.5 flex items-center justify-center w-6 h-6 rounded-full bg-tertiary/10 text-tertiary font-heading font-bold text-[11px]">
+                    {i + 1}
+                  </span>
+                  <TextFormatStyle id={`empresa-politica-principio-${i}`} format={pfmt.text} mode="flex" sizeCategory="body-base" />
+                  <span className={`tf-empresa-politica-principio-${i} font-body text-black/70 leading-relaxed text-sm sm:text-base`}>{p}</span>
+                </li>
+              );
+            })}
+          </ul>
+          <TextFormatStyle id="empresa-politica-cierre" format={fmt.politicaCierre} sizeCategory="body-base" />
+          <p className="tf-empresa-politica-cierre font-body text-black/60 leading-relaxed border-t border-black/10 pt-6 sm:pt-8 max-w-3xl">
+            {pg.cierre || POLITICA_GESTION_DEFAULTS.cierre}
+          </p>
+        </Reveal>
       </section>
     </>
   );
