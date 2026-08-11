@@ -96,7 +96,7 @@ export default function AdminEmpresaPage() {
         <TextFormatControls label="Formato: texto de la historia" value={fmt.historiaTexto} onChange={(v) => updateFormat("historiaTexto", v)} />
         <AdminGalleryManager
           label="Fotos de historia (rotan automáticamente, en un cuadro fijo junto al texto)"
-          helpText='Por defecto cada foto se ve completa, sin recortar ni deformar. Si alguna queda muy chica dentro del cuadro o preferís encuadrarla vos mismo/a, usá "Zoom / encuadre" en esa foto para acercarla y ubicarla como quieras.'
+          helpText='Por defecto cada foto se ve completa, sin recortar ni deformar. Si alguna queda muy chica dentro del cuadro o preferís encuadrarla vos mismo/a, usá "Zoom / encuadre" en esa foto para acercarla y ubicarla como quieras — podés configurar un encuadre distinto para escritorio, tablet y celular, sin que cambiar uno afecte a los demás.'
           value={e.historia.gallery || []}
           onChange={(v) => updateEmpresa({ historia: { ...e.historia, gallery: v } })}
           formats={e.historia.galleryFormats || []}

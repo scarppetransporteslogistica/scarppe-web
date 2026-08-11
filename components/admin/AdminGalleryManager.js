@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import ImageCropControls from "./ImageCropControls";
 
 // `formats` (optional): array parallel to `value`, one { manual, zoom, posX,
 // posY } object per image, used only when `enableZoom` is on. When left out
@@ -62,6 +63,15 @@ export default function AdminGalleryManager({ label, value, onChange, helpText, 
     const nextFmts = [...fmts];
     while (nextFmts.length < images.length) nextFmts.push({});
     nextFmts[i] = { ...(nextFmts[i] || {}), ...patch };
+    emit(images, nextFmts);
+  }
+  // Used by ImageCropControls, which manages the full per-device object
+  // itself and needs to fully REPLACE the entry (not shallow-merge) so its
+  // "Restablecer" button can actually delete a device key.
+  function replaceFormat(i, fullValue) {
+    const nextFmts = [...fmts];
+    while (nextFmts.length < images.length) nextFmts.push({});
+    nextFmts[i] = fullValue;
     emit(images, nextFmts);
   }
 
@@ -138,42 +148,7 @@ export default function AdminGalleryManager({ label, value, onChange, helpText, 
                       <span className="font-body text-[11px] text-primary/70">Ajustar manualmente esta foto</span>
                     </label>
                     {f.manual && (
-                      <>
-                        <div>
-                          <label className="font-body text-[10.5px] text-primary/55 block mb-1">Zoom ({f.zoom || 100}%)</label>
-                          <input
-                            type="range"
-                            min="100"
-                            max="250"
-                            value={f.zoom || 100}
-                            onChange={(e) => updateFormat(i, { zoom: Number(e.target.value) })}
-                            className="w-full"
-                          />
-                        </div>
-                        <div>
-                          <label className="font-body text-[10.5px] text-primary/55 block mb-1">Posición horizontal ({f.posX ?? 50}%)</label>
-                          <input
-                            type="range"
-                            min="0"
-                            max="100"
-                            value={f.posX ?? 50}
-                            onChange={(e) => updateFormat(i, { posX: Number(e.target.value) })}
-                            className="w-full"
-                          />
-                        </div>
-                        <div>
-                          <label className="font-body text-[10.5px] text-primary/55 block mb-1">Posición vertical ({f.posY ?? 50}%)</label>
-                          <input
-                            type="range"
-                            min="0"
-                            max="100"
-                            value={f.posY ?? 50}
-                            onChange={(e) => updateFormat(i, { posY: Number(e.target.value) })}
-                            className="w-full"
-                          />
-                        </div>
-                        <p className="font-body text-[10px] text-primary/45">Guardá y mirá el resultado en el sitio; volvé a ajustar si hace falta.</p>
-                      </>
+                      <ImageCropControls value={f} onChange={(v) => replaceFormat(i, v)} />
                     )}
                   </div>
                 )}

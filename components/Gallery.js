@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
 
 // `fit`: "cover" (default, fills the box and crops as needed — used for
 // full-bleed photo bands) or "contain" (never crops or stretches; the whole
@@ -7,11 +8,18 @@ import { useEffect, useState } from "react";
 // with `bgClass` filling any leftover space behind it).
 //
 // `itemFormats` (optional): array parallel to `images`, one
-// { manual, zoom, posX, posY } object per photo. When an image has
-// `manual: true`, it ignores `fit` and instead renders zoomed/positioned
-// exactly as configured in the admin (cover + custom zoom + custom focal
-// point) — this is the per-photo "zoom and place it however I want" override.
-export default function Gallery({ images, interval = 4000, aspectClass = "aspect-[4/3]", fit = "cover", bgClass = "bg-black/[0.04]", itemFormats = [] }) {
+// { manual, zoom, objectPositionX, objectPositionY, tabletPortrait: {...},
+// tabletLandscape: {...}, mobilePortrait: {...}, mobileLandscape: {...},
+// wide: {...} } object per photo. When an image has `manual: true`, it
+// ignores `fit` and instead renders zoomed/positioned exactly as configured
+// in the admin (cover + custom zoom + custom focal point) — this is the
+// per-photo "zoom and place it however I want" override. The zoom/position
+// can be set independently per device (same 6-context engine used
+// everywhere else), driven through the box-format CSS engine instead of a
+// fixed inline style, so it can actually vary by breakpoint.
+// `idPrefix` gives each photo's generated CSS class a stable, unique name —
+// required (and must be unique on the page) whenever any item has manual crop.
+export default function Gallery({ images, interval = 4000, aspectClass = "aspect-[4/3]", fit = "cover", bgClass = "bg-black/[0.04]", itemFormats = [], idPrefix = "gallery" }) {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -27,27 +35,18 @@ export default function Gallery({ images, interval = 4000, aspectClass = "aspect
       {images.map((src, i) => {
         const f = itemFormats[i] || {};
         const manual = !!f.manual;
-        const zoom = manual ? Number(f.zoom) || 100 : 100;
-        const posX = manual && f.posX !== undefined ? Number(f.posX) : 50;
-        const posY = manual && f.posY !== undefined ? Number(f.posY) : 50;
+        const boxId = `${idPrefix}-${i}`;
         return (
-          <img
-            key={src + i}
-            src={src}
-            alt=""
-            className={`absolute inset-0 w-full h-full ${manual ? "object-cover" : fit === "contain" ? "object-contain" : "object-cover"} transition-opacity duration-1000 ${
-              i === idx ? "opacity-100" : "opacity-0"
-            }`}
-            style={
-              manual
-                ? {
-                    objectPosition: `${posX}% ${posY}%`,
-                    transform: zoom !== 100 ? `scale(${zoom / 100})` : undefined,
-                    transformOrigin: `${posX}% ${posY}%`,
-                  }
-                : undefined
-            }
-          />
+          <Fragment key={src + i}>
+            {manual && <BoxFormatStyle id={boxId} format={f} />}
+            <img
+              src={src}
+              alt=""
+              className={`absolute inset-0 w-full h-full ${manual ? `object-cover ${bfClass(boxId)}` : fit === "contain" ? "object-contain" : "object-cover"} transition-opacity duration-1000 ${
+                i === idx ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          </Fragment>
         );
       })}
       {images.length > 1 && (

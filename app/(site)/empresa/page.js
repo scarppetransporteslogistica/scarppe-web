@@ -72,6 +72,7 @@ export default function EmpresaPage() {
             <Gallery
               images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
               itemFormats={e.historia.galleryFormats || []}
+              idPrefix="empresa-historia-galeria"
               aspectClass="aspect-[4/5] sm:aspect-[3/4] tablet:aspect-auto tablet:h-[380px] tabletLandscape:h-auto tabletLandscape:h-full desktop:aspect-auto w-full desktop:h-full min-h-[320px]"
               fit="contain"
               bgClass="bg-black/[0.04]"
@@ -133,8 +134,8 @@ export default function EmpresaPage() {
           un enorme vacío blanco al lado, que es como se veía antes. */}
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pb-10 sm:pb-16 md:pb-28">
         <Reveal>
-          <div className="desktop:grid desktop:grid-cols-[minmax(220px,300px)_1fr] desktop:gap-16">
-            <div className="mb-6 desktop:mb-0">
+          <div className="tabletLandscape:grid tabletLandscape:grid-cols-[minmax(200px,260px)_1fr] tabletLandscape:gap-10 desktop:grid desktop:grid-cols-[minmax(220px,300px)_1fr] desktop:gap-16">
+            <div className="mb-6 tabletLandscape:mb-0 desktop:mb-0">
               <SectionTag id="empresa-politica" label={pg.titulo || POLITICA_GESTION_DEFAULTS.titulo} labelFormat={fmt.politicaTitulo} />
             </div>
             <div className="max-w-3xl">
