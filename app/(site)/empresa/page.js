@@ -73,7 +73,7 @@ export default function EmpresaPage() {
               images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
               itemFormats={e.historia.galleryFormats || []}
               idPrefix="empresa-historia-galeria"
-              aspectClass="aspect-[4/5] sm:aspect-[3/4] tablet:aspect-auto tablet:h-[380px] tabletLandscape:h-auto tabletLandscape:h-full desktop:aspect-auto w-full desktop:h-full min-h-[320px]"
+              aspectClass="aspect-[4/5] sm:aspect-[3/4] tablet:aspect-auto tablet:h-[380px] tabletLandscape:h-full desktop:aspect-auto w-full desktop:h-full min-h-[320px]"
               fit="contain"
               bgClass="bg-black/[0.04]"
             />
