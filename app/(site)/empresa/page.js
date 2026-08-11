@@ -22,8 +22,27 @@ export default function EmpresaPage() {
   return (
     <>
       <SectionTypographyStyle className="sec-typo-empresa" format={e.sectionTypography} />
-      <section style={{ background: "#191D33" }} className="py-10 sm:py-14 md:py-20 sec-typo-empresa">
-        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10">
+      <section
+        style={{ background: "#191D33" }}
+        className={`relative overflow-hidden sec-typo-empresa ${
+          e.heroImagen ? "py-14 sm:py-20 md:py-28 flex items-center min-h-[280px] sm:min-h-[360px] md:min-h-[440px]" : "py-10 sm:py-14 md:py-20"
+        }`}
+      >
+        {e.heroImagen && (
+          <>
+            <BoxFormatStyle id="empresa-hero-imagen" format={fmt.heroImagenFoco} />
+            <img
+              src={e.heroImagen}
+              alt=""
+              className={`absolute inset-0 w-full h-full object-cover ${bfClass("empresa-hero-imagen")}`}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(100deg, rgba(25,29,51,0.94) 0%, rgba(25,29,51,0.8) 42%, rgba(25,29,51,0.4) 100%)" }}
+            />
+          </>
+        )}
+        <div className="relative max-w-container mx-auto px-4 sm:px-6 lg:px-10 w-full">
           <Reveal>
             <SectionTag id="empresa-hero" label={e.eyebrow || "Empresa"} light labelFormat={fmt.eyebrow} />
             <TextFormatStyle id="empresa-hero-titulo" format={fmt.heroTitulo} sizeCategory="heading-4xl" />
@@ -52,7 +71,7 @@ export default function EmpresaPage() {
             <Gallery
               images={e.historia.gallery && e.historia.gallery.length > 0 ? e.historia.gallery : e.historia.timeline.map((t) => t.imagen)}
               itemFormats={e.historia.galleryFormats || []}
-              aspectClass="aspect-[4/5] sm:aspect-[3/4] desktop:aspect-auto w-full desktop:h-full min-h-[320px]"
+              aspectClass="aspect-[4/5] sm:aspect-[3/4] tablet:aspect-auto tablet:h-[380px] desktop:aspect-auto w-full desktop:h-full min-h-[320px]"
               fit="contain"
               bgClass="bg-black/[0.04]"
             />

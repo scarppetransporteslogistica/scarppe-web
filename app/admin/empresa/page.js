@@ -2,6 +2,8 @@
 import { useAdmin } from "@/lib/AdminContext";
 import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
+import AdminImageUpload from "@/components/admin/AdminImageUpload";
+import ImageFocalControls from "@/components/admin/ImageFocalControls";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
@@ -48,6 +50,15 @@ export default function AdminEmpresaPage() {
             <AdminField label="Título" value={e.heroTitulo} onChange={(v) => updateEmpresa({ heroTitulo: v })} />
             <TextFormatControls label="Formato: título" value={fmt.heroTitulo} onChange={(v) => updateFormat("heroTitulo", v)} />
           </div>
+        </div>
+        <div className="pt-2 border-t border-black/5 space-y-2">
+          <AdminImageUpload label="Imagen de fondo (opcional)" value={e.heroImagen || ""} onChange={(v) => updateEmpresa({ heroImagen: v })} />
+          <p className="font-body text-xs text-primary/50">
+            Si subís una foto, se muestra de fondo en esta franja con un degradado oscuro encima para que el título siga leyéndose bien. Si no subís nada, queda el fondo de color liso de siempre.
+          </p>
+          {e.heroImagen && (
+            <ImageFocalControls label="Encuadre de la imagen de fondo" value={fmt.heroImagenFoco} onChange={(v) => updateFormat("heroImagenFoco", v)} />
+          )}
         </div>
       </section>
 

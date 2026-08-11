@@ -20,8 +20,8 @@ export default function TrustStrip({ items, formats }) {
                 <BoxFormatStyle id={`inicio-badge-${i}-box`} format={bfmt.box} />
                 <TextFormatStyle id={`inicio-badge-${i}-texto`} format={bfmt.text} mode="flex" sizeCategory="body-sm" />
                 <span className={`tf-inicio-badge-${i}-texto flex items-center gap-2 sm:gap-3 font-heading text-[11px] sm:text-sm font-bold uppercase tracking-normal sm:tracking-wide text-primary leading-snug`}>
-                  <span className="shrink-0 flex items-center justify-center w-7 h-7 sm:w-6 sm:h-6 rounded-full bg-white/80">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <span className="shrink-0 flex items-center justify-center w-7 h-7 sm:w-6 sm:h-6 rounded-full border-[1.5px] border-current">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d={ICONS[i % ICONS.length]} />
                     </svg>
                   </span>
