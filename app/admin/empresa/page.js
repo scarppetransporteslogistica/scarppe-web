@@ -7,6 +7,7 @@ import ImageFocalControls from "@/components/admin/ImageFocalControls";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import BoxFormatControls from "@/components/admin/BoxFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
+import { POLITICA_GESTION_DEFAULTS } from "@/lib/politicaGestionDefaults";
 
 export default function AdminEmpresaPage() {
   const { content, setContent, save, saving, message, loading } = useAdmin();
@@ -14,6 +15,8 @@ export default function AdminEmpresaPage() {
 
   const e = content.pages.empresa;
   const fmt = e.formats || {};
+  const pg = e.politicaGestion || {};
+  const principios = pg.principios && pg.principios.length ? pg.principios : POLITICA_GESTION_DEFAULTS.principios;
   function updateEmpresa(patch) {
     setContent({ ...content, pages: { ...content.pages, empresa: { ...e, ...patch } } });
   }
@@ -33,6 +36,29 @@ export default function AdminEmpresaPage() {
   }
   function removeValor(i) {
     updateEmpresa({ valores: e.valores.filter((_, idx) => idx !== i) });
+  }
+  function updatePolitica(patch) {
+    updateEmpresa({ politicaGestion: { ...pg, ...patch } });
+  }
+  function updatePrincipio(i, value) {
+    const next = principios.map((p, idx) => (idx === i ? value : p));
+    updatePolitica({ principios: next });
+  }
+  function updatePrincipioFormat(i, key, value) {
+    const pfmts = pg.principiosFormats || [];
+    const cur = pfmts[i] || {};
+    const nextFmts = principios.map((_, idx) => (idx === i ? { ...cur, [key]: value } : pfmts[idx] || {}));
+    updatePolitica({ principios, principiosFormats: nextFmts });
+  }
+  function addPrincipio() {
+    updatePolitica({ principios: [...principios, "Nuevo principio"] });
+  }
+  function removePrincipio(i) {
+    const pfmts = pg.principiosFormats || [];
+    updatePolitica({
+      principios: principios.filter((_, idx) => idx !== i),
+      principiosFormats: pfmts.filter((_, idx) => idx !== i),
+    });
   }
 
   return (
@@ -122,6 +148,59 @@ export default function AdminEmpresaPage() {
         <button onClick={addValor} className="text-sm font-body text-tertiary hover:underline">+ Agregar valor</button>
       </section>
 
+      <section className="mt-6 bg-white rounded-2xl border border-black/5 p-6 space-y-4">
+        <p className="font-body text-sm font-semibold text-primary">Política de Gestión (aparece debajo de "Nuestros Valores")</p>
+
+        <div>
+          <AdminField label="Título" value={pg.titulo || ""} onChange={(v) => updatePolitica({ titulo: v })} />
+          <p className="font-body text-xs text-primary/45 mt-1">Vacío = "{POLITICA_GESTION_DEFAULTS.titulo}"</p>
+          <TextFormatControls label="Formato: título" value={fmt.politicaTitulo} onChange={(v) => updateFormat("politicaTitulo", v)} showFirstLine={false} />
+        </div>
+
+        <div>
+          <AdminTextarea label="Texto introductorio" rows={4} value={pg.intro ?? POLITICA_GESTION_DEFAULTS.intro} onChange={(v) => updatePolitica({ intro: v })} />
+          <TextFormatControls label="Formato: texto introductorio" value={fmt.politicaIntro} onChange={(v) => updateFormat("politicaIntro", v)} />
+        </div>
+
+        <div>
+          <AdminField
+            label='Subtítulo antes de la lista (por defecto: "Nuestra política de gestión se basa en los siguientes principios:")'
+            value={pg.principiosTitulo ?? POLITICA_GESTION_DEFAULTS.principiosTitulo}
+            onChange={(v) => updatePolitica({ principiosTitulo: v })}
+          />
+          <TextFormatControls label="Formato: subtítulo antes de la lista" value={fmt.politicaPrincipiosTitulo} onChange={(v) => updateFormat("politicaPrincipiosTitulo", v)} showFirstLine={false} />
+        </div>
+
+        <div className="space-y-3">
+          <p className="font-body text-sm font-semibold text-primary">Principios (lista con viñetas)</p>
+          {principios.map((p, i) => {
+            const pfmt = (pg.principiosFormats || [])[i] || {};
+            return (
+              <div key={i} className="border border-black/10 rounded-xl p-4 space-y-2">
+                <div className="flex items-start gap-3">
+                  <div className="flex-1">
+                    <AdminTextarea label={`Principio ${i + 1}`} rows={2} value={p} onChange={(v) => updatePrincipio(i, v)} />
+                  </div>
+                  <button onClick={() => removePrincipio(i)} className="h-9 w-9 rounded-full border border-red-200 text-red-600 hover:bg-red-50 shrink-0 mt-6">✕</button>
+                </div>
+                <TextFormatControls
+                  label={`Formato: principio ${i + 1}`}
+                  value={pfmt.text}
+                  onChange={(v) => updatePrincipioFormat(i, "text", v)}
+                  showFirstLine={false}
+                  previewText={p}
+                />
+              </div>
+            );
+          })}
+          <button onClick={addPrincipio} className="text-sm font-body text-tertiary hover:underline">+ Agregar principio</button>
+        </div>
+
+        <div>
+          <AdminTextarea label="Texto de cierre" rows={4} value={pg.cierre ?? POLITICA_GESTION_DEFAULTS.cierre} onChange={(v) => updatePolitica({ cierre: v })} />
+          <TextFormatControls label="Formato: texto de cierre" value={fmt.politicaCierre} onChange={(v) => updateFormat("politicaCierre", v)} />
+        </div>
+      </section>
 
       <SaveBar onSave={() => save()} saving={saving} message={message} />
     </div>

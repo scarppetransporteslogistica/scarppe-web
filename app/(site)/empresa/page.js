@@ -6,6 +6,7 @@ import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "@/components/BoxFormatStyle";
 import SectionTypographyStyle from "@/components/SectionTypographyStyle";
+import { POLITICA_GESTION_DEFAULTS } from "@/lib/politicaGestionDefaults";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,7 @@ export default function EmpresaPage() {
   const { pages } = getContent();
   const e = pages.empresa;
   const fmt = e.formats || {};
+  const pg = e.politicaGestion || {};
 
   return (
     <>
@@ -117,6 +119,42 @@ export default function EmpresaPage() {
               </React.Fragment>
             );
           })}
+        </div>
+      </section>
+
+      {/* Política de Gestión: intro + lista de principios + cierre. Vive
+          como su propio bloque editable (título, intro, subtítulo de la
+          lista, cada principio y el cierre), con texto por defecto tomado
+          de POLITICA_GESTION_DEFAULTS si todavía no se guardó nada. */}
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 pb-10 sm:pb-16 md:pb-28">
+        <div className="bg-light/40 border border-black/10 rounded-sm p-7 sm:p-10 md:p-14">
+          <Reveal>
+            <SectionTag id="empresa-politica" label={pg.titulo || POLITICA_GESTION_DEFAULTS.titulo} labelFormat={fmt.politicaTitulo} />
+            <TextFormatStyle id="empresa-politica-intro" format={fmt.politicaIntro} sizeCategory="body-lg" />
+            <p className="tf-empresa-politica-intro font-body text-black/65 leading-relaxed whitespace-pre-line text-base sm:text-lg mb-6 sm:mb-8 max-w-3xl">
+              {pg.intro || POLITICA_GESTION_DEFAULTS.intro}
+            </p>
+            <TextFormatStyle id="empresa-politica-principios-titulo" format={fmt.politicaPrincipiosTitulo} sizeCategory="heading-base" />
+            <p className="tf-empresa-politica-principios-titulo font-heading font-bold text-primary mb-4 sm:mb-5">
+              {pg.principiosTitulo || POLITICA_GESTION_DEFAULTS.principiosTitulo}
+            </p>
+            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 mb-8 sm:mb-10">
+              {(pg.principios && pg.principios.length ? pg.principios : POLITICA_GESTION_DEFAULTS.principios).map((p, i) => {
+                const pfmt = (pg.principiosFormats || [])[i] || {};
+                return (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-tertiary shrink-0" />
+                    <TextFormatStyle id={`empresa-politica-principio-${i}`} format={pfmt.text} mode="flex" sizeCategory="body-base" />
+                    <span className={`tf-empresa-politica-principio-${i} font-body text-black/70 leading-relaxed text-sm sm:text-base`}>{p}</span>
+                  </li>
+                );
+              })}
+            </ul>
+            <TextFormatStyle id="empresa-politica-cierre" format={fmt.politicaCierre} sizeCategory="body-base" />
+            <p className="tf-empresa-politica-cierre font-body text-black/60 italic leading-relaxed border-t border-black/10 pt-6 max-w-3xl">
+              {pg.cierre || POLITICA_GESTION_DEFAULTS.cierre}
+            </p>
+          </Reveal>
         </div>
       </section>
     </>
