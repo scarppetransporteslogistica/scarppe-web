@@ -191,6 +191,20 @@ body {
 .hero-subtitle { font-size: calc(clamp(1.0625rem, 0.909rem + 0.657vw, 1.5rem) * var(--hero-text-scale, 1) * var(--heading-scale, 1)) !important; }
 .hero-text { font-size: calc(clamp(1rem, 0.978rem + 0.094vw, 1.0625rem) * var(--hero-text-scale, 1) * var(--body-scale, 1)) !important; }
 
+/* Phones rotated sideways (landscape, short viewport height) size the title
+   off viewport WIDTH above, which on a wide-but-short phone (many modern
+   iPhones are >=768px wide lying down) computed a title big enough, combined
+   with the tablet-sized padding it was also picking up, to push the CTA
+   button off the bottom of the screen with no visible scroll cue — read by
+   the person testing it as the banner being "cut off". Capped separately
+   here, tied to viewport height instead so it stays compact no matter how
+   wide the phone is lying down. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero-title { font-size: calc(clamp(1.5rem, 1.15rem + 3vh, 2.25rem) * var(--hero-text-scale, 1) * var(--heading-scale, 1)) !important; }
+  .hero-subtitle { font-size: calc(clamp(1rem, 0.9rem + 1vh, 1.1875rem) * var(--hero-text-scale, 1) * var(--heading-scale, 1)) !important; }
+  .hero-text { font-size: calc(0.9375rem * var(--hero-text-scale, 1) * var(--body-scale, 1)) !important; }
+}
+
 /* ---- Stats bar value scale, fluid, percentage-editable (Admin > Inicio) ---- */
 .stats-value { font-size: calc(clamp(3rem, 2.736rem + 1.127vw, 3.75rem) * var(--stats-value-scale, 1) * var(--heading-scale, 1)) !important; }
 

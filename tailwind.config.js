@@ -42,6 +42,17 @@ module.exports = {
         desktop: {
           raw: "(min-width: 1180px) and (not ((orientation: landscape) and (max-width: 1366px) and (max-height: 1024px)))",
         },
+        // Any landscape viewport that's genuinely short (phones rotated
+        // sideways, regardless of their CSS width). Independent from
+        // "tablet"/"desktop" above, which are width-only and misclassify a
+        // wide landscape phone (many modern iPhones are >=768px wide lying
+        // sideways) as a tablet — that composition assumes far more vertical
+        // room than a ~360-430px-tall phone screen actually has, which is
+        // what was causing the hero banner to overflow/crop on real phones
+        // in landscape. Declared last so it wins cascade ties against both.
+        landscapeShort: {
+          raw: "(orientation: landscape) and (max-height: 500px)",
+        },
       },
       colors: {
         primary: "var(--color-primary)",

@@ -41,7 +41,7 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
 
   return (
     <section
-      className="relative min-h-[600px] sm:min-h-[660px] tablet:min-h-0 tablet:h-auto desktop:min-h-[88vh] flex overflow-hidden bg-primary"
+      className="relative min-h-[600px] sm:min-h-[660px] tablet:min-h-0 tablet:h-auto landscapeShort:min-h-0 landscapeShort:h-auto desktop:min-h-[88vh] flex overflow-hidden bg-primary"
       style={{ "--hero-text-scale": scale }}
     >
       <div className="absolute inset-0">
@@ -69,14 +69,14 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
             stays exactly as it was, untouched. */}
         {/* Mobile: text spans nearly the full width, so a stronger, more uniform scrim keeps contrast high without flattening the photo */}
         <div
-          className="hero-ov-mobile absolute inset-0 tablet:hidden desktop:hidden"
+          className="hero-ov-mobile absolute inset-0 tablet:hidden desktop:hidden landscapeShort:!block"
           style={{
             background: `linear-gradient(180deg, ${scaleAlpha("rgba(13,16,32,0.88)", overlay)} 0%, ${scaleAlpha("rgba(13,16,32,0.74)", overlay)} 45%, ${scaleAlpha("rgba(13,16,32,0.88)", overlay)} 100%)`,
           }}
         />
         {/* Tablet/desktop: darkest directly behind the text column, fading out so the central truck and the right-side trailer stay visible */}
         <div
-          className="hero-ov-td absolute inset-0 hidden tablet:block desktop:block"
+          className="hero-ov-td absolute inset-0 hidden tablet:block desktop:block landscapeShort:!hidden"
           style={{
             background: `linear-gradient(90deg, ${scaleAlpha("rgba(13,16,32,0.9)", overlay)} 0%, ${scaleAlpha("rgba(13,16,32,0.68)", overlay)} 32%, ${scaleAlpha("rgba(13,16,32,0.28)", overlay)} 55%, ${scaleAlpha("rgba(13,16,32,0.06)", overlay)} 78%, rgba(13,16,32,0) 100%)`,
           }}
@@ -92,10 +92,10 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
         <div className="absolute inset-0 hero-gradient-custom" />
       </div>
 
-      <div className="relative z-[2] w-full flex items-center px-6 sm:px-8 tablet:px-10 desktop:px-[7%] pt-14 sm:pt-16 tablet:pt-[72px] desktop:py-0 pb-20 sm:pb-24 tablet:pb-16 desktop:pb-0">
-        <div className="w-full tablet:max-w-[58%] desktop:max-w-[min(600px,45%)]">
+      <div className="relative z-[2] w-full flex items-center px-6 sm:px-8 tablet:px-10 desktop:px-[7%] landscapeShort:px-6 pt-14 sm:pt-16 tablet:pt-[72px] landscapeShort:pt-6 desktop:py-0 pb-20 sm:pb-24 tablet:pb-16 landscapeShort:pb-6 desktop:pb-0">
+        <div className="w-full tablet:max-w-[58%] landscapeShort:max-w-[560px] desktop:max-w-[min(600px,45%)]">
           <TextFormatStyle id="inicio-hero-eyebrow" format={formats.heroEyebrow} mode="flex" sizeCategory="label-xxs" />
-          <p className="tf-inicio-hero-eyebrow font-heading text-[11px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-accent mb-4 sm:mb-5 flex items-center gap-2 sm:gap-3">
+          <p className="tf-inicio-hero-eyebrow font-heading text-[11px] sm:text-xs font-semibold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-accent mb-4 sm:mb-5 landscapeShort:mb-2 flex items-center gap-2 sm:gap-3">
             <span className="w-5 sm:w-6 h-0.5 bg-accent inline-block shrink-0" />
             Transporte y Logística
           </p>
@@ -104,15 +104,15 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
             {title}
           </h1>
           <TextFormatStyle id="inicio-hero-subtitulo" format={formats.heroSubtitle} sizeCategory="hero-subtitle" />
-          <p className="hero-subtitle tf-inicio-hero-subtitulo font-heading font-semibold text-white/95 mt-4 sm:mt-5 text-left">{subtitle}</p>
+          <p className="hero-subtitle tf-inicio-hero-subtitulo font-heading font-semibold text-white/95 mt-4 sm:mt-5 landscapeShort:mt-2 text-left">{subtitle}</p>
           <TextFormatStyle id="inicio-hero-texto" format={formats.heroText} sizeCategory="hero-text" />
-          <p className="hero-text tf-inicio-hero-texto font-body font-light text-light mt-4 sm:mt-6 leading-relaxed text-left">{text}</p>
+          <p className="hero-text tf-inicio-hero-texto font-body font-light text-light mt-4 sm:mt-6 landscapeShort:mt-2 landscapeShort:leading-snug leading-relaxed text-left">{text}</p>
           <TextFormatStyle id="inicio-hero-ctas" format={formats.heroCtas} mode="flex" sizeCategory="btn" />
           <BoxFormatStyle id="inicio-hero-cta-box" format={formats.heroCtaBox} />
-          <div className="tf-inicio-hero-ctas flex mt-8 sm:mt-10">
+          <div className="tf-inicio-hero-ctas flex mt-8 sm:mt-10 landscapeShort:mt-4">
             <a
               href="#servicios"
-              className={`btn-cta ${bfClass("inicio-hero-cta-box")} inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 hover:brightness-95 transition-all w-full sm:w-auto`}
+              className={`btn-cta ${bfClass("inicio-hero-cta-box")} inline-flex items-center justify-center rounded-sm bg-accent text-primary font-heading font-bold uppercase tracking-[0.2em] px-8 py-4 landscapeShort:py-2.5 hover:brightness-95 transition-all w-full sm:w-auto`}
             >
               Conocer Nuestros Servicios
             </a>
