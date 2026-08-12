@@ -14,14 +14,14 @@ export default function StatsBar({ stats, valueScale }) {
               <BoxFormatStyle id={`inicio-stat-${i}-box`} format={fmt.box} />
               <Reveal
                 delay={i * 80}
-                className={`${bfClass(`inicio-stat-${i}-box`)} text-center py-6 sm:py-8 md:py-12 px-4 sm:px-6 hover:bg-secondary transition-colors ${
+                className={`group ${bfClass(`inicio-stat-${i}-box`)} text-center py-6 sm:py-8 md:py-12 px-4 sm:px-6 hover:bg-white transition-colors ${
                   i < stats.length - 1 ? "border-r border-white/10" : ""
                 }`}
               >
                 <TextFormatStyle id={`inicio-stat-${i}-valor`} format={fmt.valor} sizeCategory="stats-value" />
-                <p className={`tf-inicio-stat-${i}-valor stats-value font-heading font-extrabold text-accent leading-none`}>{s.value}</p>
+                <p className={`tf-inicio-stat-${i}-valor stats-value font-heading font-extrabold text-accent leading-none transition-colors group-hover:!text-primary`}>{s.value}</p>
                 <TextFormatStyle id={`inicio-stat-${i}-label`} format={fmt.label} sizeCategory="label-xxs" />
-                <p className={`tf-inicio-stat-${i}-label font-body text-xs uppercase tracking-wide text-light mt-3`}>{s.label}</p>
+                <p className={`tf-inicio-stat-${i}-label font-body text-xs uppercase tracking-wide text-light mt-3 transition-colors group-hover:!text-primary`}>{s.label}</p>
               </Reveal>
             </div>
           );
