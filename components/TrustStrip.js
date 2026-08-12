@@ -26,8 +26,8 @@ export default function TrustStrip({ items, formats }) {
               <span key={text} className={`relative ${bfClass(`inicio-badge-${i}-box`)}`}>
                 <BoxFormatStyle id={`inicio-badge-${i}-box`} format={bfmt.box} />
                 <TextFormatStyle id={`inicio-badge-${i}-texto`} format={bfmt.text} mode="flex" sizeCategory="body-sm" />
-                <span className={`tf-inicio-badge-${i}-texto flex items-center gap-1.5 sm:gap-2.5 font-heading text-[9.5px] xs:text-[10.5px] sm:text-xs font-bold uppercase tracking-normal sm:tracking-wide text-primary leading-snug text-center`}>
-                  <span className="shrink-0 flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full border-[1.5px] border-current">
+                <span className={`tf-inicio-badge-${i}-texto flex items-start tabletLandscape:items-center desktop:items-center gap-1.5 sm:gap-2.5 font-heading text-[9.5px] xs:text-[10.5px] sm:text-xs font-bold uppercase tracking-normal sm:tracking-wide text-primary leading-snug text-left tabletLandscape:text-center desktop:text-center`}>
+                  <span className="shrink-0 flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full border-[1.5px] border-current mt-px tabletLandscape:mt-0 desktop:mt-0">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="sm:w-[14px] sm:h-[14px]">
                       <path d={ICONS[i % ICONS.length]} />
                     </svg>
