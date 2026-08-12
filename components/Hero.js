@@ -41,7 +41,7 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
 
   return (
     <section
-      className="relative min-h-[600px] sm:min-h-[660px] tablet:min-h-0 tablet:h-auto landscapeShort:min-h-0 landscapeShort:h-auto desktop:min-h-[88vh] flex overflow-hidden bg-primary"
+      className="relative min-h-[600px] sm:min-h-[660px] tablet:min-h-0 tablet:h-auto landscapeShort:min-h-[100dvh] landscapeShort:h-auto desktop:min-h-[88vh] flex overflow-hidden bg-primary"
       style={{ "--hero-text-scale": scale }}
     >
       <div className="absolute inset-0">
