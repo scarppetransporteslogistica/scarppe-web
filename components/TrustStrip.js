@@ -20,7 +20,13 @@ const ICONS = [
 // cell) — with items of such different lengths, centering both columns
 // left a ragged, disconnected look; aligning outward gives the block two
 // clean edges and reads as one deliberate group instead of four floating
-// pieces.
+// pieces. Each grid item is forced to fill its full column width (w-full)
+// and the actual push-left/push-right happens on the inner flex row via
+// justify-content — relying on the grid item's own shrink-to-fit width
+// instead was unreliable once "Más de 80 años..." wrapped onto two lines,
+// since a shrink-wrapped box's width (and therefore where "the edge" ends
+// up) depends on content length instead of being a fixed, predictable
+// edge to align against.
 export default function TrustStrip({ items, formats }) {
   return (
     <div className="relative bg-accent shadow-[0_-10px_18px_-14px_rgba(0,0,0,0.35)]">
@@ -28,12 +34,14 @@ export default function TrustStrip({ items, formats }) {
         <div className="grid grid-cols-2 gap-x-4 gap-y-3 sm:gap-x-6 justify-items-center tabletLandscape:flex tabletLandscape:flex-row tabletLandscape:flex-wrap tabletLandscape:justify-center tabletLandscape:gap-x-10 tabletLandscape:gap-y-3 desktop:flex desktop:flex-row desktop:flex-wrap desktop:justify-center desktop:gap-x-10 desktop:gap-y-3">
           {items.map((text, i) => {
             const bfmt = (formats || [])[i] || {};
-            const alignCol = i % 2 === 0 ? "justify-self-start" : "justify-self-end";
+            const isRightCol = i % 2 === 1;
+            const rowJustify = isRightCol ? "justify-end" : "justify-start";
+            const textAlign = isRightCol ? "text-right" : "text-left";
             return (
-              <span key={text} className={`relative ${alignCol} tabletLandscape:justify-self-auto desktop:justify-self-auto ${bfClass(`inicio-badge-${i}-box`)}`}>
+              <span key={text} className={`relative block w-full tabletLandscape:w-auto desktop:w-auto ${bfClass(`inicio-badge-${i}-box`)}`}>
                 <BoxFormatStyle id={`inicio-badge-${i}-box`} format={bfmt.box} />
                 <TextFormatStyle id={`inicio-badge-${i}-texto`} format={bfmt.text} mode="flex" sizeCategory="body-sm" />
-                <span className={`tf-inicio-badge-${i}-texto flex items-start tabletLandscape:items-center desktop:items-center gap-1.5 sm:gap-2.5 font-heading text-[9.5px] xs:text-[10.5px] sm:text-xs font-bold uppercase tracking-normal sm:tracking-wide text-primary leading-snug text-left tabletLandscape:text-center desktop:text-center`}>
+                <span className={`tf-inicio-badge-${i}-texto flex items-start tabletLandscape:items-center desktop:items-center ${rowJustify} tabletLandscape:justify-center desktop:justify-center gap-1.5 sm:gap-2.5 font-heading text-[9.5px] xs:text-[10.5px] sm:text-xs font-bold uppercase tracking-normal sm:tracking-wide text-primary leading-snug ${textAlign} tabletLandscape:text-center desktop:text-center`}>
                   <span className="shrink-0 flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full border-[1.5px] border-current mt-px tabletLandscape:mt-0 desktop:mt-0">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="sm:w-[14px] sm:h-[14px]">
                       <path d={ICONS[i % ICONS.length]} />
