@@ -14,7 +14,7 @@ export default function StatsBar({ stats, valueScale }) {
               <BoxFormatStyle id={`inicio-stat-${i}-box`} format={fmt.box} />
               <Reveal
                 delay={i * 80}
-                className={`group ${bfClass(`inicio-stat-${i}-box`)} text-center py-6 sm:py-8 md:py-12 px-4 sm:px-6 hover:bg-white transition-colors ${
+                className={`${bfClass(`inicio-stat-${i}-box`)} text-center py-6 sm:py-8 md:py-12 px-4 sm:px-6 hover:bg-secondary transition-colors ${
                   i < stats.length - 1 ? "border-r border-white/10" : ""
                 }`}
               >
