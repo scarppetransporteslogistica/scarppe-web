@@ -6,7 +6,7 @@ export default function StatsBar({ stats, valueScale }) {
   const scale = (Number(valueScale) || 100) / 100;
   return (
     <section className="bg-primary" style={{ "--stats-value-scale": scale }}>
-      <div className="max-w-container mx-auto grid grid-cols-2 md:grid-cols-4">
+      <div className="max-w-container mx-auto grid grid-cols-2 desktop:grid-cols-4">
         {stats.map((s, i) => {
           const fmt = s.formats || {};
           return (
