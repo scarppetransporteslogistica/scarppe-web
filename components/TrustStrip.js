@@ -43,18 +43,18 @@ const DIVIDER_CLASSES = [
 export default function TrustStrip({ items, formats }) {
   return (
     <div className="relative bg-accent shadow-[0_-10px_18px_-14px_rgba(0,0,0,0.35)]">
-      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-2 landscape:flex landscape:flex-row landscape:flex-wrap landscape:justify-center landscape:items-stretch">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-2 landscape:flex landscape:flex-row landscape:flex-wrap landscape:justify-between landscape:items-stretch">
         {items.map((text, i) => {
           const bfmt = (formats || [])[i] || {};
           return (
             <span
               key={text}
-              className={`relative flex justify-center items-center py-6 px-3 sm:py-7 sm:px-5 landscape:py-5 landscape:px-6 sm:landscape:px-9 ${DIVIDER_CLASSES[i % DIVIDER_CLASSES.length]} ${bfClass(`inicio-badge-${i}-box`)}`}
+              className={`relative flex justify-center items-center py-6 px-3 sm:py-7 sm:px-5 landscape:py-6 landscape:px-6 sm:landscape:px-10 ${DIVIDER_CLASSES[i % DIVIDER_CLASSES.length]} ${bfClass(`inicio-badge-${i}-box`)}`}
             >
               <BoxFormatStyle id={`inicio-badge-${i}-box`} format={bfmt.box} />
               <TextFormatStyle id={`inicio-badge-${i}-texto`} format={bfmt.text} sizeCategory="body-sm" />
               <span
-                className={`tf-inicio-badge-${i}-texto flex flex-col items-center gap-[0.55em] font-heading text-[11px] sm:text-xs landscape:w-[120px] font-bold uppercase text-primary leading-snug text-center`}
+                className={`tf-inicio-badge-${i}-texto flex flex-col items-center gap-[0.55em] font-heading text-[11px] sm:text-xs landscape:w-[190px] sm:landscape:text-[13px] font-bold uppercase text-primary leading-snug text-center`}
               >
                 <span className="shrink-0 flex items-center justify-center w-[2.5em] h-[2.5em] rounded-full border-[0.14em] border-current">
                   <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
