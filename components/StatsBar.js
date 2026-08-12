@@ -19,9 +19,9 @@ export default function StatsBar({ stats, valueScale }) {
                 }`}
               >
                 <TextFormatStyle id={`inicio-stat-${i}-valor`} format={fmt.valor} sizeCategory="stats-value" />
-                <p className={`tf-inicio-stat-${i}-valor stats-value font-heading font-extrabold text-accent leading-none transition-colors group-hover:!text-primary`}>{s.value}</p>
+                <p className={`tf-inicio-stat-${i}-valor stats-value font-heading font-extrabold text-accent leading-none`}>{s.value}</p>
                 <TextFormatStyle id={`inicio-stat-${i}-label`} format={fmt.label} sizeCategory="label-xxs" />
-                <p className={`tf-inicio-stat-${i}-label font-body text-xs uppercase tracking-wide text-light mt-3 transition-colors group-hover:!text-primary`}>{s.label}</p>
+                <p className={`tf-inicio-stat-${i}-label font-body text-xs uppercase tracking-wide text-light mt-3`}>{s.label}</p>
               </Reveal>
             </div>
           );
