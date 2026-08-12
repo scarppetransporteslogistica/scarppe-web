@@ -15,6 +15,12 @@ const ICONS = [
 // 80 años...") makes the two rows different widths and the whole block
 // looks lopsided once centered. A grid gives both rows the same two column
 // widths, so everything lines up cleanly no matter how long each label is.
+// Below tabletLandscape the left column is left-aligned and the right
+// column is right-aligned (instead of every item centered in its own
+// cell) — with items of such different lengths, centering both columns
+// left a ragged, disconnected look; aligning outward gives the block two
+// clean edges and reads as one deliberate group instead of four floating
+// pieces.
 export default function TrustStrip({ items, formats }) {
   return (
     <div className="relative bg-accent shadow-[0_-10px_18px_-14px_rgba(0,0,0,0.35)]">
@@ -22,8 +28,9 @@ export default function TrustStrip({ items, formats }) {
         <div className="grid grid-cols-2 gap-x-4 gap-y-3 sm:gap-x-6 justify-items-center tabletLandscape:flex tabletLandscape:flex-row tabletLandscape:flex-wrap tabletLandscape:justify-center tabletLandscape:gap-x-10 tabletLandscape:gap-y-3 desktop:flex desktop:flex-row desktop:flex-wrap desktop:justify-center desktop:gap-x-10 desktop:gap-y-3">
           {items.map((text, i) => {
             const bfmt = (formats || [])[i] || {};
+            const alignCol = i % 2 === 0 ? "justify-self-start" : "justify-self-end";
             return (
-              <span key={text} className={`relative ${bfClass(`inicio-badge-${i}-box`)}`}>
+              <span key={text} className={`relative ${alignCol} tabletLandscape:justify-self-auto desktop:justify-self-auto ${bfClass(`inicio-badge-${i}-box`)}`}>
                 <BoxFormatStyle id={`inicio-badge-${i}-box`} format={bfmt.box} />
                 <TextFormatStyle id={`inicio-badge-${i}-texto`} format={bfmt.text} mode="flex" sizeCategory="body-sm" />
                 <span className={`tf-inicio-badge-${i}-texto flex items-start tabletLandscape:items-center desktop:items-center gap-1.5 sm:gap-2.5 font-heading text-[9.5px] xs:text-[10.5px] sm:text-xs font-bold uppercase tracking-normal sm:tracking-wide text-primary leading-snug text-left tabletLandscape:text-center desktop:text-center`}>
