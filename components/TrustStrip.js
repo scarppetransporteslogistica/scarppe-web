@@ -1,19 +1,51 @@
 import TextFormatStyle from "./TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
 
+// Icons redesigned to match the reference provided in Figma: a truck for
+// "Flota propia", a globe for "Más de 80 años de trayectoria", a map pin
+// for "Uruguay - Brasil" and a check-in-circle for "Soluciones logísticas".
+// Each icon needs more than one path/shape, so ICONS is now an array of
+// functions returning JSX fragments (SVG children), instead of a single
+// path string like before.
 const ICONS = [
-  "M3 17h1a2 2 0 0 0 4 0h7a2 2 0 0 0 4 0h1M3 17V8a1 1 0 0 1 1-1h9v10M16 7h3.5l3.5 4v6h-2",
-  "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z",
-  "M3 21V9l9-5 9 5v12H3ZM9 21v-7h6v7",
-  "M21 8 12 3 3 8l9 5 9-5ZM3 8v8l9 5 9-5V8",
+  () => (
+    <>
+      <path d="M14 17V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v9a1 1 0 0 0 1 1h2" />
+      <path d="M15 17H9" />
+      <path d="M19 17h2a1 1 0 0 0 1-1v-3.1a1 1 0 0 0-.22-.62l-3.1-3.9A1 1 0 0 0 17.9 8H14" />
+      <circle cx="17" cy="17" r="2" />
+      <circle cx="7" cy="17" r="2" />
+    </>
+  ),
+  () => (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3a13 13 0 0 1 0 18 13 13 0 0 1 0-18Z" />
+      <path d="M3 12h18" />
+    </>
+  ),
+  () => (
+    <>
+      <path d="M19 10c0 5-7 11-7 11s-7-6-7-11a7 7 0 0 1 14 0Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </>
+  ),
+  () => (
+    <>
+      <path d="M20.5 8.5A9 9 0 1 1 15 3.3" />
+      <path d="m8 11.5 3 3 8.5-9" />
+    </>
+  ),
 ];
 
 // Thin divider lines between the 4 cells, matching the reference: in the
-// 2x2 grid (portrait) item 0 gets a right AND bottom border (the shared
-// center lines), item 1 a bottom border, item 2 a right border, item 3
-// none — four border segments total, forming a clean "+" divider between
-// all four cells. In the single row (landscape) it's simpler: each item
-// except the last gets a right border, so three lines split the row of 4.
+// 2x2 grid (portrait, mobile) item 0 gets a right AND bottom border (the
+// shared center lines), item 1 a bottom border, item 2 a right border,
+// item 3 none — four border segments total, forming a clean "+" divider
+// between all four cells. Per the latest Figma reference, the single row
+// (landscape / desktop) no longer has any divider lines at all — the
+// lines are a mobile-portrait-only detail now, so every item drops its
+// border once we're in landscape.
 // (Not using Tailwind's divide-x/divide-y here: those add a border to
 // every item after the first in DOM order regardless of which grid row/
 // column it's actually in, which does not produce a correct cross pattern
@@ -27,9 +59,9 @@ const ICONS = [
 // admin has configured in Panel > General.
 const DIVIDER_COLOR = "border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)]";
 const DIVIDER_CLASSES = [
-  `${DIVIDER_COLOR} border-r border-b landscape:border-b-0`,
-  `${DIVIDER_COLOR} border-b landscape:border-b-0 landscape:border-r`,
-  `${DIVIDER_COLOR} border-r`,
+  `${DIVIDER_COLOR} border-r border-b landscape:border-0`,
+  `${DIVIDER_COLOR} border-b landscape:border-0`,
+  `${DIVIDER_COLOR} border-r landscape:border-0`,
   "",
 ];
 
@@ -46,6 +78,7 @@ export default function TrustStrip({ items, formats }) {
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-2 landscape:flex landscape:flex-row landscape:flex-wrap landscape:justify-between landscape:items-stretch">
         {items.map((text, i) => {
           const bfmt = (formats || [])[i] || {};
+          const Icon = ICONS[i % ICONS.length];
           return (
             <span
               key={text}
@@ -57,8 +90,8 @@ export default function TrustStrip({ items, formats }) {
                 className={`tf-inicio-badge-${i}-texto flex flex-col items-center gap-[0.55em] font-heading text-[11px] sm:text-xs landscape:w-[190px] sm:landscape:text-[13px] font-bold uppercase text-primary leading-snug text-center`}
               >
                 <span className="shrink-0 flex items-center justify-center w-[2.5em] h-[2.5em] rounded-full border-[0.14em] border-current">
-                  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d={ICONS[i % ICONS.length]} />
+                  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <Icon />
                   </svg>
                 </span>
                 <span>{text}</span>
