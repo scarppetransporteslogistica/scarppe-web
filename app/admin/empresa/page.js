@@ -37,6 +37,13 @@ export default function AdminEmpresaPage() {
   function removeValor(i) {
     updateEmpresa({ valores: e.valores.filter((_, idx) => idx !== i) });
   }
+  function moveValor(i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= e.valores.length) return;
+    const valores = [...e.valores];
+    [valores[i], valores[j]] = [valores[j], valores[i]];
+    updateEmpresa({ valores });
+  }
   function updatePolitica(patch) {
     updateEmpresa({ politicaGestion: { ...pg, ...patch } });
   }
@@ -140,7 +147,25 @@ export default function AdminEmpresaPage() {
                 <AdminTextarea label="Descripción" rows={2} value={v.descripcion} onChange={(val) => updateValor(i, { descripcion: val })} />
                 <TextFormatControls label={`Formato: descripción del valor ${i + 1}`} value={vfmt.descripcion} onChange={(val) => updateValorFormat(i, "descripcion", val)} previewText={v.descripcion} />
                 <BoxFormatControls label="Tamaño de la tarjeta" value={vfmt.box} onChange={(val) => updateValorFormat(i, "box", val)} />
-                <button onClick={() => removeValor(i)} className="text-xs font-body text-red-600 hover:underline mt-2">Eliminar valor</button>
+                <div className="flex items-center gap-3 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => moveValor(i, -1)}
+                    disabled={i === 0}
+                    className="text-xs font-body text-tertiary hover:underline disabled:opacity-30 disabled:hover:no-underline disabled:cursor-not-allowed"
+                  >
+                    ↑ Subir
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => moveValor(i, 1)}
+                    disabled={i === e.valores.length - 1}
+                    className="text-xs font-body text-tertiary hover:underline disabled:opacity-30 disabled:hover:no-underline disabled:cursor-not-allowed"
+                  >
+                    ↓ Bajar
+                  </button>
+                  <button type="button" onClick={() => removeValor(i)} className="text-xs font-body text-red-600 hover:underline">Eliminar valor</button>
+                </div>
               </div>
             </div>
           );
