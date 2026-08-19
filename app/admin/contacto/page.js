@@ -30,6 +30,35 @@ export default function AdminContactoPage() {
   function removeDirector(i) {
     update({ directores: c.directores.filter((_, idx) => idx !== i) });
   }
+  function moveDirector(i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= c.directores.length) return;
+    const directores = [...c.directores];
+    [directores[i], directores[j]] = [directores[j], directores[i]];
+    update({ directores });
+  }
+  const contactosTelefono = c.contactosTelefono || [];
+  function updateContactoTel(i, patch) {
+    const contactosTelefono2 = contactosTelefono.map((t, idx) => (idx === i ? { ...t, ...patch } : t));
+    update({ contactosTelefono: contactosTelefono2 });
+  }
+  function updateContactoTelFormat(i, key, value) {
+    const t = contactosTelefono[i];
+    updateContactoTel(i, { formats: { ...(t.formats || {}), [key]: value } });
+  }
+  function addContactoTel() {
+    update({ contactosTelefono: [...contactosTelefono, { titulo: "", telefono: "" }] });
+  }
+  function removeContactoTel(i) {
+    update({ contactosTelefono: contactosTelefono.filter((_, idx) => idx !== i) });
+  }
+  function moveContactoTel(i, dir) {
+    const j = i + dir;
+    if (j < 0 || j >= contactosTelefono.length) return;
+    const next = [...contactosTelefono];
+    [next[i], next[j]] = [next[j], next[i]];
+    update({ contactosTelefono: next });
+  }
   function updateMapa(i, patch) {
     const mapas = c.mapas.map((m, idx) => (idx === i ? { ...m, ...patch } : m));
     update({ mapas });
@@ -72,6 +101,8 @@ export default function AdminContactoPage() {
                 <div className="flex-1">
                   <AdminField label="Teléfono" value={d.telefono} onChange={(v) => updateDirector(i, { telefono: v })} />
                 </div>
+                <button type="button" onClick={() => moveDirector(i, -1)} disabled={i === 0} className="h-9 w-9 rounded-full border border-black/10 text-primary hover:bg-black/5 shrink-0 disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed">↑</button>
+                <button type="button" onClick={() => moveDirector(i, 1)} disabled={i === c.directores.length - 1} className="h-9 w-9 rounded-full border border-black/10 text-primary hover:bg-black/5 shrink-0 disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed">↓</button>
                 <button onClick={() => removeDirector(i)} className="h-9 w-9 rounded-full border border-red-200 text-red-600 hover:bg-red-50 shrink-0">✕</button>
               </div>
               <div className="sm:col-span-2">
@@ -84,12 +115,33 @@ export default function AdminContactoPage() {
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">
-        <AdminField label="Teléfono Gerencia" value={c.gerencia} onChange={(v) => update({ gerencia: v })} />
-        <TextFormatControls label="Formato: teléfono Gerencia" value={fmt.gerencia} onChange={(v) => updateFormat("gerencia", v)} showFirstLine={false} />
-        <AdminField label="Teléfono Logística" value={c.logistica} onChange={(v) => update({ logistica: v })} />
-        <TextFormatControls label="Formato: teléfono Logística" value={fmt.logistica} onChange={(v) => updateFormat("logistica", v)} showFirstLine={false} />
-        <AdminField label="E-mail para recibir cotizaciones" value={c.quoteEmail} onChange={(v) => update({ quoteEmail: v })} />
-        <TextFormatControls label='Formato: título "Formulario de Cotización"' value={fmt.formTitulo} onChange={(v) => updateFormat("formTitulo", v)} showFirstLine={false} />
+        <p className="font-body text-sm font-semibold text-primary">Teléfonos de contacto</p>
+        <p className="font-body text-xs text-primary/50 -mt-2">Agregá los que necesites, cada uno con su propio título (antes solo se podía Gerencia y Logística — ahora podés tener cuantos quieras, en el orden que prefieras).</p>
+        {contactosTelefono.map((t, i) => {
+          const tfmt = t.formats || {};
+          return (
+            <div key={i} className="grid sm:grid-cols-2 gap-3 items-end border border-black/10 rounded-xl p-4">
+              <AdminField label="Título (ej: Gerencia, Ventas, Emergencias)" value={t.titulo} onChange={(v) => updateContactoTel(i, { titulo: v })} />
+              <div className="flex gap-2 items-end">
+                <div className="flex-1">
+                  <AdminField label="Teléfono" value={t.telefono} onChange={(v) => updateContactoTel(i, { telefono: v })} />
+                </div>
+                <button type="button" onClick={() => moveContactoTel(i, -1)} disabled={i === 0} className="h-9 w-9 rounded-full border border-black/10 text-primary hover:bg-black/5 shrink-0 disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed">↑</button>
+                <button type="button" onClick={() => moveContactoTel(i, 1)} disabled={i === contactosTelefono.length - 1} className="h-9 w-9 rounded-full border border-black/10 text-primary hover:bg-black/5 shrink-0 disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed">↓</button>
+                <button type="button" onClick={() => removeContactoTel(i)} className="h-9 w-9 rounded-full border border-red-200 text-red-600 hover:bg-red-50 shrink-0">✕</button>
+              </div>
+              <div className="sm:col-span-2">
+                <TextFormatControls label={`Formato: línea del contacto ${i + 1} (título — teléfono)`} value={tfmt.linea} onChange={(v) => updateContactoTelFormat(i, "linea", v)} showFirstLine={false} previewText={`${t.titulo || ""} ${t.telefono || ""}`} />
+              </div>
+            </div>
+          );
+        })}
+        <button type="button" onClick={addContactoTel} className="text-sm font-body text-tertiary hover:underline">+ Agregar teléfono de contacto</button>
+
+        <div className="pt-2 border-t border-black/5">
+          <AdminField label="E-mail para recibir cotizaciones" value={c.quoteEmail} onChange={(v) => update({ quoteEmail: v })} />
+          <TextFormatControls label='Formato: título "Formulario de Cotización"' value={fmt.formTitulo} onChange={(v) => updateFormat("formTitulo", v)} showFirstLine={false} />
+        </div>
       </section>
 
       <section className="bg-white rounded-2xl border border-black/5 p-6 space-y-4 mb-6">

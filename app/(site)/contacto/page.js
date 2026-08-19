@@ -49,16 +49,16 @@ export default function ContactoPage() {
                   </div>
                 );
               })}
-              <div className="border-t border-white/10 py-5">
-                <p className="font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent mb-1">Gerencia</p>
-                <TextFormatStyle id="contacto-gerencia" format={fmt.gerencia} sizeCategory="body-base" />
-                <p className="tf-contacto-gerencia font-body text-white">{c.gerencia}</p>
-              </div>
-              <div className="border-t border-b border-white/10 py-5">
-                <p className="font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent mb-1">Logística</p>
-                <TextFormatStyle id="contacto-logistica" format={fmt.logistica} sizeCategory="body-base" />
-                <p className="tf-contacto-logistica font-body text-white">{c.logistica}</p>
-              </div>
+              {(c.contactosTelefono || []).map((t, i) => {
+                const tfmt = t.formats || {};
+                return (
+                  <div key={i} className="border-t border-white/10 py-5 last:border-b">
+                    <p className="font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent mb-1">{t.titulo}</p>
+                    <TextFormatStyle id={`contacto-tel-${i}`} format={tfmt.linea} sizeCategory="body-base" />
+                    <p className={`tf-contacto-tel-${i} font-body text-white`}>{t.telefono}</p>
+                  </div>
+                );
+              })}
             </div>
           </Reveal>
           <Reveal delay={100}>

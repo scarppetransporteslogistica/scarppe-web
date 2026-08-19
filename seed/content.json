@@ -253,7 +253,17 @@
       "eyebrow": "Contacto",
       "heroTitulo": "Hablemos de tu operación",
       "oficinasEyebrow": "Oficinas",
-      "oficinasTitulo": "Nuestras Oficinas"
+      "oficinasTitulo": "Nuestras Oficinas",
+      "contactosTelefono": [
+        {
+          "titulo": "Gerencia",
+          "telefono": "098 985 790"
+        },
+        {
+          "titulo": "Logística",
+          "telefono": "098 062 691"
+        }
+      ]
     },
     "trabajaConNosotros": {
       "titulo": "Trabaja con Nosotros",
