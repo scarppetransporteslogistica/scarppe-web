@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSwipe } from "./useSwipe";
 
 export default function ServicioGallery({ images = [] }) {
   const list = (images || []).filter(Boolean);
@@ -9,12 +10,20 @@ export default function ServicioGallery({ images = [] }) {
     if (list.length < 2) return;
     const t = setInterval(() => setIdx((i) => (i + 1) % list.length), 4000);
     return () => clearInterval(t);
-  }, [list.length]);
+    // Depending on `idx` too means a manual swipe/dot click resets the
+    // countdown, so that photo gets a full viewing window before it
+    // auto-advances again.
+  }, [list.length, idx]);
+
+  const swipe = useSwipe({
+    onSwipeLeft: () => setIdx((i) => (i + 1) % list.length),
+    onSwipeRight: () => setIdx((i) => (i - 1 + list.length) % list.length),
+  });
 
   if (list.length === 0) return null;
 
   return (
-    <div className="relative w-full h-72 md:h-[420px] overflow-hidden border border-black/10">
+    <div className="relative w-full h-72 md:h-[420px] overflow-hidden border border-black/10 touch-pan-y" {...(list.length > 1 ? swipe : {})}>
       {list.map((src, i) => (
         <img
           key={src + i}

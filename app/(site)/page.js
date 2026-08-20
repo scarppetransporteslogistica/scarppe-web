@@ -35,6 +35,7 @@ export default function InicioPage() {
         overlayScale={inicio.heroOverlayScale}
         gradient={inicio.heroGradient}
         formats={fmt}
+        imageFormats={inicio.heroImageFormats || []}
       />
       <TrustStrip items={inicio.badges || []} formats={inicio.badgeFormats || []} />
       <StatsBar stats={inicio.stats} valueScale={inicio.statsValueScale} />

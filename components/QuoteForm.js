@@ -58,18 +58,24 @@ export default function QuoteForm() {
         <label className="block font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent px-6 pt-6">
           Servicio *
         </label>
-        <select
+        {/* A plain <input> + <datalist> instead of a <select>: it shows the
+            same list of options as a dropdown to pick from (native browser
+            suggestions), but the field also stays a normal text input, so
+            someone can just type a service that isn't in the list — e.g. a
+            custom request — instead of being locked to the fixed options. */}
+        <input
+          list="servicio-opciones"
           name="servicio"
           required
-          className="block w-full bg-transparent border-none outline-none px-6 pt-3 pb-7 font-body text-base font-light text-white"
-        >
-          <option className="bg-secondary" value="">Seleccionar servicio...</option>
+          autoComplete="off"
+          placeholder="Elegí de la lista o escribí el que necesites..."
+          className="block w-full bg-transparent border-none outline-none px-6 pt-3 pb-7 font-body text-base font-light text-white placeholder:text-white/40"
+        />
+        <datalist id="servicio-opciones">
           {SERVICIOS_OPCIONES.map((s) => (
-            <option className="bg-secondary" key={s} value={s}>
-              {s}
-            </option>
+            <option key={s} value={s} />
           ))}
-        </select>
+        </datalist>
       </div>
       <div>
         <label className="block font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent px-6 pt-6">

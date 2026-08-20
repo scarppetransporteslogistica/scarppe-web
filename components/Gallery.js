@@ -1,6 +1,7 @@
 "use client";
 import { Fragment, useEffect, useState } from "react";
 import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
+import { useSwipe } from "./useSwipe";
 
 // `fit`: "cover" (default, fills the box and crops as needed — used for
 // full-bleed photo bands) or "contain" (never crops or stretches; the whole
@@ -26,12 +27,23 @@ export default function Gallery({ images, interval = 4000, aspectClass = "aspect
     if (!images || images.length < 2) return;
     const t = setInterval(() => setIdx((i) => (i + 1) % images.length), interval);
     return () => clearInterval(t);
-  }, [images, interval]);
+    // Re-runs (resetting the countdown) whenever `idx` changes too — so a
+    // manual swipe or a dot click gives that photo the same full viewing
+    // time as an automatic rotation would, instead of switching away early.
+  }, [images, interval, idx]);
+
+  const swipe = useSwipe({
+    onSwipeLeft: () => images && setIdx((i) => (i + 1) % images.length),
+    onSwipeRight: () => images && setIdx((i) => (i - 1 + images.length) % images.length),
+  });
 
   if (!images || images.length === 0) return null;
 
   return (
-    <div className={`relative overflow-hidden border border-black/10 ${fit === "contain" ? bgClass : ""} ${aspectClass}`}>
+    <div
+      className={`relative overflow-hidden border border-black/10 touch-pan-y ${fit === "contain" ? bgClass : ""} ${aspectClass}`}
+      {...(images.length > 1 ? swipe : {})}
+    >
       {images.map((src, i) => {
         const f = itemFormats[i] || {};
         const manual = !!f.manual;

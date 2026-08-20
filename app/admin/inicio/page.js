@@ -57,9 +57,12 @@ export default function AdminInicioPage() {
       <div className="space-y-6 bg-white rounded-2xl border border-black/5 p-6">
         <AdminGalleryManager
           label="Fotos de fondo del banner (rotan automáticamente)"
-          helpText="Subí varias fotos: van a alternarse solas en el banner principal. Usá la flecha para reordenar."
+          helpText='Subí varias fotos: van a alternarse solas en el banner principal. Usá las flechas para reordenar. Por defecto, todas usan el encuadre general de abajo ("Encuadre de las fotos de fondo del banner"). Si una foto puntual se ve mal en celular o tablet, usá "Zoom / encuadre" en ESA foto para moverla/acercarla — se puede configurar distinto para cada dispositivo, y no afecta a las demás fotos.'
           value={inicio.heroImages || (inicio.heroImage ? [inicio.heroImage] : [])}
           onChange={(v) => update({ heroImages: v })}
+          formats={inicio.heroImageFormats || []}
+          enableZoom
+          onChangeWithFormats={(images, heroImageFormats) => update({ heroImages: images, heroImageFormats })}
         />
         <AdminField label="Video de fondo (URL, opcional — reemplaza la foto si se completa)" value={inicio.heroVideo} onChange={(v) => update({ heroVideo: v })} />
         <ImageFocalControls

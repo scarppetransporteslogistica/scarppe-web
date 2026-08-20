@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import TextFormatStyle from "./TextFormatStyle";
 import BoxFormatStyle, { bfClass } from "./BoxFormatStyle";
 import { heroGradientCSS } from "@/lib/textFormat";
+import { useSwipe } from "./useSwipe";
 
 // Scales just the alpha channel of an "rgba(r,g,b,a)" string by `factor`,
 // clamped to a valid 0-1 range. Used to let the admin lighten or darken the
@@ -14,7 +15,7 @@ function scaleAlpha(rgba, factor) {
   });
 }
 
-export default function Hero({ images, video, title, subtitle, text, textScale, overlayScale, gradient, formats = {} }) {
+export default function Hero({ images, video, title, subtitle, text, textScale, overlayScale, gradient, formats = {}, imageFormats = [] }) {
   const [idx, setIdx] = useState(0);
   const list = images && images.length > 0 ? images : [];
 
@@ -22,7 +23,15 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
     if (video || list.length < 2) return;
     const t = setInterval(() => setIdx((i) => (i + 1) % list.length), 5000);
     return () => clearInterval(t);
-  }, [video, list.length]);
+    // Depending on `idx` too means a manual swipe/dot click resets the
+    // countdown, so that photo gets a full viewing window before it
+    // auto-advances again.
+  }, [video, list.length, idx]);
+
+  const swipe = useSwipe({
+    onSwipeLeft: () => list.length > 1 && setIdx((i) => (i + 1) % list.length),
+    onSwipeRight: () => list.length > 1 && setIdx((i) => (i - 1 + list.length) % list.length),
+  });
 
   const scale = (Number(textScale) || 100) / 100;
   const overlay = (Number(overlayScale) || 100) / 100;
@@ -41,25 +50,41 @@ export default function Hero({ images, video, title, subtitle, text, textScale, 
 
   return (
     <section
-      className="relative min-h-[600px] sm:min-h-[660px] tablet:min-h-0 tablet:h-auto landscapeShort:min-h-[100dvh] landscapeShort:h-auto desktop:min-h-[88vh] flex overflow-hidden bg-primary"
+      className="relative min-h-[600px] sm:min-h-[660px] tablet:min-h-0 tablet:h-auto landscapeShort:min-h-[100dvh] landscapeShort:h-auto desktop:min-h-[88vh] flex overflow-hidden bg-primary touch-pan-y"
       style={{ "--hero-text-scale": scale }}
+      {...(!video && list.length > 1 ? swipe : {})}
     >
       <div className="absolute inset-0">
         {video ? (
           <video className="w-full h-full object-cover object-center" src={video} autoPlay muted loop playsInline />
         ) : (
           <>
+            {/* Shared fallback encuadre — applies to any photo that doesn't
+                have its own manual crop below. */}
             <BoxFormatStyle id="inicio-hero-imagen" format={formats.heroImagenFoco} />
-            {list.map((src, i) => (
-              <img
-                key={src + i}
-                src={src}
-                alt=""
-                className={`absolute inset-0 w-full h-full object-cover object-[70%_center] tablet:object-[58%_center] desktop:object-center ${bfClass("inicio-hero-imagen")} transition-opacity duration-[2000ms] ease-in-out ${
-                  i === idx ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            ))}
+            {list.map((src, i) => {
+              const f = imageFormats[i] || {};
+              const manual = !!f.manual;
+              const boxId = `inicio-hero-image-${i}`;
+              return (
+                <Fragment key={src + i}>
+                  {/* Per-photo override — only rendered (and only wins) for
+                      photos the admin explicitly marked as "Ajustar
+                      manualmente esta foto", exactly like the Historia
+                      gallery's per-photo zoom/encuadre. */}
+                  {manual && <BoxFormatStyle id={boxId} format={f} />}
+                  <img
+                    src={src}
+                    alt=""
+                    className={`absolute inset-0 w-full h-full object-cover ${
+                      manual
+                        ? bfClass(boxId)
+                        : `object-[70%_center] tablet:object-[58%_center] desktop:object-center ${bfClass("inicio-hero-imagen")}`
+                    } transition-opacity duration-[2000ms] ease-in-out ${i === idx ? "opacity-100" : "opacity-0"}`}
+                  />
+                </Fragment>
+              );
+            })}
           </>
         )}
 
