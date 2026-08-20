@@ -8,11 +8,16 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
   const content = getContent();
-  return pageMetadata(content, {
-    title: content.pages.inicio.seo.title,
-    description: content.pages.inicio.seo.description,
-    path: "/",
-  });
+  return {
+    ...pageMetadata(content, {
+      title: content.pages.inicio.seo.title,
+      description: content.pages.inicio.seo.description,
+      path: "/",
+    }),
+    verification: {
+      google: "HmP-VF9AXW70cZgF1RmtfNV0HS71FWOIzqWvH1-EXCY",
+    },
+  };
 }
 
 export default function RootLayout({ children }) {
