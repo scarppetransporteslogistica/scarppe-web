@@ -21,9 +21,14 @@ export async function POST(request) {
   // so it's clickable straight from the inbox; a bare server path like
   // "/uploads/cv/archivo.pdf" (what this used to send) means nothing
   // outside the site and can't be opened by whoever receives the email.
-  // Built from the incoming request's own host, so it's correct whether
-  // it's reached via the onrender.com address or the custom domain.
-  const siteOrigin = new URL(request.url).origin;
+  // NOTE: this used to be built from `new URL(request.url).origin`, but
+  // in production that resolved to "localhost" instead of the real
+  // domain — Render's proxy doesn't hand Next.js a Host header that
+  // matches the public address in this setup. Using a fixed constant
+  // sidesteps that entirely. Override with the SITE_URL env var in
+  // Render (Settings > Environment) if the domain ever changes again,
+  // otherwise it falls back to the current custom domain.
+  const siteOrigin = (process.env.SITE_URL || "https://scarppe.com.uy").replace(/\/$/, "");
   let cvUrl = "";
   if (cv && typeof cv === "object") {
     const bytes = Buffer.from(await cv.arrayBuffer());
