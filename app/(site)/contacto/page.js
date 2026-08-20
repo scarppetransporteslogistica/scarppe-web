@@ -84,6 +84,16 @@ export default function ContactoPage() {
             const mfmt = m.formats || {};
             return (
               <Reveal key={m.pais} delay={i * 100}>
+                {m.horario && (
+                  <div className="mb-4">
+                    <TextFormatStyle id={`contacto-oficina-${i}-horario-titulo`} format={mfmt.horarioTitulo} sizeCategory="label-xxs" />
+                    <p className={`tf-contacto-oficina-${i}-horario-titulo font-heading text-[11px] font-bold uppercase tracking-[0.25em] text-accent mb-1`}>
+                      Horario de atención
+                    </p>
+                    <TextFormatStyle id={`contacto-oficina-${i}-horario`} format={mfmt.horario} sizeCategory="body-sm" />
+                    <p className={`tf-contacto-oficina-${i}-horario font-body text-sm text-black/70 whitespace-pre-line`}>{m.horario}</p>
+                  </div>
+                )}
                 <TextFormatStyle id={`contacto-oficina-${i}-pais`} format={mfmt.pais} sizeCategory="heading-lg" />
                 <p className={`tf-contacto-oficina-${i}-pais font-heading text-lg font-bold uppercase tracking-wide text-primary mb-1`}>{m.pais}</p>
                 <TextFormatStyle id={`contacto-oficina-${i}-direccion`} format={mfmt.direccion} sizeCategory="body-sm" />

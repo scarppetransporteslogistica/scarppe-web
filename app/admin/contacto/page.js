@@ -1,6 +1,6 @@
 "use client";
 import { useAdmin } from "@/lib/AdminContext";
-import { AdminField } from "@/components/admin/AdminField";
+import { AdminField, AdminTextarea } from "@/components/admin/AdminField";
 import TextFormatControls from "@/components/admin/TextFormatControls";
 import SaveBar from "@/components/admin/SaveBar";
 
@@ -163,6 +163,13 @@ export default function AdminContactoPage() {
           const mfmt = m.formats || {};
           return (
             <div key={i} className="border border-black/10 rounded-xl p-4 space-y-3">
+              <AdminTextarea
+                label="Horario de atención (opcional — aparece con ese título arriba de la dirección; dejalo vacío para no mostrar nada)"
+                rows={2}
+                value={m.horario || ""}
+                onChange={(v) => updateMapa(i, { horario: v })}
+              />
+              <TextFormatControls label={`Formato: horario de atención (oficina ${i + 1})`} value={mfmt.horario} onChange={(v) => updateMapaFormat(i, "horario", v)} previewText={m.horario} />
               <div className="grid sm:grid-cols-3 gap-3">
                 <AdminField label="País" value={m.pais} onChange={(v) => updateMapa(i, { pais: v })} />
                 <AdminField label="Latitud" value={m.lat} onChange={(v) => updateMapa(i, { lat: parseFloat(v) })} />
