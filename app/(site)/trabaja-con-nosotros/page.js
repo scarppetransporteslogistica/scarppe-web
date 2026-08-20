@@ -1,4 +1,5 @@
 import { getContent } from "@/lib/db";
+import { pageMetadata } from "@/lib/seo";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import CVForm from "@/components/CVForm";
@@ -8,8 +9,13 @@ import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
-  const { pages } = getContent();
-  return { title: pages.trabajaConNosotros.seo.title, description: pages.trabajaConNosotros.seo.description };
+  const content = getContent();
+  const { pages } = content;
+  return pageMetadata(content, {
+    title: pages.trabajaConNosotros.seo.title,
+    description: pages.trabajaConNosotros.seo.description,
+    path: "/trabaja-con-nosotros",
+  });
 }
 
 export default function TrabajaConNosotrosPage() {

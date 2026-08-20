@@ -1,5 +1,6 @@
 import React from "react";
 import { getContent } from "@/lib/db";
+import { pageMetadata } from "@/lib/seo";
 import Gallery from "@/components/Gallery";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
@@ -11,8 +12,14 @@ import { POLITICA_GESTION_DEFAULTS } from "@/lib/politicaGestionDefaults";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
-  const { pages } = getContent();
-  return { title: pages.empresa.seo.title, description: pages.empresa.seo.description };
+  const content = getContent();
+  const { pages } = content;
+  return pageMetadata(content, {
+    title: pages.empresa.seo.title,
+    description: pages.empresa.seo.description,
+    path: "/empresa",
+    image: pages.empresa.historia?.gallery?.[0],
+  });
 }
 
 export default function EmpresaPage() {

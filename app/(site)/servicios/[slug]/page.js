@@ -1,4 +1,5 @@
 import { getContent } from "@/lib/db";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
@@ -10,13 +11,16 @@ import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
-  const { servicios } = getContent();
+  const content = getContent();
+  const { servicios } = content;
   const servicio = servicios.find((s) => s.slug === params.slug);
   if (!servicio) return {};
-  return {
+  return pageMetadata(content, {
     title: `${servicio.nombre} | Scarppe Transporte y Logística`,
     description: servicio.resumen,
-  };
+    path: `/servicios/${servicio.slug}`,
+    image: servicio.imagenes?.[0] || servicio.imagen,
+  });
 }
 
 export default function ServicioPage({ params }) {

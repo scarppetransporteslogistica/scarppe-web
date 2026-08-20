@@ -1,4 +1,5 @@
 import { getContent } from "@/lib/db";
+import { pageMetadata } from "@/lib/seo";
 import Hero from "@/components/Hero";
 import TrustStrip from "@/components/TrustStrip";
 import StatsBar from "@/components/StatsBar";
@@ -13,8 +14,14 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
-  const { pages } = getContent();
-  return { title: pages.inicio.seo.title, description: pages.inicio.seo.description };
+  const content = getContent();
+  const { pages } = content;
+  return pageMetadata(content, {
+    title: pages.inicio.seo.title,
+    description: pages.inicio.seo.description,
+    path: "/",
+    image: (pages.inicio.heroImages && pages.inicio.heroImages[0]) || pages.inicio.heroImage,
+  });
 }
 
 export default function InicioPage() {

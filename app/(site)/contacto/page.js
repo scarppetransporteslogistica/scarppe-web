@@ -1,4 +1,5 @@
 import { getContent } from "@/lib/db";
+import { pageMetadata } from "@/lib/seo";
 import Reveal from "@/components/Reveal";
 import SectionTag from "@/components/SectionTag";
 import MapEmbed from "@/components/MapEmbed";
@@ -9,8 +10,13 @@ import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
-  const { pages } = getContent();
-  return { title: pages.contacto.seo.title, description: pages.contacto.seo.description };
+  const content = getContent();
+  const { pages } = content;
+  return pageMetadata(content, {
+    title: pages.contacto.seo.title,
+    description: pages.contacto.seo.description,
+    path: "/contacto",
+  });
 }
 
 export default function ContactoPage() {

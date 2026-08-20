@@ -1,4 +1,5 @@
 import { getContent } from "@/lib/db";
+import { pageMetadata } from "@/lib/seo";
 import SectionTag from "@/components/SectionTag";
 import Reveal from "@/components/Reveal";
 import TextFormatStyle from "@/components/TextFormatStyle";
@@ -8,8 +9,14 @@ import SectionTypographyStyle from "@/components/SectionTypographyStyle";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
-  const { pages } = getContent();
-  return { title: pages.comercioExterior.seo.title, description: pages.comercioExterior.seo.description };
+  const content = getContent();
+  const { pages } = content;
+  return pageMetadata(content, {
+    title: pages.comercioExterior.seo.title,
+    description: pages.comercioExterior.seo.description,
+    path: "/comercio-exterior",
+    image: pages.comercioExterior.heroImage || pages.comercioExterior.gallery?.[0],
+  });
 }
 
 export default function ComercioExteriorPage() {
