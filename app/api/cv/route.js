@@ -6,7 +6,7 @@ import path from "path";
 export async function POST(request) {
   const formData = await request.formData();
   const content = getContent();
-  const key = content.settings.web3formsKey;
+  const key = content.settings.web3formsKeyTrabajo;
   const toEmail = content.pages.trabajaConNosotros.cvEmail;
 
   const nombre = formData.get("nombre");
@@ -15,6 +15,15 @@ export async function POST(request) {
   const mensaje = formData.get("mensaje");
   const cv = formData.get("cv");
 
+  // The email only ever contains a link to the PDF, not the file itself —
+  // actual attachments are a paid-plan-only Web3Forms feature. That link
+  // has to be a full, absolute URL (https://scarppe.com.uy/uploads/...)
+  // so it's clickable straight from the inbox; a bare server path like
+  // "/uploads/cv/archivo.pdf" (what this used to send) means nothing
+  // outside the site and can't be opened by whoever receives the email.
+  // Built from the incoming request's own host, so it's correct whether
+  // it's reached via the onrender.com address or the custom domain.
+  const siteOrigin = new URL(request.url).origin;
   let cvUrl = "";
   if (cv && typeof cv === "object") {
     const bytes = Buffer.from(await cv.arrayBuffer());
@@ -22,7 +31,7 @@ export async function POST(request) {
     const uploadDir = path.join(UPLOADS_DIR, "cv");
     fs.mkdirSync(uploadDir, { recursive: true });
     fs.writeFileSync(path.join(uploadDir, filename), bytes);
-    cvUrl = `/uploads/cv/${filename}`;
+    cvUrl = `${siteOrigin}/uploads/cv/${filename}`;
   }
 
   if (!key) {
@@ -43,8 +52,7 @@ export async function POST(request) {
         Email: email,
         Telefono: telefono,
         Mensaje: mensaje,
-        "Archivo CV": cvUrl ? `Adjunto guardado en el servidor: ${cvUrl}` : "No adjuntado",
-        to: toEmail,
+        "Archivo CV (hacé clic para abrir/descargar)": cvUrl || "No adjuntado",
       }),
     });
     const data = await res.json();

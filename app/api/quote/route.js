@@ -4,7 +4,7 @@ import { getContent } from "@/lib/db";
 export async function POST(request) {
   const body = await request.json();
   const content = getContent();
-  const key = content.settings.web3formsKey;
+  const key = content.settings.web3formsKeyCotizacion;
   const toEmail = content.pages.contacto.quoteEmail;
 
   if (!key) {
@@ -30,7 +30,6 @@ export async function POST(request) {
         Telefono: body.telefono,
         Servicio: body.servicio,
         "Descripción de la carga": body.descripcion,
-        to: toEmail,
       }),
     });
     const data = await res.json();
