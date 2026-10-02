@@ -20,7 +20,7 @@ export async function generateMetadata() {
 }
 
 export default function ContactoPage() {
-  const { pages } = getContent();
+  const { pages, settings } = getContent();
   const c = pages.contacto;
   const fmt = c.formats || {};
 
@@ -70,7 +70,7 @@ export default function ContactoPage() {
           <Reveal delay={100}>
             <TextFormatStyle id="contacto-form-titulo" format={fmt.formTitulo} sizeCategory="heading-xs" />
             <p className="tf-contacto-form-titulo font-heading text-xs font-bold uppercase tracking-[0.25em] text-accent mb-5">Formulario de Cotización</p>
-            <QuoteForm />
+            <QuoteForm accessKey={settings?.web3formsKeyCotizacion || ""} />
           </Reveal>
         </div>
       </section>

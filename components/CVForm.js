@@ -1,23 +1,45 @@
 "use client";
 import { useState } from "react";
 
-export default function CVForm() {
+export default function CVForm({ accessKey }) {
   const [status, setStatus] = useState("idle");
 
   async function handleSubmit(e) {
     e.preventDefault();
     setStatus("sending");
     const form = e.target;
-    const formData = new FormData();
-    formData.append("nombre", form.nombre.value);
-    formData.append("email", form.email.value);
-    formData.append("telefono", form.telefono.value);
-    formData.append("mensaje", form.mensaje.value);
-    if (form.cv.files[0]) formData.append("cv", form.cv.files[0]);
-
     try {
-      const res = await fetch("/api/cv", { method: "POST", body: formData });
-      if (res.ok) {
+      // Step 1: upload the PDF to our own server, which stores it and gives
+      // back a public link (Web3Forms' free plan can't carry attachments).
+      let cvUrl = "";
+      if (form.cv.files[0]) {
+        const fd = new FormData();
+        fd.append("cv", form.cv.files[0]);
+        const up = await fetch("/api/cv", { method: "POST", body: fd });
+        const upJson = await up.json().catch(() => ({}));
+        if (!up.ok || !upJson.ok) throw new Error("upload failed");
+        cvUrl = upJson.cvUrl || "";
+      }
+      // Step 2: send the e-mail straight from the browser to Web3Forms
+      // (server-to-server sending is blocked on their free plan — that's
+      // why the form had stopped working).
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Nuevo currículum — ${form.nombre.value}`,
+          from_name: "Sitio web Scarppe",
+          replyto: form.email.value,
+          Nombre: form.nombre.value,
+          Email: form.email.value,
+          Telefono: form.telefono.value,
+          Mensaje: form.mensaje.value,
+          "Archivo CV (hacé clic para abrir/descargar)": cvUrl || "No adjuntado",
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.success) {
         setStatus("success");
         form.reset();
       } else {

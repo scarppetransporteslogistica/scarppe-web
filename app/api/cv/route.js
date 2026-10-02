@@ -1,68 +1,40 @@
 import { NextResponse } from "next/server";
-import { getContent, UPLOADS_DIR } from "@/lib/db";
+import { UPLOADS_DIR } from "@/lib/db";
 import fs from "fs";
 import path from "path";
 
+// Only stores the uploaded CV PDF and returns its public link. The e-mail
+// itself is now sent from the visitor's browser (see components/CVForm.js),
+// because Web3Forms' free plan blocks server-to-server submissions.
+//
+// The link must be absolute (https://scarppe.com.uy/uploads/...) so it's
+// clickable from the inbox. Built from a fixed constant because on Render
+// `new URL(request.url).origin` resolves to "localhost". Override with the
+// SITE_URL env var in Render if the domain ever changes.
+const MAX_BYTES = 10 * 1024 * 1024;
+
 export async function POST(request) {
-  const formData = await request.formData();
-  const content = getContent();
-  const key = content.settings.web3formsKeyTrabajo;
-  const toEmail = content.pages.trabajaConNosotros.cvEmail;
-
-  const nombre = formData.get("nombre");
-  const email = formData.get("email");
-  const telefono = formData.get("telefono");
-  const mensaje = formData.get("mensaje");
-  const cv = formData.get("cv");
-
-  // The email only ever contains a link to the PDF, not the file itself —
-  // actual attachments are a paid-plan-only Web3Forms feature. That link
-  // has to be a full, absolute URL (https://scarppe.com.uy/uploads/...)
-  // so it's clickable straight from the inbox; a bare server path like
-  // "/uploads/cv/archivo.pdf" (what this used to send) means nothing
-  // outside the site and can't be opened by whoever receives the email.
-  // NOTE: this used to be built from `new URL(request.url).origin`, but
-  // in production that resolved to "localhost" instead of the real
-  // domain — Render's proxy doesn't hand Next.js a Host header that
-  // matches the public address in this setup. Using a fixed constant
-  // sidesteps that entirely. Override with the SITE_URL env var in
-  // Render (Settings > Environment) if the domain ever changes again,
-  // otherwise it falls back to the current custom domain.
-  const siteOrigin = (process.env.SITE_URL || "https://scarppe.com.uy").replace(/\/$/, "");
-  let cvUrl = "";
-  if (cv && typeof cv === "object") {
+  try {
+    const formData = await request.formData();
+    const cv = formData.get("cv");
+    if (!cv || typeof cv !== "object") {
+      return NextResponse.json({ ok: false, message: "Falta el archivo." }, { status: 400 });
+    }
+    if (cv.size > MAX_BYTES) {
+      return NextResponse.json({ ok: false, message: "El archivo es demasiado grande." }, { status: 413 });
+    }
+    const isPdf = (cv.type === "application/pdf") || /\.pdf$/i.test(cv.name || "");
+    if (!isPdf) {
+      return NextResponse.json({ ok: false, message: "Solo se aceptan archivos PDF." }, { status: 400 });
+    }
+    const siteOrigin = (process.env.SITE_URL || "https://scarppe.com.uy").replace(/\/$/, "");
     const bytes = Buffer.from(await cv.arrayBuffer());
-    const filename = `cv-${Date.now()}-${cv.name}`.replace(/\s+/g, "-");
+    const safeName = path.basename(cv.name || "cv.pdf").replace(/[^\w.\-]+/g, "-");
+    const filename = `cv-${Date.now()}-${safeName}`;
     const uploadDir = path.join(UPLOADS_DIR, "cv");
     fs.mkdirSync(uploadDir, { recursive: true });
     fs.writeFileSync(path.join(uploadDir, filename), bytes);
-    cvUrl = `${siteOrigin}/uploads/cv/${filename}`;
-  }
-
-  if (!key) {
-    console.log("[CV recibido - sin servicio de envío configurado]", { toEmail, nombre, email, telefono, mensaje, cvUrl });
-    return NextResponse.json({ ok: false, message: "Servicio de envío no configurado todavía." }, { status: 200 });
-  }
-
-  try {
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        access_key: key,
-        subject: `Nuevo currículum — ${nombre}`,
-        from_name: "Sitio web Scarppe",
-        replyto: email,
-        Nombre: nombre,
-        Email: email,
-        Telefono: telefono,
-        Mensaje: mensaje,
-        "Archivo CV (hacé clic para abrir/descargar)": cvUrl || "No adjuntado",
-      }),
-    });
-    const data = await res.json();
-    if (!data.success) return NextResponse.json({ ok: false }, { status: 502 });
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, cvUrl: `${siteOrigin}/uploads/cv/${filename}` });
   } catch (err) {
     return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
   }

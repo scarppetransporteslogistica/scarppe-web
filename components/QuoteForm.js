@@ -12,7 +12,7 @@ const SERVICIOS_OPCIONES = [
   "Contenedores con y sin Carga",
 ];
 
-export default function QuoteForm() {
+export default function QuoteForm({ accessKey }) {
   const [status, setStatus] = useState("idle");
 
   async function handleSubmit(e) {
@@ -28,12 +28,31 @@ export default function QuoteForm() {
       descripcion: form.descripcion.value,
     };
     try {
-      const res = await fetch("/api/quote", {
+      // Sent straight from the visitor's browser to Web3Forms. Sending it
+      // from our Render server (the old /api/quote route) stopped working:
+      // Web3Forms' free plan blocks server-to-server requests and answers
+      // them with an HTML block page instead of JSON, so every quote failed.
+      // Browser submissions are what the free plan is built for, and the
+      // access key is designed to be public, so this is safe. The visitor
+      // never sees the destination e-mail — it lives inside Web3Forms.
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Nueva cotización — ${data.servicio || "Sitio web Scarppe"}`,
+          from_name: "Sitio web Scarppe",
+          replyto: data.email,
+          Nombre: data.nombre,
+          Empresa: data.empresa,
+          Email: data.email,
+          Telefono: data.telefono,
+          Servicio: data.servicio,
+          "Descripción de la carga": data.descripcion,
+        }),
       });
-      if (res.ok) {
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.success) {
         setStatus("success");
         form.reset();
       } else {

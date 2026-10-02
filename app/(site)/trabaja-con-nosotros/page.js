@@ -19,7 +19,7 @@ export async function generateMetadata() {
 }
 
 export default function TrabajaConNosotrosPage() {
-  const { pages } = getContent();
+  const { pages, settings } = getContent();
   const t = pages.trabajaConNosotros;
   const fmt = t.formats || {};
 
@@ -33,7 +33,7 @@ export default function TrabajaConNosotrosPage() {
           <p className="tf-tcn-texto font-body text-black/65 leading-relaxed text-lg">{t.texto}</p>
         </Reveal>
         <Reveal delay={100} className="bg-white border border-black/10 p-8">
-          <CVForm />
+          <CVForm accessKey={settings?.web3formsKeyTrabajo || ""} />
         </Reveal>
       </div>
     </section>
