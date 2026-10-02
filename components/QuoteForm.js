@@ -28,36 +28,46 @@ export default function QuoteForm({ accessKey }) {
       descripcion: form.descripcion.value,
     };
     try {
-      // Sent straight from the visitor's browser to Web3Forms. Sending it
-      // from our Render server (the old /api/quote route) stopped working:
-      // Web3Forms' free plan blocks server-to-server requests and answers
-      // them with an HTML block page instead of JSON, so every quote failed.
-      // Browser submissions are what the free plan is built for, and the
-      // access key is designed to be public, so this is safe. The visitor
-      // never sees the destination e-mail — it lives inside Web3Forms.
-      const res = await fetch("https://api.web3forms.com/submit", {
+      // 1) Normal path: our server sends the e-mail from the company's own
+      //    Gmail (see lib/mailer.js) — no third-party service involved.
+      const res = await fetch("/api/quote", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: accessKey,
-          subject: `Nueva cotización — ${data.servicio || "Sitio web Scarppe"}`,
-          from_name: "Sitio web Scarppe",
-          replyto: data.email,
-          Nombre: data.nombre,
-          Empresa: data.empresa,
-          Email: data.email,
-          Telefono: data.telefono,
-          Servicio: data.servicio,
-          "Descripción de la carga": data.descripcion,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, website: form.website.value }),
       });
       const json = await res.json().catch(() => ({}));
-      if (res.ok && json.success) {
+      if (res.ok && json.ok) {
         setStatus("success");
         form.reset();
-      } else {
-        setStatus("error");
+        return;
       }
+      // 2) Backup path, only while Gmail isn't configured in Render (or if
+      //    it fails): send from the browser via Web3Forms, as before.
+      if (json.fallback && accessKey) {
+        const w = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `Nueva cotización — ${data.servicio || "Sitio web Scarppe"}`,
+            from_name: "Sitio web Scarppe",
+            replyto: data.email,
+            Nombre: data.nombre,
+            Empresa: data.empresa,
+            Email: data.email,
+            Telefono: data.telefono,
+            Servicio: data.servicio,
+            "Descripción de la carga": data.descripcion,
+          }),
+        });
+        const wj = await w.json().catch(() => ({}));
+        if (w.ok && wj.success) {
+          setStatus("success");
+          form.reset();
+          return;
+        }
+      }
+      setStatus("error");
     } catch {
       setStatus("error");
     }
@@ -65,6 +75,8 @@ export default function QuoteForm({ accessKey }) {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white/[0.04] border border-white/10">
+      {/* Anti-spam trap: hidden from people, bots tend to fill it in. */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       <div className="grid md:grid-cols-2">
         <DarkField label="Nombre y apellido *" name="nombre" required right />
         <DarkField label="Empresa" name="empresa" />

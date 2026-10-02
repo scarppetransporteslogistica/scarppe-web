@@ -15,11 +15,14 @@ export default function AdminFormulariosPage() {
 
       <div className="bg-white rounded-2xl border border-black/5 p-6 space-y-3 mb-6">
         <p className="font-body text-sm text-primary/70 leading-relaxed">
-          Cada formulario necesita su propia cuenta gratuita en <strong>web3forms.com</strong>, creada con el e-mail al
-          que querés que lleguen esos avisos (no todas pueden compartir la misma cuenta, porque el correo siempre
-          llega a la casilla con la que se creó la cuenta, sin importar qué e-mail tengas cargado en Contacto o
-          Trabaja con Nosotros). Creá una cuenta por cada destino que necesites, copiá el access key de cada una y
-          pegalo en su campo correspondiente acá abajo.
+          Los formularios se envían directamente desde la cuenta de <strong>Gmail</strong> de la empresa
+          (configurada en Render → Environment, con <code>GMAIL_USER</code> y <code>GMAIL_APP_PASSWORD</code>).
+          Todas las cotizaciones y currículums llegan a esa casilla de Gmail, y los currículums llegan con el PDF
+          adjunto. Si además cargás un e-mail en Contacto o en Trabaja con Nosotros, esa dirección recibe una copia.
+        </p>
+        <p className="font-body text-sm text-primary/70 leading-relaxed">
+          Las claves de Web3Forms de abajo quedan solo como <strong>respaldo</strong>: se usan únicamente si el Gmail
+          no está configurado o falla. Podés dejarlas como están.
         </p>
       </div>
 

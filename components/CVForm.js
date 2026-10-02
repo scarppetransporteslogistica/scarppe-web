@@ -9,42 +9,49 @@ export default function CVForm({ accessKey }) {
     setStatus("sending");
     const form = e.target;
     try {
-      // Step 1: upload the PDF to our own server, which stores it and gives
-      // back a public link (Web3Forms' free plan can't carry attachments).
-      let cvUrl = "";
-      if (form.cv.files[0]) {
-        const fd = new FormData();
-        fd.append("cv", form.cv.files[0]);
-        const up = await fetch("/api/cv", { method: "POST", body: fd });
-        const upJson = await up.json().catch(() => ({}));
-        if (!up.ok || !upJson.ok) throw new Error("upload failed");
-        cvUrl = upJson.cvUrl || "";
-      }
-      // Step 2: send the e-mail straight from the browser to Web3Forms
-      // (server-to-server sending is blocked on their free plan — that's
-      // why the form had stopped working).
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: accessKey,
-          subject: `Nuevo currículum — ${form.nombre.value}`,
-          from_name: "Sitio web Scarppe",
-          replyto: form.email.value,
-          Nombre: form.nombre.value,
-          Email: form.email.value,
-          Telefono: form.telefono.value,
-          Mensaje: form.mensaje.value,
-          "Archivo CV (hacé clic para abrir/descargar)": cvUrl || "No adjuntado",
-        }),
-      });
+      // 1) Normal path: our server stores the PDF and e-mails it as an
+      //    attachment from the company's own Gmail (see lib/mailer.js).
+      const fd = new FormData();
+      fd.append("nombre", form.nombre.value);
+      fd.append("email", form.email.value);
+      fd.append("telefono", form.telefono.value);
+      fd.append("mensaje", form.mensaje.value);
+      fd.append("website", form.website.value);
+      if (form.cv.files[0]) fd.append("cv", form.cv.files[0]);
+      const res = await fetch("/api/cv", { method: "POST", body: fd });
       const json = await res.json().catch(() => ({}));
-      if (res.ok && json.success) {
+      if (res.ok && json.ok) {
         setStatus("success");
         form.reset();
-      } else {
-        setStatus("error");
+        return;
       }
+      // 2) Backup path, only while Gmail isn't configured in Render (or if
+      //    it fails): send from the browser via Web3Forms with a link to
+      //    the PDF the server already stored.
+      if (json.fallback && accessKey) {
+        const w = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `Nuevo currículum — ${form.nombre.value}`,
+            from_name: "Sitio web Scarppe",
+            replyto: form.email.value,
+            Nombre: form.nombre.value,
+            Email: form.email.value,
+            Telefono: form.telefono.value,
+            Mensaje: form.mensaje.value,
+            "Archivo CV (hacé clic para abrir/descargar)": json.cvUrl || "No adjuntado",
+          }),
+        });
+        const wj = await w.json().catch(() => ({}));
+        if (w.ok && wj.success) {
+          setStatus("success");
+          form.reset();
+          return;
+        }
+      }
+      setStatus("error");
     } catch {
       setStatus("error");
     }
@@ -52,6 +59,8 @@ export default function CVForm({ accessKey }) {
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-5">
+      {/* Anti-spam trap: hidden from people, bots tend to fill it in. */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       <div className="grid md:grid-cols-2 gap-5">
         <div>
           <label className="font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-tertiary mb-1.5 block">Nombre y apellido *</label>
